@@ -2,15 +2,20 @@ package db;
 
 public class Owner {
 	
-	private int plateNumber;
+	private String plateNumber;
 	private String name;
 	
 	
-	public int getPlateNumber() {
+	public Owner(String plateNumber, String ownerName) {
+		this.plateNumber = plateNumber;
+		this.name = ownerName;
+	}
+
+	public String getPlateNumber() {
 		return plateNumber;
 	}
 	
-	public void setPlateNumber(int plateNumber) {
+	public void setPlateNumber(String plateNumber) {
 		this.plateNumber = plateNumber;
 	}
 	
