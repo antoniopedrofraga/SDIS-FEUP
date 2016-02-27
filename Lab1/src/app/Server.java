@@ -1,3 +1,4 @@
+package app;
 import db.Owner;
 import utilities.Constants;
 
@@ -8,23 +9,24 @@ import java.util.Vector;
 import java.io.IOException;
 
 public class Server {
-	private int port_number;
+	private int portNumber;
 	private Vector<Owner> owners;
 	private DatagramSocket socket;
 
 
-	public Server(int port_number) throws SocketException {
-		this.port_number = port_number;
+	public Server(int portNumber) throws SocketException {
+		this.portNumber = portNumber;
 		this.owners =  new Vector<Owner>();
-		this.socket = new DatagramSocket();
+		this.socket = new DatagramSocket(portNumber);
 	}
 
 	private int listenRequests() throws IOException {
-		while (socket.isConnected()) {
+		boolean listening = true;
+		while(listening) {
 			byte[] rbuf = new byte[utilities.Constants.MAX_MSG_SIZE];
 			DatagramPacket packet = new DatagramPacket(rbuf, rbuf.length);
 			socket.receive(packet);
-			String received = new String(packet.getData());
+			String received = new String(packet.getData(), 0, packet.getLength());
 			System.out.println(received);
 		}
 
@@ -32,17 +34,9 @@ public class Server {
 	}
 
 
-	public static int main(String[] args) throws IOException {
-		if (args.length != 1) return Constants.ERROR;
-		Server sv;
-		try {
-			sv = new Server(Integer.parseInt(args[1]));
-			sv.listenRequests();
-		} catch (NumberFormatException | SocketException e) {
-			e.printStackTrace();
-			return Constants.ERROR;
-		}
-		return Constants.OK;
+	public static void main(String[] args) throws IOException {
+		if (args.length != 1) return;
+		Server sv = new Server(Integer.parseInt(args[0]));
+		sv.listenRequests();
 	}
-
 }
