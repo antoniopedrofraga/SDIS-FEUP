@@ -15,34 +15,35 @@ import java.io.IOException;
 
 public class Server {
 	
-	private String serviceAddress;
-	private int portNumber;
-	private String multicastAddress;
-	private int multicastPort;
+	
+	private int port;
+	private String mcadressStr;
+	private int mcport;
 	
 	private ArrayList<Owner> owners;
 	
-	private InetAddress group;
+	private InetAddress mcadress;
 	private MulticastSocket mcsocket;
 	
 	private DatagramSocket socket;
 	private AdvertiseThread thread;
 
 	public Server(int portNumber, String multicastAddress, int multicastPort) throws IOException {
-		this.portNumber = portNumber;
-		this.multicastAddress = multicastAddress;
-		this.multicastPort = multicastPort;
+		this.port = portNumber;
+		this.mcadressStr = multicastAddress;
+		this.mcport = multicastPort;
 		
 		this.owners =  new ArrayList<Owner>();
 		
-		this.group = InetAddress.getByName(this.multicastAddress);
-		
-		this.mcsocket = new MulticastSocket(this.multicastPort);
+		//MulticastSocket
+		this.mcadress = InetAddress.getByName(this.mcadressStr);
+		this.mcsocket = new MulticastSocket(this.mcport);
 		this.mcsocket.setTimeToLive(1);
-		this.mcsocket.joinGroup(group);
 		
-		this.socket = new DatagramSocket(this.portNumber);
+		//DatagramSocket
+		this.socket = new DatagramSocket(this.port);
 		this.thread = new AdvertiseThread();
+		this.thread.start();
 	}
 
 	private int listenRequests() throws IOException {
@@ -97,24 +98,31 @@ public class Server {
 	}
 
 	public static void main(String[] args) throws IOException, ArgsException {
-		if (args.length != 3) throw new ArgsException("Server args number doesn't match");
+		if (args.length != 3) throw new ArgsException("Usage: java Server <srvc_port> <mcast_addr> <mcast_port>\n");
 		Server sv = new Server(Integer.parseInt(args[0]), args[1], Integer.parseInt(args[2]));
-		sv.thread.start();
 		sv.listenRequests();
 	}
 
 	private class AdvertiseThread extends Thread {
 		public void run() {
-			String advertisement = serviceAddress + ":"
-					+ Integer.toString(portNumber);
-			DatagramPacket packet = new DatagramPacket(advertisement.getBytes(),
-					advertisement.getBytes().length, (InetAddress) multicastAddress,
-					multicastPort);
-			mcsocket.send(packet);
+			
+			while (true) {
 
-			System.out.println("multicast: " + multicastAddress + " "
-					+ multicastPort + ": " + serviceAddress + " "
-					+ portNumber);  
+				String advertisement = Integer.toString(port);
+				DatagramPacket packet = new DatagramPacket(advertisement.getBytes(),
+						advertisement.getBytes().length, mcadress,
+						mcport);
+				try {
+					mcsocket.send(packet);
+					System.out.println("multicast: " + mcadressStr + " "
+							+ mcport + ":  "
+							+ port);
+					Thread.sleep(1000);
+				} catch (IOException | InterruptedException e) {
+					e.printStackTrace();
+				}
+			
+			}
 		}
 	}
 
