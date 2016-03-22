@@ -17,28 +17,4 @@ public class Header {
 		this.chunkNo = chunkNo;
 		this.replicationDeg = replicationDeg;
 	}
-	
-	public String getMessageType() {
-		return messageType;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public String getSenderId() {
-		return senderId;
-	}
-
-	public String getFileId() {
-		return fileId;
-	}
-
-	public String getChunkNo() {
-		return chunkNo;
-	}
-
-	public String getReplicationDeg() {
-		return replicationDeg;
-	}
 }

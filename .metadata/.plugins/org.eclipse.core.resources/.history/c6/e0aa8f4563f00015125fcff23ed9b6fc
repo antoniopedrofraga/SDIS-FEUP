@@ -18,9 +18,9 @@ public class Message {
 	}
 	
 	public String toString() {
-		return header.getMessageType() + " " + header.getVersion() + " "
+		String headerStr = header.getMessageType() + " " + header.getVersion() + " "
 				+ header.getSenderId() + " " + Constants.sha256(header.getFileId()) + " " + 
-				header.getChunkNo() + " " + header.getReplicationDeg() + " " + Constants.CR + Constants.LF +
-				Constants.CR + Constants.LF + body;
+				header.getChunkNo() + " " + header.getReplicationDeg() + " ";
+		String string = 
 	}
 }
