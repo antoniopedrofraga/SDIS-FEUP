@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;peers.peer&apos; to &apos;Peer&apos;&#x0D;&#x0A;- Original project: &apos;Distributed Backup Service&apos;&#x0D;&#x0A;- Original element: &apos;peers.peer&apos;&#x0D;&#x0A;- Renamed element: &apos;peers.Peer&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;peer&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;peers{peer.java[peer" matchStrategy="1" name="Peer" qualified="false" references="true" similarDeclarations="false" stamp="1458602502616" textual="false" version="1.0"/>
+</session>
