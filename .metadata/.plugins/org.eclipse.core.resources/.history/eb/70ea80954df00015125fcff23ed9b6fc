@@ -1,0 +1,7 @@
+package subprotocols;
+
+public interface Initiator {
+	public static void main(String[] args) {
+		
+	}
+}

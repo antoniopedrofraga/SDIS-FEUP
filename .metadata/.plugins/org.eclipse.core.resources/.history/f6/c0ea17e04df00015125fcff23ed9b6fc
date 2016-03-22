@@ -1,0 +1,12 @@
+package subprotocols;
+
+public interface Initiator {
+	public static void main(String[] args) {
+		if (!correctArgs(args))
+			
+	}
+
+	public static boolean correctArgs(String[] args) {
+		return false;
+	}
+}

@@ -1,0 +1,72 @@
+package peers;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+
+import exceptions.ArgsException;
+
+public class Peer {
+	private String serverId;
+	
+	private MulticastSocket mcSocket;
+	private InetAddress mcAddress;
+	private int mcPort;
+	
+	private InetAddress mdbAddress;
+	private int mdbPort;
+	
+	private InetAddress mdrAddress;
+	private int mdrPort;
+	
+	private MulticastThread thread;
+	
+	public Peer(String serverId, String mcAddress, String mcPort,
+			String mdbAddress, String mdbPort, String mdrAddress,
+			String mdrPort) throws IOException {
+		this.serverId = serverId;
+		
+		this.mcAddress = InetAddress.getByName(mcAddress);
+		this.mcPort = Integer.parseInt(mcPort);
+		this.mcSocket = new MulticastSocket(this.mcPort);
+		
+		
+		this.mdbAddress = InetAddress.getByName(mdbAddress);
+		this.mdbPort = Integer.parseInt(mdbPort);
+		
+		this.mdrAddress = InetAddress.getByName(mdrAddress);
+		this.mdrPort = Integer.parseInt(mdrPort);
+		
+		this.mcthread = new AdvertiseThread();
+		this.mcthread.start();
+	}
+
+	public static void main(String[] args) throws ArgsException, IOException {
+		if (args.length != 7)
+			throw new ArgsException("peer <Server ID> <MC> <MC port> <MDB> <MDB port> <MDR> <MDR port>");
+		Peer peer = new Peer(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
+	}
+	
+	private class MulticastThread extends Thread {
+		public void run() {
+			
+			while (true) {
+
+				String advertisement = Integer.toString(mcPort);
+				DatagramPacket packet = new DatagramPacket(advertisement.getBytes(),
+						advertisement.getBytes().length, mcAddress,
+						mcPort);
+				try {
+					mcSocket.send(packet);
+					System.out.println("multicast: " + mcAddress.getHostName() + " "
+							+ mcPort);
+					Thread.sleep(1000);
+				} catch (IOException | InterruptedException e) {
+					e.printStackTrace();
+				}
+			
+			}
+		}
+	}
+}

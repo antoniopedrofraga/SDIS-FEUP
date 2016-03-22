@@ -1,0 +1,5 @@
+package utilities;
+
+public class Constants {
+	public static final int ERROR = 0xD;
+}

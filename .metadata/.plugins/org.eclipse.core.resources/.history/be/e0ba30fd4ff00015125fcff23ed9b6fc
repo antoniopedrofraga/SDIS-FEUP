@@ -1,0 +1,7 @@
+package subprotocols;
+
+public class ChunkBackup extends SubProtocol{
+	ChunkBackup(String action) {
+		this.setAction(action);
+	}
+}

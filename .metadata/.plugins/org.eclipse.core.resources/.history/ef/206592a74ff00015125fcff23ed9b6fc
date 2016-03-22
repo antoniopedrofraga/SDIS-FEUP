@@ -1,0 +1,9 @@
+package subprotocols;
+
+public class SubProtocol {
+	private String action;
+
+	public String getAction() {
+		return action;
+	}
+}

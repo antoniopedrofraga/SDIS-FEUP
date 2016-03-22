@@ -1,0 +1,5 @@
+package subprotocols;
+
+public interface Initiator {
+
+}
