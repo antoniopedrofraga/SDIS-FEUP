@@ -1,0 +1,14 @@
+package subprotocols;
+
+import messages.Header;
+import messages.Message;
+
+public class ChunkBackup {
+	
+	private Message message;
+	public ChunkBackup(Header header, String body) {
+		this.message = new Message(header, body);
+		this.sendMessage();
+	}
+	
+}

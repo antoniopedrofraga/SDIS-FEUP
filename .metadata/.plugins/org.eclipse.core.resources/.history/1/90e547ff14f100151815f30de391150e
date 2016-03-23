@@ -1,0 +1,15 @@
+package subprotocols;
+
+public class Backup extends Thread{
+	private String fileName;
+	private String senderId;
+	
+	Backup(String fileName, String senderId) {
+		this.fileName = fileName;
+		this.senderId = senderId;
+	}
+	
+	
+	Path path = Paths.get("path/to/file");
+	byte[] data = Files.readAllBytes(path);
+}

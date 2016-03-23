@@ -1,0 +1,27 @@
+package subprotocols;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import utilities.Constants;
+
+public class Backup extends Thread{
+	private String fileName;
+	private String senderId;
+	
+	Backup(String fileName, String senderId) {
+		this.fileName = fileName;
+		this.senderId = senderId;
+	}
+	
+	public void run() {
+		Path path = Paths.get(Constants.FILES_ROOT);
+		try {
+			byte[] data = Files.readAllBytes(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

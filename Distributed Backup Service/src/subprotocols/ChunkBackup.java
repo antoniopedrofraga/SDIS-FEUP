@@ -1,20 +1,24 @@
 package subprotocols;
 
+import java.io.IOException;
+
 import messages.Header;
 import messages.Message;
+import peers.Peer;
 
-public class ChunkBackup extends SubProtocol{
+public class ChunkBackup {
+	private Peer originalPeer;
 	private Message message;
-	public ChunkBackup(String action, String version, String senderId, 
-			String fileId, String chunkNo, String replicationDeg) {
-		super(action);
-		Header header = new Header(action, version, senderId, fileId, chunkNo, replicationDeg);
-		//this.message = new Message(header);
-		this.sendMessage();
-	}
-
-	public void sendMessage() {
-		message.toString();
+	public ChunkBackup(Peer originalPeer, Header header, byte[] body) {
+		this.originalPeer = originalPeer;
+		this.message = new Message(originalPeer.getMdbSocket(), originalPeer.getMdbAddress(), header, body);
 	}
 	
+	public void sendChunk() {
+		new Thread(this.message).start();
+	}
+
+	public void listenReplications() throws IOException {
+		String reply = originalPeer.rcvMultiCastData(originalPeer.getMcSocket(), originalPeer.getMcAddress());
+	}
 }

@@ -11,10 +11,14 @@ public class Constants {
 	public static final char CR = 0xD;
 	public static final char LF = 0xA;
 	
+	public static final String TEST = "TEST";
 	public static final String BACKUP = "PUTCHUNK";
 	public static final String STORED = "STORED";
 	public static final String RESTORE = "GETCHUNK";
 	public static final String DELETE = "DELETE";
+	
+	
+	public static final String FILES_ROOT = "../files/";
 	
 	public static final int CHUNK_SIZE = 64000;
 	

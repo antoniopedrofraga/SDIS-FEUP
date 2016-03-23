@@ -1,0 +1,13 @@
+package subprotocols;
+
+import messages.Header;
+import messages.Message;
+
+public class ChunkBackup {
+	
+	private Message message;
+	public ChunkBackup(Peer originalPeer, Header header, String body) {
+		this.message = new Message(originalPeer.getMdbSocket(), originalPeer.getMdbAddress(), header, body);
+	}
+	
+}

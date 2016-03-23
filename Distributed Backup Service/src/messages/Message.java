@@ -13,31 +13,16 @@ public class Message implements Runnable {
 	private MulticastSocket socket;
 	private InetAddress address;
 	private Header header;
-	private String body;
+	private byte[] body;
 	
-	public Message(MulticastSocket socket, InetAddress address, Header header, String body) {
+	public Message(MulticastSocket socket, InetAddress address, Header header, byte[] body) {
 		this.socket = socket;
 		this.address = address;
 		this.header = header;
 		this.body = body;
 	}
 	
-	public void setBody(String body) {
-		this.body = body;
-	}
-	
-	public String toString() {
-		String message = "";
-		message += header.getMessageType() != null ? header.getMessageType() + " " : "";
-		message += header.getVersion() != null ? header.getVersion() + " " : "";
-		message += header.getSenderId() != null ? header.getSenderId() + " " : "";
-		message += header.getFileId() != null ? header.getFileId() + " " : "";
-		message += header.getReplicationDeg() != null ? header.getReplicationDeg() + " " : "";
-		message += Constants.CR + Constants.LF +
-				Constants.CR + Constants.LF;
-		message += body != null ? body : "";
-		return message;
-	}
+
 	
 	public static String[] splitArgs(String message) {
 		return message.split("\\s+");
@@ -45,10 +30,20 @@ public class Message implements Runnable {
 
 	@Override
 	public void run() {
-		String message = this.toString();
-		DatagramPacket packet = new DatagramPacket(message.getBytes(),
-				message.getBytes().length, address,
-				socket.getPort());
+		byte[] headerBytes = header.toString().getBytes();
+		byte[] message = {};
+		
+		if (body != null) {
+			message = new byte[headerBytes.length + body.length];
+			System.arraycopy(headerBytes, 0, message, 0, headerBytes.length);
+			System.arraycopy(body, 0, message, headerBytes.length, body.length);
+		} else {
+			message = headerBytes;
+		}
+		
+		DatagramPacket packet = new DatagramPacket(message,
+				message.length, address,
+				socket.getLocalPort());
 		try {
 			socket.send(packet);
 		} catch (IOException e) {

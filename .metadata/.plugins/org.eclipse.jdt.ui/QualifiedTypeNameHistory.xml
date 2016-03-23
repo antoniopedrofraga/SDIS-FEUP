@@ -3,11 +3,15 @@
 <fullyQualifiedTypeName name="java.net.InetAddress"/>
 <fullyQualifiedTypeName name="java.net.MulticastSocket"/>
 <fullyQualifiedTypeName name="exceptions.ArgsException"/>
-<fullyQualifiedTypeName name="subprotocols.ChunkBackup"/>
 <fullyQualifiedTypeName name="subprotocols.SubProtocol"/>
-<fullyQualifiedTypeName name="messages.Message"/>
-<fullyQualifiedTypeName name="messages.Header"/>
 <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
 <fullyQualifiedTypeName name="java.security.MessageDigest"/>
+<fullyQualifiedTypeName name="messages.Message"/>
+<fullyQualifiedTypeName name="subprotocols.ChunkBackup"/>
+<fullyQualifiedTypeName name="subprotocols.ChunkBackup.BackupReply"/>
+<fullyQualifiedTypeName name="messages.Reply"/>
 <fullyQualifiedTypeName name="utilities.Constants"/>
+<fullyQualifiedTypeName name="java.util.concurrent.ThreadLocalRandom"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="messages.Header"/>
 </qualifiedTypeNameHistroy>
