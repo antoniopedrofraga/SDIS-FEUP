@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.net.MulticastSocket"/>
 <fullyQualifiedTypeName name="java.net.InetAddress"/>
+<fullyQualifiedTypeName name="java.net.MulticastSocket"/>
+<fullyQualifiedTypeName name="exceptions.ArgsException"/>
+<fullyQualifiedTypeName name="subprotocols.ChunkBackup"/>
+<fullyQualifiedTypeName name="subprotocols.SubProtocol"/>
+<fullyQualifiedTypeName name="messages.Message"/>
+<fullyQualifiedTypeName name="messages.Header"/>
+<fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
+<fullyQualifiedTypeName name="java.security.MessageDigest"/>
+<fullyQualifiedTypeName name="utilities.Constants"/>
 </qualifiedTypeNameHistroy>

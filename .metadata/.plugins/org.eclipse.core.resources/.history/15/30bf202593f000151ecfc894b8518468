@@ -1,0 +1,14 @@
+package messages;
+
+public class Reply implements Runnable {
+	
+	public Reply(String data) {
+		
+	}
+	
+	@Override
+	public void run() {
+		
+	}
+	
+}

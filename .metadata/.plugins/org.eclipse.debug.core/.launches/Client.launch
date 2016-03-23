@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="app.Client"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="228.5.6.7 4445 register 1 Pedro"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="1 225.0.0.0 4444 225.0.0.0 4445 225.0.0.0 4446"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Lab2"/>
 </launchConfiguration>

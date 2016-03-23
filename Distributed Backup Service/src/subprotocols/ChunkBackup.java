@@ -9,12 +9,12 @@ public class ChunkBackup extends SubProtocol{
 			String fileId, String chunkNo, String replicationDeg) {
 		super(action);
 		Header header = new Header(action, version, senderId, fileId, chunkNo, replicationDeg);
-		this.message = new Message(header);
+		//this.message = new Message(header);
 		this.sendMessage();
 	}
-
 
 	public void sendMessage() {
 		message.toString();
 	}
+	
 }

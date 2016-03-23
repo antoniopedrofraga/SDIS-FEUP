@@ -1,0 +1,17 @@
+package messages;
+
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+
+public class Reply implements Runnable {
+	
+	public Reply(MulticastSocket mcSocket, InetAddress mcAddress, String[] data) {
+		
+	}
+	
+	@Override
+	public void run() {
+		
+	}
+	
+}

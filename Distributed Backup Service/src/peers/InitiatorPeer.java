@@ -7,6 +7,7 @@ import utilities.Constants;
 
 public class InitiatorPeer {
 	private SubProtocol protocol;
+	
 	InitiatorPeer(SubProtocol protocol) {
 		this.protocol = protocol;
 	}
@@ -23,7 +24,7 @@ public class InitiatorPeer {
 		switch(action) {
 		case Constants.BACKUP:
 			if (args.length != 6)
-				throw new ArgsException("PUTCHUNK subprotocol was called with " + args.length + " and it's suposed to call it with 6 arguments.");
+				throw new ArgsException("PUTCHUNK subprotocol was called with " + args.length + " and it was suposed to call it with 6 arguments.");
 			
 			protocol = new ChunkBackup(action, args[1], args[2], args[3], args[4], args[5]);
 			break;

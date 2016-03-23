@@ -1,0 +1,16 @@
+package messages;
+
+import java.net.MulticastSocket;
+
+public class Reply implements Runnable {
+	Multicast 
+	public Reply(MulticastSocket mcSocket, String data) {
+		
+	}
+	
+	@Override
+	public void run() {
+		
+	}
+	
+}
