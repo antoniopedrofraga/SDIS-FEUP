@@ -20,8 +20,10 @@ public class Constants {
 	
 	public static final String FILES_ROOT = "../files/";
 	
-	public static final int CHUNK_SIZE = 64000;
+	public static final int CHUNK_SIZE = 64 * 1024;
+	public static final int MAX_CHUNK_RETRY = 5;
 	
+	public static final int MESSAGE_TYPE = 0;
 	public static final int VERSION = 1;
 	public static final int SENDER_ID = 2;
 	public static final int FILE_ID = 3;

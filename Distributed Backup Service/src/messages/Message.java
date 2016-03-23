@@ -50,4 +50,10 @@ public class Message implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
+
+
+	public Header getHeader() {
+		return header;
+	}
 }

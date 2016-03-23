@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+import channels.McChannel;
+import channels.MdbChannel;
+import channels.MdrChannel;
 import exceptions.ArgsException;
 import messages.Header;
 import messages.Message;
@@ -16,21 +19,11 @@ import subprotocols.ChunkBackup;
 import utilities.Constants;
 
 public class Peer {
-	private String serverId;
-
-	private MulticastThread mcThread;
-	private MulticastSocket mcSocket;
-	private InetAddress mcAddress;
-	private int mcPort;
+	private static String serverId;
 	
-	private MdbThread mdbThread;
-	private MulticastSocket mdbSocket;
-	private InetAddress mdbAddress;
-	private int mdbPort;
-	
-	private MulticastSocket mdrSocket;
-	private InetAddress mdrAddress;
-	private int mdrPort;
+	private static McChannel mcChannel;
+	private static MdbChannel mdbChannel;
+	private static MdrChannel mdrChannel;
 	
 	
 	
@@ -39,25 +32,18 @@ public class Peer {
 			String mdrPort) throws IOException {
 		this.serverId = serverId;
 		
-		this.mcAddress = InetAddress.getByName(mcAddress);
-		this.mcPort = Integer.parseInt(mcPort);
-		this.mcSocket = new MulticastSocket(this.mcPort);
-		this.mcThread = new MulticastThread();
-		this.mcThread.start();
-		
-		this.mdbAddress = InetAddress.getByName(mdbAddress);
-		this.mdbPort = Integer.parseInt(mdbPort);
-		this.mdbSocket = new MulticastSocket(this.mdbPort);
-		this.mdbThread = new MdbThread();
-		this.mdbThread.start();
-		
-		this.mdrAddress = InetAddress.getByName(mdrAddress);
-		this.mdrPort = Integer.parseInt(mdrPort);
-		this.mdrSocket = new MulticastSocket(this.mdrPort);
+		mcChannel = new McChannel(mcAddress, mcPort);
+		mdbChannel = new MdbChannel(mdbAddress, mdbPort);
+		mdrChannel = new MdrChannel(mdrAddress, mdrPort);
 		
 	}
 
-
+	private void listenChannels() {
+		mcChannel.listen();
+		mdbChannel.listen();
+		//mdrChannel.listen();
+	}
+	
 	private void listenActions() throws ArgsException {
 		Scanner in = new Scanner(System.in);
 		String read = "";
@@ -71,14 +57,6 @@ public class Peer {
 			case "backup":
 				Backup backup = new Backup(this, command[1], command[2]);
 				backup.start();
-				break;
-			case "mdr":
-				Message reply1 = new Message(mdrSocket, mdrAddress, header, null);
-				new Thread(reply1).start();
-				break;
-			case "mdb":
-				Message reply2 = new Message(mdbSocket, mdbAddress, header, null);
-				new Thread(reply2).start();
 				break;
 			default:
 				System.out.println("Unknown command: " + read);
@@ -101,94 +79,28 @@ public class Peer {
 		if (args.length != 7)
 			throw new ArgsException("peer <Server ID> <MC> <MC port> <MDB> <MDB port> <MDR> <MDR port>");
 		Peer peer = new Peer(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
+		peer.listenChannels();
 		peer.listenActions();
 	}
 	
 	/* Getters */
-	public MulticastSocket getMcSocket() {
-		return mcSocket;
+	public static McChannel getMcChannel() {
+		return mcChannel;
 	}
-	public InetAddress getMcAddress() {
-		return mcAddress;
+
+
+	public static MdbChannel getMdbChannel() {
+		return mdbChannel;
 	}
-	public MulticastSocket getMdbSocket() {
-		return mdbSocket;
+
+
+	public static MdrChannel getMdrChannel() {
+		return mdrChannel;
 	}
-	public InetAddress getMdbAddress() {
-		return mdbAddress;
-	}
-	public String getServerId() {
+
+	
+	public static String getServerId() {
 		return serverId;
-	}
-	/*---------*/
-	
-	/* Listeners */
-	private class MulticastThread extends Thread {
-		public void run() {
-			while(true) {
-				System.out.println("Listening the MC channel...");
-				try {
-					String data = rcvMultiCastData(mcSocket, mcAddress);
-					String[] splittedMsg = Message.splitArgs(data);
-					if(!serverId.equals(splittedMsg[Constants.SENDER_ID])) {
-						Header header = new Header(Constants.STORED, splittedMsg[Constants.VERSION],
-								serverId, splittedMsg[Constants.FILE_ID], splittedMsg[Constants.CHUNK_NO], null);
-						Message reply = new Message(mdrSocket, mdrAddress, header, null);
-						int timeout = ThreadLocalRandom.current().nextInt(0, 400);
-						System.out.println("Waiting time: " + timeout);
-						Thread.sleep(timeout);
-						new Thread(reply).start();
-					}
-				} catch (IOException | InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	private class MdbThread extends Thread {
-		public void run() {
-			while(true) {
-				System.out.println("Listening the MDB channel...");
-				try {
-					String data = rcvMultiCastData(mdbSocket, mdbAddress);
-					String[] splittedMsg = Message.splitArgs(data);
-					if(!serverId.equals(splittedMsg[Constants.SENDER_ID])) {
-						Header header = new Header(Constants.STORED, splittedMsg[Constants.VERSION],
-								serverId, splittedMsg[Constants.FILE_ID], splittedMsg[Constants.CHUNK_NO], null);
-						Message reply = new Message(mcSocket, mcAddress, header, null);
-						int timeout = ThreadLocalRandom.current().nextInt(0, 400);
-						System.out.println("Waiting time: " + timeout);
-						Thread.sleep(timeout);
-						new Thread(reply).start();
-					}
-				} catch (IOException | InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	private class MdrThread extends Thread {
-		public void run() {
-			while(true) {
-				System.out.println("Listening the MDR channel...");
-				try {
-					String data = rcvMultiCastData(mdbSocket, mdbAddress);
-					String[] splittedMsg = Message.splitArgs(data);
-					if(!serverId.equals(splittedMsg[Constants.SENDER_ID])) {
-						Header header = new Header(Constants.STORED, splittedMsg[Constants.VERSION],
-								serverId, splittedMsg[Constants.FILE_ID], splittedMsg[Constants.CHUNK_NO], null);
-						Message reply = new Message(mcSocket, mcAddress, header, null);
-						int timeout = ThreadLocalRandom.current().nextInt(0, 400);
-						this.wait(timeout);
-						new Thread(reply).start();
-					}
-				} catch (IOException | InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 	/*--------------*/
 }

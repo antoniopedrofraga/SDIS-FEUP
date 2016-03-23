@@ -1,0 +1,23 @@
+package subprotocols;
+
+import java.io.IOException;
+
+import messages.Header;
+import messages.Message;
+import peers.Peer;
+
+public class ChunkBackup {
+	private Message message;
+	public ChunkBackup(Peer Peer, Header header, byte[] body) {
+		this.message = new Message(peers.Peer.getMdbChannel().getSocket(), peers.Peer.getMdbChannel().getAddress(), header, body);
+	}
+	
+	public void sendChunk() {
+		new Thread(this.message).start();
+	}
+
+	public void listenReplications() throws IOException {
+		int replicationDeg = Integer.parseInt(message.getHeader().getReplicationDeg());
+		String reply = Peer.rcvMultiCastData(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress());
+	}
+}

@@ -1,0 +1,25 @@
+package channels;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
+
+
+public class Channel {
+	Thread thread;
+	MulticastSocket socket;
+	private InetAddress address;
+	private int port;
+	
+	Channel(String address, String port, Thread thread) throws IOException {
+		this.address = InetAddress.getByName(address);
+		this.port = Integer.parseInt(port);
+		this.socket = new MulticastSocket(this.port);
+		this.thread = thread;
+	}
+	
+	public void listen() {
+		this.thread.start();
+	}
+}
