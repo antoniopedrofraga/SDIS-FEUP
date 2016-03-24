@@ -10,6 +10,14 @@ import java.util.regex.Pattern;
 import utilities.Constants;
 
 public class Message implements Runnable {
+	
+	public static final String TEST = "TEST";
+	public static final String PUTCHUNK = "PUTCHUNK";
+	public static final String STORED = "STORED";
+	public static final String RESTORE = "GETCHUNK";
+	public static final String DELETE = "DELETE";
+	
+	
 	private MulticastSocket socket;
 	private InetAddress address;
 	private Header header;
@@ -67,7 +75,7 @@ public class Message implements Runnable {
 		
 		String headerStr = headerAndBody[0];
 		byte[] body = headerAndBody[1].getBytes();
-		
+		System.out.println("header & body groups -> " + headerAndBody.length + " with data: " + headerStr);
 		String[] splittedHeader = Message.splitArgs(headerStr);
 		Header header = new Header(splittedHeader[Constants.MESSAGE_TYPE], splittedHeader[Constants.VERSION], splittedHeader[Constants.SENDER_ID],
 				splittedHeader[Constants.FILE_ID], splittedHeader[Constants.CHUNK_NO], splittedHeader[Constants.REPLICATION_DEG]);

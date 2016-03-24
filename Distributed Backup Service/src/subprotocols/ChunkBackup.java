@@ -23,7 +23,7 @@ public class ChunkBackup implements Runnable{
 
 	private boolean validReply(String reply) {
 		String[] fields = Message.splitArgs(reply);
-		if (!fields[Constants.MESSAGE_TYPE].equals(Constants.STORED))
+		if (!fields[Constants.MESSAGE_TYPE].equals(Message.STORED))
 			return false;
 		if (fields[Constants.SENDER_ID].equals(Peer.getServerId()))
 			return false;

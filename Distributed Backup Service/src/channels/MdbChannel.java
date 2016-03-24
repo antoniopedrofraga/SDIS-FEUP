@@ -36,7 +36,7 @@ public class MdbChannel extends Channel{
 		System.out.println("Chunk number " + header.getChunkNo() + " from file " + header.getFileId() + " was saved! Replying...");
 		
 		//reply
-		Header replyHeader = new Header(Constants.STORED, header.getVersion(),
+		Header replyHeader = new Header(Message.STORED, header.getVersion(),
 				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
 		Message reply = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), replyHeader, null);
 		int timeout = ThreadLocalRandom.current().nextInt(0, 400);
@@ -59,7 +59,7 @@ public class MdbChannel extends Channel{
 					//analising data
 					if(!Peer.getServerId().equals(header.getSenderId())) {
 						switch (header.getMsgType()) {
-						case Constants.PUTCHUNK:
+						case Message.PUTCHUNK:
 							System.out.println("Received a PUTCHUNK message, will handle it...");
 							handlePutChunk(header, body);
 							break;

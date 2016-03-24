@@ -8,11 +8,14 @@ import java.util.Arrays;
 
 import exceptions.ArgsException;
 import messages.Header;
+import messages.Message;
 import peers.Peer;
 import utilities.Constants;
+import utilities.Hash;
 
 public class Backup extends Thread{
 	private String fileName;
+	private String version = "1.0";
 	private int replicationDeg;
 	
 	public Backup(String fileName, String replicationDeg) throws ArgsException {
@@ -37,7 +40,8 @@ public class Backup extends Thread{
 	private void sendChunks(byte[] data) throws InterruptedException {
 		int waitingTime = Constants.DEFAULT_WAITING_TIME;
 		int chunksNum = data.length / Constants.CHUNK_SIZE + 1;
-		Header header = new Header(Constants.PUTCHUNK, "1.0", Peer.getServerId(), fileName, "0", replicationDeg + "");
+		String fileId = Hash.sha256(fileName + version);
+		Header header = new Header(Message.PUTCHUNK, version, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		for (int i = 0; i < chunksNum; i++) {
 			byte[] chunk = getChunkData(i, header, data);
 			ChunkBackup backupChunk = new ChunkBackup(header, chunk);

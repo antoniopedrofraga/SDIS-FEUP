@@ -57,7 +57,7 @@ public class Peer {
 				backup.start();
 				break;
 			case "mdb":
-				Header header = new Header(Constants.TEST, "", "", "", "", "");
+				Header header = new Header(Message.TEST, "", "", "", "", "");
 				Message msg = new Message(mdbChannel.getSocket(), mdbChannel.getAddress(), header, null);
 				new Thread(msg).start();
 				break;
