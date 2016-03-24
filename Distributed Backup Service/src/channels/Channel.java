@@ -15,7 +15,7 @@ public class Channel {
 		this.address = InetAddress.getByName(address);
 		this.port = Integer.parseInt(port);
 		this.socket = new MulticastSocket(this.port);
-		this.thread = thread;
+		this.socket.setTimeToLive(1);
 	}
 	
 	public void listen() {
@@ -29,5 +29,5 @@ public class Channel {
 	public InetAddress getAddress() {
 		return address;
 	}
-
+	
 }

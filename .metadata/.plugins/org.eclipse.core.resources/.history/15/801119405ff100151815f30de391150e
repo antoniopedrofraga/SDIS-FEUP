@@ -1,0 +1,16 @@
+package database;
+
+import java.io.File;
+
+import utilities.Constants;
+
+public class Storage {
+	Storage () {
+		File files = new File(Constants.FILES_ROOT);
+		if (!files.exists())
+			files.mkdirs();
+		File chunks = new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT);
+		if (!chunks.exists())
+			chunks.mkdirs();
+	}
+}

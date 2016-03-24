@@ -50,6 +50,7 @@ public class Header {
 		string += this.getVersion() != null ? this.getVersion() + " " : "";
 		string += this.getSenderId() != null ? this.getSenderId() + " " : "";
 		string += this.getFileId() != null ? this.getFileId() + " " : "";
+		string += this.getChunkNo() != null ? this.getChunkNo() + " " : "";
 		string += this.getReplicationDeg() != null ? this.getReplicationDeg() + " " : "";
 		string += Constants.CR + Constants.LF +
 				Constants.CR + Constants.LF;

@@ -1,0 +1,24 @@
+package database;
+
+import java.util.HashMap;
+
+import messages.Header;
+
+
+public class Database {
+	HashMap<String, Long> storeConfirmations;
+	
+	public Database() {
+		storeConfirmations = new HashMap<String, Long>();
+	}
+
+	public HashMap<String, Long> getStoreConfirmations() {
+		return storeConfirmations;
+	}
+
+	public int countConfirmedChunks(Header header) {
+		int count = 0;
+		Long chunkNo = Long.parseLong(header.getChunkNo());
+		return count;
+	};
+}

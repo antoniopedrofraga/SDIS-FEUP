@@ -13,11 +13,9 @@ import utilities.Constants;
 
 public class Backup extends Thread{
 	private String fileName;
-	private Peer originalPeer;
 	private int replicationDeg;
 	
-	public Backup(Peer peer, String fileName, String replicationDeg) throws ArgsException {
-		this.originalPeer = peer;
+	public Backup(String fileName, String replicationDeg) throws ArgsException {
 		this.fileName = fileName;
 		this.replicationDeg = Integer.parseInt(replicationDeg);
 		if (this.replicationDeg > 9 && this.replicationDeg < 1)
@@ -30,18 +28,37 @@ public class Backup extends Thread{
 			byte[] data = Files.readAllBytes(path);
 			sendChunks(data);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("The file '" + fileName + "' does not exist.");
+		} catch (InterruptedException e) {
+			System.out.println("Could not sleep while sending chunks, aborting...");
 		}
 	}
 
-	private void sendChunks(byte[] data) throws IOException {
+	private void sendChunks(byte[] data) throws InterruptedException {
+		int waitingTime = Constants.DEFAULT_WAITING_TIME;
 		int chunksNum = data.length / Constants.CHUNK_SIZE + 1;
-		Header header = new Header(Constants.BACKUP, "1.0", originalPeer.getServerId(), fileName, "0", replicationDeg + "");
+		Header header = new Header(Constants.PUTCHUNK, "1.0", Peer.getServerId(), fileName, "0", replicationDeg + "");
 		for (int i = 0; i < chunksNum; i++) {
 			byte[] chunk = getChunkData(i, header, data);
-			ChunkBackup chunkBackup = new ChunkBackup(originalPeer, header, chunk);
-			chunkBackup.listenReplications();
+			ChunkBackup backupChunk = new ChunkBackup(header, chunk);
+			int chunksSent = 0;
+			while (chunksSent < Constants.MAX_CHUNK_RETRY) {
+				System.out.println("Sending chunk number " + i + " with " + chunk.length + " bytes, waiting " + waitingTime + "ms after that.");
+				backupChunk.sendChunk();
+				Thread thread = new Thread(backupChunk);
+				thread.start();
+				Thread.sleep(waitingTime);
+				if (Peer.getStorage().countConfirmedChunks(header) < replicationDeg) {
+					chunksSent++;
+					thread.interrupt();
+					waitingTime *= 2;
+				} else {
+					break;
+				}
+			}
+			waitingTime = Constants.DEFAULT_WAITING_TIME;
 		}
+		System.out.println("All chunks were sent");
 	}
 
 	private byte[] getChunkData(int i, Header header, byte[] data) {

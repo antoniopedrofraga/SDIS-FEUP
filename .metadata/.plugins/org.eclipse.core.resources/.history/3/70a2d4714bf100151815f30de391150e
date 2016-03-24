@@ -1,0 +1,11 @@
+package database;
+
+import java.util.HashMap;
+
+import messages.Header;
+
+public class Database {
+	HashMap<String,Header> storedConfirmations;
+	
+	Database() {};
+}
