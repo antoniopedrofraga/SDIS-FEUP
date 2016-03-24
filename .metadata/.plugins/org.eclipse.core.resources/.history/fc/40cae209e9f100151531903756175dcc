@@ -72,8 +72,12 @@ public class Message implements Runnable {
 
 	public static Message getMessageFromData(String data) {
 		String[] headerAndBody = data.split(Constants.CRLF + Constants.CRLF);
+		for (int i = 0; i < headerAndBody.length; i++) {
+			
+		}
 		String headerStr = headerAndBody[0];
 		byte[] body = headerAndBody[1].getBytes();
+		System.out.println("header & body groups -> " + headerAndBody.length + " with data: " + headerStr);
 		String[] splittedHeader = Message.splitArgs(headerStr);
 		Header header = new Header(splittedHeader[Constants.MESSAGE_TYPE], splittedHeader[Constants.VERSION], splittedHeader[Constants.SENDER_ID],
 				splittedHeader[Constants.FILE_ID], splittedHeader[Constants.CHUNK_NO], splittedHeader[Constants.REPLICATION_DEG]);

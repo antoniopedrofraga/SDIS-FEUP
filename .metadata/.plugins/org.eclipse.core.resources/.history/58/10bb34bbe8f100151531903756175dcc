@@ -52,7 +52,8 @@ public class Header {
 		string += this.getFileId() != null ? this.getFileId() + " " : "";
 		string += this.getChunkNo() != null ? this.getChunkNo() + " " : "";
 		string += this.getReplicationDeg() != null ? this.getReplicationDeg() + " " : "";
-		string += Constants.CRLF + Constants.CRLF;
+		string += Constants.CR + Constants.LF +
+				Constants.CR + Constants.LF;
 		return string;
 	}
 

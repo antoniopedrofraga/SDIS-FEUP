@@ -10,7 +10,6 @@ public class Constants {
 	
 	public static final char CR = (char) 0x0D;
 	public static final char LF = (char) 0x0A;
-	public static final String CRLF = CR + LF + "";
 
 	public static final String FILES_ROOT = "./files/";
 	public static final String CHUNKS_ROOT = "chunks";
