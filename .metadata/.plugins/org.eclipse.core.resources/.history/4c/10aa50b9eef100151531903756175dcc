@@ -44,6 +44,7 @@ public class ChunkBackup implements Runnable{
 			try {
 				reply = Peer.rcvMultiCastData(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress());
 				if (!validReply(reply)) {
+					System.out.println("Invalid reply: " + reply);
 					i--;
 				}
 			} catch (IOException e) {
