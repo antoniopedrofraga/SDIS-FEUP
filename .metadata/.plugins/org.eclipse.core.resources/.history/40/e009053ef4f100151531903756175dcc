@@ -14,6 +14,7 @@ import exceptions.ArgsException;
 import messages.Header;
 import messages.Message;
 import subprotocols.Backup;
+import utilities.Constants;
 
 public class Peer {
 	private static String serverId;
@@ -39,7 +40,7 @@ public class Peer {
 	private void listenChannels() {
 		mcChannel.listen();
 		mdbChannel.listen();
-		mdrChannel.listen();
+		//mdrChannel.listen();
 	}
 	
 	private void listenActions() throws ArgsException {

@@ -29,8 +29,6 @@ public class MdrChannel extends Channel{
 					String data = Peer.rcvMultiCastData(Peer.getMdrChannel().getSocket(), Peer.getMdrChannel().getAddress());
 					String[] splittedMsg = Message.splitArgs(data);
 					if(!Peer.getServerId().equals(splittedMsg[Constants.SENDER_ID])) {
-						Header header = new Header(Message.STORED, splittedMsg[Constants.VERSION],
-								Peer.getServerId(), splittedMsg[Constants.FILE_ID], splittedMsg[Constants.CHUNK_NO], null);
 						Message reply = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), header, null);
 						int timeout = ThreadLocalRandom.current().nextInt(0, 400);
 						this.wait(timeout);

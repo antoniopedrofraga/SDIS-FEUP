@@ -26,7 +26,7 @@ public class MdrChannel extends Channel{
 				System.out.println("Listening the MDR channel...");
 				try {
 					socket.joinGroup(address);
-					String data = Peer.rcvMultiCastData(Peer.getMdrChannel().getSocket(), Peer.getMdrChannel().getAddress());
+					String data = Peer.rcvMultiCastData(Peer.getMdbChannel().getSocket(), Peer.getMdbChannel().getAddress());
 					String[] splittedMsg = Message.splitArgs(data);
 					if(!Peer.getServerId().equals(splittedMsg[Constants.SENDER_ID])) {
 						Header header = new Header(Message.STORED, splittedMsg[Constants.VERSION],

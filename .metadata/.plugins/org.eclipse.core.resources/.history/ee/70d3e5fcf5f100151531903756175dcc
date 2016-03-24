@@ -1,12 +1,15 @@
 package channels;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import messages.Header;
 import messages.Message;
 import peers.Peer;
+import utilities.Constants;
 
 public class MdbChannel extends Channel{
 	
