@@ -14,6 +14,7 @@ import exceptions.ArgsException;
 import messages.Header;
 import messages.Message;
 import subprotocols.Backup;
+import subprotocols.Restore;
 
 public class Peer {
 	private static String serverId;
@@ -55,10 +56,9 @@ public class Peer {
 				Backup backup = new Backup(command[1], command[2]);
 				backup.start();
 				break;
-			case "mdb":
-				Header header = new Header(Message.TEST, "", "", "", "", "");
-				Message msg = new Message(mdbChannel.getSocket(), mdbChannel.getAddress(), header, null);
-				new Thread(msg).start();
+			case "restore":
+				Restore restore = new Restore(command[1]);
+				restore.start();
 				break;
 			default:
 				System.out.println("Unknown command: " + read);

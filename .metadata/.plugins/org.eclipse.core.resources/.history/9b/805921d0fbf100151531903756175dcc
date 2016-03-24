@@ -1,0 +1,12 @@
+package database;
+
+import java.util.ArrayList;
+
+public class ChunksList extends ArrayList<Long> {
+	public void addChunk(Long number) {
+		if ()
+		for (int i = 0; i < this.size(); i++) {
+			if (number)
+		}
+	}
+}

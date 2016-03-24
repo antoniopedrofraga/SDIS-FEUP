@@ -13,11 +13,14 @@ import utilities.Constants;
 public class Storage {
 	
 	HashMap<Header, ArrayList<Header>> storeConfirmations; //Header from sent chunk is the key and an ArrayList with headers from replies is the value
-	HashMap<String, ArrayList<Long>> storedChunks; //FileId as key, Array of ChunkNo as value
+	HashMap<String, ChunksList> storedChunks; //FileId as key, Array of ChunkNo as value
+	StoredFileIds storedFileIds; //HashMap containing which filenames are backed up, fileId as Keys
+	
+
 	File chunks;
 	public Storage() {
 		storeConfirmations = new HashMap<Header, ArrayList<Header>>();
-		storedChunks = new HashMap<String, ArrayList<Long>>();
+		storedChunks = new HashMap<String, ChunksList>();
 		chunks = new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT);
 		createFolders();
 	}
@@ -48,6 +51,13 @@ public class Storage {
 		    stream.write(data);
 		} finally {
 		    stream.close();
-		} 
+		    ChunksList chunks = storedChunks.get(fileId) != null ? storedChunks.get(fileId) : new ChunksList(); 
+		    chunks.addChunk(chunkNo);
+		}
+		
 	};
+	
+	public StoredFileIds getStoredFileIds() {
+		return storedFileIds;
+	}
 }

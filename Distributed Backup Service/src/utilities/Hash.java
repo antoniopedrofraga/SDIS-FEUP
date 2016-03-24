@@ -3,6 +3,7 @@ package utilities;
 import java.security.MessageDigest;
 
 public class Hash {
+	
 	public static String sha256(String base) {
 		try{
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -20,4 +21,5 @@ public class Hash {
 			throw new RuntimeException(ex);
 		}
 	}
+	
 }
