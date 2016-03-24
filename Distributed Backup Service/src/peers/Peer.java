@@ -103,7 +103,6 @@ public class Peer {
 	public static String getServerId() {
 		return serverId;
 	}
-	/*--------------*/
 
 	public static Storage getStorage() {
 		return storage;

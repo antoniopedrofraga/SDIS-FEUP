@@ -1,7 +1,0 @@
-package database;
-
-import java.util.HashMap;
-
-public class Database {
-	HashMap<String,String> storedConfirmations;
-}

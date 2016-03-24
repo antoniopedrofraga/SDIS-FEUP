@@ -20,7 +20,7 @@ public class Header {
 		this.replicationDeg = replicationDeg;
 	}
 	
-	public String getstringType() {
+	public String getMsgType() {
 		return stringType;
 	}
 
@@ -46,7 +46,7 @@ public class Header {
 	
 	public String toString() {
 		String string = "";
-		string += this.getstringType() != null ? this.getstringType() + " " : "";
+		string += this.getMsgType() != null ? this.getMsgType() + " " : "";
 		string += this.getVersion() != null ? this.getVersion() + " " : "";
 		string += this.getSenderId() != null ? this.getSenderId() + " " : "";
 		string += this.getFileId() != null ? this.getFileId() + " " : "";

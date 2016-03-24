@@ -11,3 +11,4 @@
 1458782000469	Rename field 'BACKUP'
 1458783172221	Delete element
 1458783238004	Rename type 'Database'
+1458835378258	Rename method 'getstringType'

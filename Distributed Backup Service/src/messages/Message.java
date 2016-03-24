@@ -4,12 +4,17 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import utilities.Constants;
 
 public class Message implements Runnable {
 	private MulticastSocket socket;
 	private InetAddress address;
 	private Header header;
 	private byte[] body;
+
 	
 	public Message(MulticastSocket socket, InetAddress address, Header header, byte[] body) {
 		this.socket = socket;
@@ -20,8 +25,17 @@ public class Message implements Runnable {
 	
 
 	
+	public Message(Header header, byte[] body) {
+		this.header = header;
+		this.body = body;
+		this.socket = null;
+		this.address = null;
+	}
+
+
+
 	public static String[] splitArgs(String message) {
-		return message.split("\\s+");
+		return message.split(" ");
 	}
 
 	@Override
@@ -48,8 +62,25 @@ public class Message implements Runnable {
 	}
 
 
+	public static Message getMessageFromData(String data) {
+		String[] headerAndBody = data.split(Constants.CR + Constants.LF + Constants.CR + Constants.LF + "");
+		
+		String headerStr = headerAndBody[0];
+		byte[] body = headerAndBody[1].getBytes();
+		
+		String[] splittedHeader = Message.splitArgs(headerStr);
+		Header header = new Header(splittedHeader[Constants.MESSAGE_TYPE], splittedHeader[Constants.VERSION], splittedHeader[Constants.SENDER_ID],
+				splittedHeader[Constants.FILE_ID], splittedHeader[Constants.CHUNK_NO], splittedHeader[Constants.REPLICATION_DEG]);
+		Message msg = new Message(header, body);
+		return msg;
+	}
+
 
 	public Header getHeader() {
 		return header;
 	}
+	public byte[] getBody() {
+		return body;
+	}
+
 }

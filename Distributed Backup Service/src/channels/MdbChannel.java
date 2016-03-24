@@ -3,6 +3,8 @@ package channels;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import messages.Header;
 import messages.Message;
@@ -20,28 +22,23 @@ public class MdbChannel extends Channel{
 		this.thread.start();
 	}
 	
-	public void handlePutChunk(String[] splittedMsg) throws InterruptedException {
+	public void handlePutChunk(Header header, byte[] body) throws InterruptedException {
 		
 		//save chunk
-		String[] chunkArray = Arrays.copyOfRange(splittedMsg, 5, splittedMsg.length);
-		System.out.println("ChunkArray[0] = " + chunkArray[0]);
-		String chunkStr = Arrays.toString(chunkArray);
-		byte[] crlfdata = chunkStr.getBytes();
-		System.out.println("That PUTCHUNK had " + crlfdata.length + " bytes of data.");
-		byte[] data = Arrays.copyOfRange(crlfdata, 4, crlfdata.length);
-		Long chunkNo = Long.parseLong(splittedMsg[Constants.CHUNK_NO]);
+		System.out.println("That PUTCHUNK had " + body.length + " bytes of data.");
+		Long chunkNo = Long.parseLong(header.getChunkNo());
 		try {
-			Peer.getStorage().saveChunk(splittedMsg[Constants.FILE_ID], chunkNo, data);
+			Peer.getStorage().saveChunk(header.getFileId(), chunkNo, body);
 		} catch (IOException e) {
-			System.out.println("Could not save the chunk number " + splittedMsg[Constants.CHUNK_NO] + "from file " + splittedMsg[Constants.FILE_ID]);
+			System.out.println("Could not save the chunk number " + header.getChunkNo() + "from file " + header.getFileId());
 			return;
 		}
-		System.out.println("Chunk number " + splittedMsg[Constants.CHUNK_NO] + " from file " + splittedMsg[Constants.FILE_ID] + " was saved! Replying...");
+		System.out.println("Chunk number " + header.getChunkNo() + " from file " + header.getFileId() + " was saved! Replying...");
 		
 		//reply
-		Header header = new Header(Constants.STORED, splittedMsg[Constants.VERSION],
-				Peer.getServerId(), splittedMsg[Constants.FILE_ID], splittedMsg[Constants.CHUNK_NO], null);
-		Message reply = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), header, null);
+		Header replyHeader = new Header(Constants.STORED, header.getVersion(),
+				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
+		Message reply = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), replyHeader, null);
 		int timeout = ThreadLocalRandom.current().nextInt(0, 400);
 		Thread.sleep(timeout);
 		new Thread(reply).start();
@@ -55,17 +52,19 @@ public class MdbChannel extends Channel{
 					socket.joinGroup(address);
 					// separate data
 					String data = Peer.rcvMultiCastData(socket, address);
-					String[] splittedMsg = Message.splitArgs(data);
+					Message message = Message.getMessageFromData(data);
+					Header header = message.getHeader();
+					byte[] body = message.getBody();
 					
 					//analising data
-					if(!Peer.getServerId().equals(splittedMsg[Constants.SENDER_ID])) {
-						switch (splittedMsg[Constants.MESSAGE_TYPE]) {
+					if(!Peer.getServerId().equals(header.getSenderId())) {
+						switch (header.getMsgType()) {
 						case Constants.PUTCHUNK:
-							System.out.println("Received a PUTCHUNK message, will handle it... with " + splittedMsg.length + " fields.");
-							handlePutChunk(splittedMsg);
+							System.out.println("Received a PUTCHUNK message, will handle it...");
+							handlePutChunk(header, body);
 							break;
 						default:
-							System.out.println("Ignoring message from type " + splittedMsg[Constants.MESSAGE_TYPE]);
+							System.out.println("Ignoring message from type " + header.getMsgType());
 							break;
 						}
 					}

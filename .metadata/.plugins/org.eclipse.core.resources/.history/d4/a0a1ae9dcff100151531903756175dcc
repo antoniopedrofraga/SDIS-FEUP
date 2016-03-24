@@ -1,0 +1,81 @@
+package channels;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import messages.Header;
+import messages.Message;
+import peers.Peer;
+import utilities.Constants;
+
+public class MdbChannel extends Channel{
+	
+	public MdbChannel(String mdbAddress, String mdbPort) throws IOException {
+		super(mdbAddress, mdbPort);
+		this.thread = new MdbThread();
+	}
+	
+	public void listen() {
+		this.thread.start();
+	}
+	
+	public void handlePutChunk(String[] header, byte[] body) throws InterruptedException {
+		
+		//save chunk
+		String[] chunkArray = Arrays.copyOfRange(splittedMsg, 6, splittedMsg.length);
+		String chunkStr = Arrays.toString(chunkArray);
+		byte[] crlfdata = chunkStr.getBytes();
+		System.out.println("That PUTCHUNK had " + crlfdata.length + " bytes of data.");
+		byte[] data = Arrays.copyOfRange(crlfdata, 4, crlfdata.length);
+		Long chunkNo = Long.parseLong(splittedMsg[Constants.CHUNK_NO]);
+		try {
+			Peer.getStorage().saveChunk(splittedMsg[Constants.FILE_ID], chunkNo, data);
+		} catch (IOException e) {
+			System.out.println("Could not save the chunk number " + splittedMsg[Constants.CHUNK_NO] + "from file " + splittedMsg[Constants.FILE_ID]);
+			return;
+		}
+		System.out.println("Chunk number " + splittedMsg[Constants.CHUNK_NO] + " from file " + splittedMsg[Constants.FILE_ID] + " was saved! Replying...");
+		
+		//reply
+		Header header = new Header(Constants.STORED, splittedMsg[Constants.VERSION],
+				Peer.getServerId(), splittedMsg[Constants.FILE_ID], splittedMsg[Constants.CHUNK_NO], null);
+		Message reply = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), header, null);
+		int timeout = ThreadLocalRandom.current().nextInt(0, 400);
+		Thread.sleep(timeout);
+		new Thread(reply).start();
+	}
+	
+	public class MdbThread extends Thread {
+		public void run() {
+			while(true) {
+				System.out.println("Listening the MDB channel...");
+				try {
+					socket.joinGroup(address);
+					// separate data
+					String data = Peer.rcvMultiCastData(socket, address);
+					String[] header = Message.extractHeader(data);
+					byte[] body = Message.extractBody(data);
+					
+					//analising data
+					if(!Peer.getServerId().equals(header[Constants.SENDER_ID])) {
+						switch (header[Constants.MESSAGE_TYPE]) {
+						case Constants.PUTCHUNK:
+							System.out.println("Received a PUTCHUNK message, will handle it... with " + header.length + " fields.");
+							handlePutChunk(header, body);
+							break;
+						default:
+							System.out.println("Ignoring message from type " + header[Constants.MESSAGE_TYPE]);
+							break;
+						}
+					}
+					socket.leaveGroup(address);
+				} catch (IOException | InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}
