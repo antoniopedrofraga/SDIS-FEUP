@@ -13,7 +13,6 @@
 <fullyQualifiedTypeName name="java.nio.file.Path"/>
 <fullyQualifiedTypeName name="java.nio.file.Paths"/>
 <fullyQualifiedTypeName name="java.nio.file.Files"/>
-<fullyQualifiedTypeName name="subprotocols.Backup"/>
 <fullyQualifiedTypeName name="exceptions.ArgsException"/>
 <fullyQualifiedTypeName name="channels.MCChannel"/>
 <fullyQualifiedTypeName name="channels.MdbChannel"/>
@@ -26,12 +25,15 @@
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="database.Database"/>
 <fullyQualifiedTypeName name="java.lang.Long"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="database.Storage"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="subprotocols.ChunkBackup"/>
 <fullyQualifiedTypeName name="utilities.Constants"/>
+<fullyQualifiedTypeName name="database.ChunkInfo"/>
+<fullyQualifiedTypeName name="database.FileInfo"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="subprotocols.Backup"/>
 <fullyQualifiedTypeName name="messages.Header"/>
+<fullyQualifiedTypeName name="database.Storage"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

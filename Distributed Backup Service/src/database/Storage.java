@@ -3,10 +3,8 @@ package database;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import messages.Header;
 import utilities.Constants;
 
 
@@ -49,5 +47,14 @@ public class Storage {
 	}
 	public HashMap<String, ChunksList> getStoredChunks() {
 		return storedChunks;
+	}
+
+	public static byte[] getChunkBody() {
+		return null;
+	}
+
+	public static boolean chunkIsStored(String fileId, int chunkNo) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

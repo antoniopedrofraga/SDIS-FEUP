@@ -1,0 +1,15 @@
+package subprotocols;
+
+public class ChunkRestore extends Thread {
+	String fileId;
+	int chunkNo;
+	public ChunkRestore(String fileId, int chunkNo) {
+		
+	}
+
+	@Override
+	public void run() {
+		
+	}
+
+}

@@ -8,7 +8,6 @@ import messages.Header;
 public class FileInfo {
 	private String fileId;
 	private int numberOfChunks;
-	private Long size;
 	HashMap<Integer, ArrayList<Header>> backedUpChunks;
 	
 	public HashMap<Integer, ArrayList<Header>> getBackedUpChunks() {
@@ -33,7 +32,6 @@ public class FileInfo {
 	public FileInfo(String fileId, int numberOfChunks, long size) {
 		this.fileId = fileId;
 		this.numberOfChunks = numberOfChunks;
-		this.size = size;
 		this.backedUpChunks = new HashMap<Integer, ArrayList<Header>>();
 	}
 	

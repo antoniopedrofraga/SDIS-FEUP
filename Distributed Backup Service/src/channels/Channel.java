@@ -1,6 +1,7 @@
 package channels;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
@@ -8,7 +9,7 @@ import java.net.MulticastSocket;
 public class Channel {
 	Thread thread;
 	MulticastSocket socket;
-	InetAddress address;
+    InetAddress address;
 	private int port;
 	
 	Channel(String address, String port) throws IOException {
@@ -16,6 +17,14 @@ public class Channel {
 		this.port = Integer.parseInt(port);
 		this.socket = new MulticastSocket(this.port);
 		this.socket.setTimeToLive(1);
+	}
+	
+	public String rcvMultiCastData() throws IOException {
+        byte[] rbuf = new byte[utilities.Constants.CHUNK_SIZE];
+		DatagramPacket packet = new DatagramPacket(rbuf, rbuf.length);
+		socket.receive(packet);
+		String received = new String(packet.getData(), 0, packet.getLength());
+        return received;
 	}
 	
 	public void listen() {

@@ -2,7 +2,10 @@ package subprotocols;
 
 
 import database.FileInfo;
+import messages.Header;
+import messages.Message;
 import peers.Peer;
+import utilities.Constants;
 
 public class Restore extends Thread {
 	String fileName;
@@ -18,8 +21,11 @@ public class Restore extends Thread {
 		
 		FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(fileName);
 		int numberOfChunks = fileInfo.getNumberOfChunks();
+		Header header = new Header(Message.GETCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileInfo.getFileId(), "0", null);
+		
 		for (int i = 0; i < numberOfChunks; i++) {
-			
+			header.setChunkNo("" + i);
+			new ChunkRestore(header).start();
 		}
 	}
 	

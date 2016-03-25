@@ -55,7 +55,7 @@ public class Header {
 		string += Constants.CRLF + Constants.CRLF;
 		return string;
 	}
-
+	
 	public void setChunkNo(String chunkNo) {
 		this.chunkNo = chunkNo;
 	}

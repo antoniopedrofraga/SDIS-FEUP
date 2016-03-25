@@ -12,7 +12,8 @@ public class Message implements Runnable {
 	public static final String TEST = "TEST";
 	public static final String PUTCHUNK = "PUTCHUNK";
 	public static final String STORED = "STORED";
-	public static final String RESTORE = "GETCHUNK";
+	public static final String GETCHUNK = "GETCHUNK";
+	public static final String CHUNK = "CHUNK";
 	public static final String DELETE = "DELETE";
 	
 	
@@ -71,10 +72,11 @@ public class Message implements Runnable {
 	public static Message getMessageFromData(String data) {
 		String[] headerAndBody = data.split(Constants.CRLF + Constants.CRLF);
 		String headerStr = headerAndBody[0];
-		byte[] body = headerAndBody[1].getBytes();
+		byte[] body = headerAndBody.length == 2 ? headerAndBody[1].getBytes() : null;
 		String[] splittedHeader = Message.splitArgs(headerStr);
+		String replicationDeg = splittedHeader.length > Constants.REPLICATION_DEG ? splittedHeader[Constants.REPLICATION_DEG] : null;
 		Header header = new Header(splittedHeader[Constants.MESSAGE_TYPE], splittedHeader[Constants.VERSION], splittedHeader[Constants.SENDER_ID],
-				splittedHeader[Constants.FILE_ID], splittedHeader[Constants.CHUNK_NO], splittedHeader[Constants.REPLICATION_DEG]);
+				splittedHeader[Constants.FILE_ID], splittedHeader[Constants.CHUNK_NO], replicationDeg);
 		Message msg = new Message(header, body);
 		return msg;
 	}

@@ -1,9 +1,6 @@
 package peers;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
 import java.util.Scanner;
 
 import channels.McChannel;
@@ -66,13 +63,6 @@ public class Peer {
 		}
 	}
 
-	public static String rcvMultiCastData(MulticastSocket socket, InetAddress address) throws IOException {
-        byte[] rbuf = new byte[utilities.Constants.CHUNK_SIZE];
-		DatagramPacket packet = new DatagramPacket(rbuf, rbuf.length);
-		socket.receive(packet);
-		String received = new String(packet.getData(), 0, packet.getLength());
-        return received;
-	}
 	
 	public static void main(String[] args) throws ArgsException, IOException {
 		if (args.length != 7)

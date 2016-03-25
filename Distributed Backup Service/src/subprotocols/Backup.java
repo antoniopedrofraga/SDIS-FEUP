@@ -43,21 +43,24 @@ public class Backup extends Thread {
 		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		
 		for (int i = 0; i < numberOfChunks; i++) {
-			byte[] chunk = getChunkData(i, header, data);
+			header.setChunkNo(i + "");
+			byte[] chunk = getChunkData(i, data);
 			int chunksSent = 0;
 			while (chunksSent < Constants.MAX_CHUNK_RETRY) {
 				System.out.println("Sending chunk number " + i + " with " + chunk.length + " bytes, waiting " + waitingTime + "ms after that.");
 				ChunkBackup backupChunk = new ChunkBackup(header, chunk);
-				backupChunk.start();
+				backupChunk.sendChunk();
 				Thread.sleep(waitingTime);
+				backupChunk.checkReplies();
 				FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(file.getName()) == null ? 
 										null : Peer.getStorage().getBackedUpFiles().get(file.getName());
-				int confirmedBackUps = fileInfo.getBackedUpChunks().get(i) == null ?
+				int confirmedBackUps = 
+						fileInfo == null || fileInfo.getBackedUpChunks().get(i) == null ?
 										0 : fileInfo.getBackedUpChunks().get(i).size();
 				if (confirmedBackUps < replicationDeg) {
 					chunksSent++;
-					backupChunk.interrupt();
 					waitingTime *= 2;
+					System.out.println("ReplicationDeg was not achieved...");
 				} else {
 					break;
 				}
@@ -67,8 +70,7 @@ public class Backup extends Thread {
 		System.out.println("All chunks were sent");
 	}
 
-	private byte[] getChunkData(int i, Header header, byte[] data) {
-		header.setChunkNo(i + "");
+	private byte[] getChunkData(int i, byte[] data) {
 		int lastIndex = (i + 1) * Constants.CHUNK_SIZE < data.length ? (i + 1) * Constants.CHUNK_SIZE : data.length;
 		return Arrays.copyOfRange(data, i * Constants.CHUNK_SIZE, lastIndex);
 	}
