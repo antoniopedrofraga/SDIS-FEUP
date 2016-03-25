@@ -1,14 +1,16 @@
 package subprotocols;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import database.FileInfo;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
 import utilities.Constants;
 
-public class ChunkBackup implements Runnable{
+public class ChunkBackup extends Thread {
 	private Message message;
 	private ArrayList<Header> validReplies;
 	public ChunkBackup(Header header, byte[] body) {
@@ -34,10 +36,11 @@ public class ChunkBackup implements Runnable{
 		Header header = new Header(fields[Constants.MESSAGE_TYPE], fields[Constants.VERSION],
 				fields[Constants.SENDER_ID], fields[Constants.FILE_ID], fields[Constants.CHUNK_NO], null);
 		validReplies.add(header);
+		System.out.println("Received a valid reply");
 		return true;
 	}
 
-	public void listenReplies() {
+	private void listenReplies() {
 		int replicationDeg = Integer.parseInt(message.getHeader().getReplicationDeg());
 		for (int i = 0; i < replicationDeg; i++) {
 			String reply;
@@ -54,7 +57,20 @@ public class ChunkBackup implements Runnable{
 
 	@Override
 	public void run() {
+		sendChunk();
 		listenReplies();
-		Peer.getStorage().getStoreConfirmations().put(message.getHeader(), validReplies);
+		tellStorage();
+	}
+
+	private void tellStorage() {
+		File file = Backup.getFile();
+		int numberOfChunks = (int) (file.length() / Constants.CHUNK_SIZE + 1);
+		if (Peer.getStorage().getBackedUpFiles().get(file.getName()) == null) {
+			Peer.getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(message.getHeader().getFileId(), numberOfChunks, file.length()));
+		} 
+		String fileName = Backup.getFile().getName();
+		FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(fileName);
+		int chunkNo = Integer.parseInt(message.getHeader().getChunkNo());
+		fileInfo.getBackedUpChunks().put(chunkNo, validReplies);
 	}
 }

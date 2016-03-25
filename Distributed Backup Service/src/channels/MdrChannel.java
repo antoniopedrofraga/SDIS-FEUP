@@ -22,8 +22,8 @@ public class MdrChannel extends Channel{
 	
 	public class MdrThread extends Thread {
 		public void run() {
+			System.out.println("Listening the MDR channel...");
 			while(true) {
-				System.out.println("Listening the MDR channel...");
 				try {
 					socket.joinGroup(address);
 					String data = Peer.rcvMultiCastData(Peer.getMdrChannel().getSocket(), Peer.getMdrChannel().getAddress());
@@ -33,7 +33,7 @@ public class MdrChannel extends Channel{
 								Peer.getServerId(), splittedMsg[Constants.FILE_ID], splittedMsg[Constants.CHUNK_NO], null);
 						Message reply = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), header, null);
 						int timeout = ThreadLocalRandom.current().nextInt(0, 400);
-						this.wait(timeout);
+						Thread.sleep(timeout);
 						new Thread(reply).start();
 					}
 					socket.leaveGroup(address);

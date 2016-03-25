@@ -1,0 +1,14 @@
+package database;
+
+import java.util.HashMap;
+
+public class StoredFileIds extends HashMap<String, String> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7257861820917361024L;
+
+	public void markAsStored(String fileName, String fileId) {
+		this.put(fileName, fileId);
+	}
+}

@@ -1,5 +1,10 @@
 package subprotocols;
 
-public class ChunkRestore {
+public class ChunkRestore extends Thread {
+
+	@Override
+	public void run() {
+		
+	}
 
 }

@@ -1,0 +1,7 @@
+package database;
+
+public class FileInfo {
+	private String fileId;
+	private int numberOfChunks;
+	private int size;
+}

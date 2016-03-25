@@ -1,0 +1,22 @@
+package database;
+
+public class FileInfo {
+	private String fileId;
+	private int numberOfChunks;
+	private int size;
+	
+	public String getFileId() {
+		return fileId;
+	}
+
+	public int getNumberOfChunks() {
+		return numberOfChunks;
+	}
+
+	public FileInfo(String fileId, int numberOfChunks, int size) {
+		this.fileId = fileId;
+		this.numberOfChunks = numberOfChunks;
+		this.size = size;
+	}
+	
+}

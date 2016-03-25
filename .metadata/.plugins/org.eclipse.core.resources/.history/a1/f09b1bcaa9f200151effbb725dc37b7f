@@ -1,0 +1,17 @@
+package database;
+
+public class ChunkInfo {
+	String fileId;
+	int chunkNo;
+	
+	public ChunkInfo(String fileId, int chunkNo) {
+		this.fileId = fileId;
+		this.chunkNo = chunkNo;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.fileId == obj.fileId
+	}
+	
+}

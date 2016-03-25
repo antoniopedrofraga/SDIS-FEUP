@@ -1,0 +1,12 @@
+package database;
+
+public class ChunkInfo {
+	String fileId;
+	int chunkNo;
+	public ChunkInfo(String fileId, int chunkNo) {
+		super();
+		this.fileId = fileId;
+		this.chunkNo = chunkNo;
+	}
+	
+}

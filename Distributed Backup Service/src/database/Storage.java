@@ -11,16 +11,14 @@ import utilities.Constants;
 
 
 public class Storage {
-	
-	HashMap<Header, ArrayList<Header>> storeConfirmations; //Header from sent chunk is the key and an ArrayList with headers from replies is the value
 	HashMap<String, ChunksList> storedChunks; //FileId as key, Array of ChunkNo as value
-	StoredFileIds storedFileIds; //HashMap containing which filenames are backed up, fileId as Keys
+	BackedUpFiles backedUpFiles; //HashMap containing which files are backed up, fileId as Keys
 	
 
 	File chunks;
 	public Storage() {
-		storeConfirmations = new HashMap<Header, ArrayList<Header>>();
 		storedChunks = new HashMap<String, ChunksList>();
+		backedUpFiles = new BackedUpFiles();
 		chunks = new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT);
 		createFolders();
 	}
@@ -30,17 +28,6 @@ public class Storage {
 			chunks.mkdirs();
 	}
 
-	public HashMap<Header, ArrayList<Header>> getStoreConfirmations() {
-		return storeConfirmations;
-	}
-
-	public int countConfirmedChunks(Header header) {
-		ArrayList<Header> headers = (ArrayList<Header>)storeConfirmations.get(header);
-		if (headers != null)
-			return headers.size();
-		else
-			return 0;
-	}
 
 	public void saveChunk(String fileId, Long chunkNo, byte[] data) throws IOException {
 		File chunkFolder = new File(chunks.getPath() + "/" + fileId + "/");
@@ -57,7 +44,10 @@ public class Storage {
 		
 	};
 	
-	public StoredFileIds getStoredFileIds() {
-		return storedFileIds;
+	public BackedUpFiles getBackedUpFiles() {
+		return backedUpFiles;
+	}
+	public HashMap<String, ChunksList> getStoredChunks() {
+		return storedChunks;
 	}
 }

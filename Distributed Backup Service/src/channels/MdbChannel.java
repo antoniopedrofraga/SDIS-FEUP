@@ -31,7 +31,6 @@ public class MdbChannel extends Channel{
 			return;
 		}
 		System.out.println("Chunk number " + header.getChunkNo() + " from file " + header.getFileId() + " was saved! Replying...");
-		
 		//reply
 		Header replyHeader = new Header(Message.STORED, header.getVersion(),
 				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
@@ -43,8 +42,8 @@ public class MdbChannel extends Channel{
 	
 	public class MdbThread extends Thread {
 		public void run() {
+			System.out.println("Listening the MDB channel...");
 			while(true) {
-				System.out.println("Listening the MDB channel...");
 				try {
 					socket.joinGroup(address);
 					// separate data

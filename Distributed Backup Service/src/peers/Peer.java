@@ -11,7 +11,6 @@ import channels.MdbChannel;
 import channels.MdrChannel;
 import database.Storage;
 import exceptions.ArgsException;
-import messages.Header;
 import messages.Message;
 import subprotocols.Backup;
 import subprotocols.Restore;

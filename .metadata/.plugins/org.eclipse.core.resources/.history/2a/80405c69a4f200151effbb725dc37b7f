@@ -1,0 +1,67 @@
+package database;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import messages.Header;
+import utilities.Constants;
+
+
+public class Storage {
+	
+	HashMap<ChunkInfo, ArrayList<Header>> storeConfirmations; //ChunkInfo as key, Headers as Value
+	HashMap<String, ChunksList> storedChunks; //FileId as key, Array of ChunkNo as value
+	StoredFileIds storedFileIds; //HashMap containing which filenames are backed up, fileId as Keys
+	
+
+	File chunks;
+	public Storage() {
+		storeConfirmations = new HashMap<ChunkInfo, ArrayList<Header>>();
+		storedChunks = new HashMap<String, ChunksList>();
+		storedFileIds = new StoredFileIds();
+		chunks = new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT);
+		createFolders();
+	}
+
+	private void createFolders() {
+		if (!chunks.exists())
+			chunks.mkdirs();
+	}
+
+	public HashMap<ChunkInfo, ArrayList<Header>> getStoreConfirmations() {
+		return storeConfirmations;
+	}
+
+	public int countConfirmedChunks(ChunkInfo chunkInfo) {
+		ArrayList<Header> headers = (ArrayList<Header>)storeConfirmations.get(header);
+		if (headers != null)
+			return headers.size();
+		else
+			return 0;
+	}
+
+	public void saveChunk(String fileId, Long chunkNo, byte[] data) throws IOException {
+		File chunkFolder = new File(chunks.getPath() + "/" + fileId + "/");
+		if (!chunkFolder.exists())
+			chunkFolder.mkdirs();
+		FileOutputStream stream = new FileOutputStream(chunkFolder.getPath() + "/" + chunkNo + ".data");
+		try {
+		    stream.write(data);
+		} finally {
+		    stream.close();
+		    ChunksList chunks = storedChunks.get(fileId) != null ? storedChunks.get(fileId) : new ChunksList(); 
+		    chunks.addChunk(chunkNo);
+		}
+		
+	};
+	
+	public StoredFileIds getStoredFileIds() {
+		return storedFileIds;
+	}
+	public HashMap<String, ChunksList> getStoredChunks() {
+		return storedChunks;
+	}
+}

@@ -1,5 +1,7 @@
 package subprotocols;
 
+
+import database.FileInfo;
 import peers.Peer;
 
 public class Restore extends Thread {
@@ -9,11 +11,19 @@ public class Restore extends Thread {
 	}
 	
 	public void restore() {
-		String fileId = Peer.getStorage().getStoredFileIds().get(fileName);
-		if (fileId == null) {
+		if (!Peer.getStorage().getBackedUpFiles().containsKey(fileName)) {
 			System.out.println("This file '" + fileName + "' was not backed up yet");
 			return;
 		}
 		
+		FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(fileName);
+		int numberOfChunks = fileInfo.getNumberOfChunks();
+		for (int i = 0; i < numberOfChunks; i++) {
+			
+		}
+	}
+	
+	public void run() {
+		restore();
 	}
 }

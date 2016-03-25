@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 
+import database.FileInfo;
 import exceptions.ArgsException;
 import messages.Header;
 import messages.Message;
@@ -12,8 +13,8 @@ import peers.Peer;
 import utilities.Constants;
 import utilities.Hash;
 
-public class Backup extends Thread{
-	File file;
+public class Backup extends Thread {
+	static File file;
 	private int replicationDeg;
 	
 	public Backup(String fileName, String replicationDeg) throws ArgsException {
@@ -37,24 +38,25 @@ public class Backup extends Thread{
 	private void sendChunks(byte[] data) throws InterruptedException {
 		
 		int waitingTime = Constants.DEFAULT_WAITING_TIME;
-		int chunksNum = data.length / Constants.CHUNK_SIZE + 1;
+		int numberOfChunks = data.length / Constants.CHUNK_SIZE + 1;
 		String fileId = Hash.sha256(file.getName() + file.lastModified() + Peer.getServerId());
 		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		
-		
-		for (int i = 0; i < chunksNum; i++) {
+		for (int i = 0; i < numberOfChunks; i++) {
 			byte[] chunk = getChunkData(i, header, data);
-			ChunkBackup backupChunk = new ChunkBackup(header, chunk);
 			int chunksSent = 0;
 			while (chunksSent < Constants.MAX_CHUNK_RETRY) {
 				System.out.println("Sending chunk number " + i + " with " + chunk.length + " bytes, waiting " + waitingTime + "ms after that.");
-				backupChunk.sendChunk();
-				Thread thread = new Thread(backupChunk);
-				thread.start();
+				ChunkBackup backupChunk = new ChunkBackup(header, chunk);
+				backupChunk.start();
 				Thread.sleep(waitingTime);
-				if (Peer.getStorage().countConfirmedChunks(header) < replicationDeg) {
+				FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(file.getName()) == null ? 
+										null : Peer.getStorage().getBackedUpFiles().get(file.getName());
+				int confirmedBackUps = fileInfo.getBackedUpChunks().get(i) == null ?
+										0 : fileInfo.getBackedUpChunks().get(i).size();
+				if (confirmedBackUps < replicationDeg) {
 					chunksSent++;
-					thread.interrupt();
+					backupChunk.interrupt();
 					waitingTime *= 2;
 				} else {
 					break;
@@ -70,4 +72,9 @@ public class Backup extends Thread{
 		int lastIndex = (i + 1) * Constants.CHUNK_SIZE < data.length ? (i + 1) * Constants.CHUNK_SIZE : data.length;
 		return Arrays.copyOfRange(data, i * Constants.CHUNK_SIZE, lastIndex);
 	}
+
+	public static File getFile() {
+		return file;
+	}
+
 }

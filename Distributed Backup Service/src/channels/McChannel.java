@@ -17,8 +17,8 @@ public class McChannel extends Channel{
 	
 	public class MulticastThread extends Thread {
 		public void run() {
+			System.out.println("Listening the MC channel...");
 			while(true) {
-				System.out.println("Listening the MC channel...");
 				try {
 					socket.joinGroup(address);
 					String data = Peer.rcvMultiCastData(socket, address);
