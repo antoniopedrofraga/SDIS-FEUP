@@ -33,7 +33,7 @@
 <fullyQualifiedTypeName name="database.FileInfo"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="subprotocols.Backup"/>
-<fullyQualifiedTypeName name="messages.Header"/>
 <fullyQualifiedTypeName name="database.Storage"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="messages.Header"/>
 </qualifiedTypeNameHistroy>

@@ -16,3 +16,4 @@
 1458927348693	Delete element
 1458927850275	Rename type 'StoredFileIds'
 1458928374110	Rename field 'storedFileIds'
+1458958133723	Encapsulate field 'numOfChunks'

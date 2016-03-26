@@ -1,0 +1,41 @@
+package channels;
+
+import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
+
+import messages.Header;
+import messages.Message;
+import peers.Peer;
+import utilities.Constants;
+
+
+public class MdrChannel extends Channel{
+
+	public MdrChannel(String mdrAddress, String mdrPort) throws IOException {
+		super(mdrAddress, mdrPort);
+		this.thread = new MdrThread();
+	}
+	
+	public void listen() {
+		this.thread.start();
+	}
+	
+	public class MdrThread extends Thread {
+		public void run() {
+			System.out.println("Listening the MDR channel...");
+			while(true) {
+				try {
+					socket.joinGroup(address);
+					// separate data
+					String data = rcvMultiCastData();
+					Message message = Message.getMessageFromData(data);
+					Header header = message.getHeader();
+					byte[] body = message.getBody();
+					socket.leaveGroup(address);
+				} catch (IOException | InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}

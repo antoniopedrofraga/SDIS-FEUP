@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 
 import utilities.Constants;
+import utilities.Utilities;
 
 public class Message implements Runnable {
 	
@@ -51,9 +52,7 @@ public class Message implements Runnable {
 		byte[] message = {};
 		
 		if (body != null) {
-			message = new byte[headerBytes.length + body.length];
-			System.arraycopy(headerBytes, 0, message, 0, headerBytes.length);
-			System.arraycopy(body, 0, message, headerBytes.length, body.length);
+			message = Utilities.concatenateBytes(headerBytes, body);
 		} else {
 			message = headerBytes;
 		}

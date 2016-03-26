@@ -12,6 +12,7 @@ public class Constants {
 
 	public static final String FILES_ROOT = "./files/";
 	public static final String CHUNKS_ROOT = "chunks";
+	public static final String RESTORED = "restored_";
 	
 	public static final int CHUNK_SIZE = 64 * 1000;
 	public static final int MAX_CHUNK_RETRY = 5;

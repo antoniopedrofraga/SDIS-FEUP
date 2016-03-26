@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 
 
+
 public class Channel {
 	Thread thread;
 	MulticastSocket socket;
@@ -19,17 +20,18 @@ public class Channel {
 		this.socket.setTimeToLive(1);
 	}
 	
+	public void listen() {
+		this.thread.start();
+	}
+	
 	public String rcvMultiCastData() throws IOException {
-        byte[] rbuf = new byte[utilities.Constants.CHUNK_SIZE];
+        byte[] rbuf = new byte[utilities.Constants.CHUNK_SIZE + 1000];
 		DatagramPacket packet = new DatagramPacket(rbuf, rbuf.length);
 		socket.receive(packet);
 		String received = new String(packet.getData(), 0, packet.getLength());
         return received;
 	}
-	
-	public void listen() {
-		this.thread.start();
-	}
+
 	
 	public MulticastSocket getSocket() {
 		return socket;
@@ -38,5 +40,6 @@ public class Channel {
 	public InetAddress getAddress() {
 		return address;
 	}
+	
 	
 }

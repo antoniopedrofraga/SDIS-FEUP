@@ -3,19 +3,25 @@ package database;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
+import exceptions.SizeException;
+import peers.Peer;
+import subprotocols.Restore;
 import utilities.Constants;
 
 
 public class Storage {
-	HashMap<String, ChunksList> storedChunks; //FileId as key, Array of ChunkNo as value
-	BackedUpFiles backedUpFiles; //HashMap containing which files are backed up, fileId as Keys
+	static HashMap<String, ChunksList> chunksBackedUp; //FileId as key, Array of ChunkNo as value
+	static BackedUpFiles backedUpFiles; //HashMap containing which files are backed up, fileId as Keys
 	
 
-	File chunks;
+	static File chunks;
 	public Storage() {
-		storedChunks = new HashMap<String, ChunksList>();
+		chunksBackedUp = new HashMap<String, ChunksList>();
 		backedUpFiles = new BackedUpFiles();
 		chunks = new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT);
 		createFolders();
@@ -36,8 +42,10 @@ public class Storage {
 		    stream.write(data);
 		} finally {
 		    stream.close();
-		    ChunksList chunks = storedChunks.get(fileId) != null ? storedChunks.get(fileId) : new ChunksList(); 
+		    ChunksList chunks = chunksBackedUp.get(fileId) != null ? chunksBackedUp.get(fileId) : new ChunksList();
 		    chunks.addChunk(chunkNo);
+		    chunksBackedUp.put(fileId, chunks);
+		    System.out.println("Chunks saved in db: " + chunks.size());
 		}
 		
 	};
@@ -46,15 +54,32 @@ public class Storage {
 		return backedUpFiles;
 	}
 	public HashMap<String, ChunksList> getStoredChunks() {
-		return storedChunks;
+		return chunksBackedUp;
 	}
 
-	public static byte[] getChunkBody() {
-		return null;
+	public static byte[] getChunkBody(String fileId, String chunkNo) throws IOException {
+		Path restorableChunk = Paths.get(chunks.getPath() + "/" + fileId + "/" + chunkNo + ".data");
+		return Files.readAllBytes(restorableChunk);
 	}
 
 	public static boolean chunkIsStored(String fileId, int chunkNo) {
-		// TODO Auto-generated method stub
+		ChunksList chunksList = chunksBackedUp.get(fileId);
+		if (chunksList == null) return false;
+		for (int i = 0; i < chunksList.size(); i++) 
+			if (chunksList.get(i) == chunkNo)
+				return true;
 		return false;
 	}
+
+	public static void saveRestoredFile(String fileName) throws IOException, SizeException {
+		Peer.getMdrChannel().setWaitingChunks(false);
+		FileInfo fileInfo = backedUpFiles.get(fileName);
+		if (Restore.getNumOfChunks() != fileInfo.getNumberOfChunks()) 
+			throw new SizeException("The restored file does not have the right number of chunks: " 
+		+ Restore.getNumOfChunks() + "/" + fileInfo.getNumberOfChunks());
+		FileOutputStream out = new FileOutputStream(Constants.FILES_ROOT + Constants.RESTORED + fileName);
+		out.write(Restore.getFileBytes());
+		out.close();
+	}
+
 }
