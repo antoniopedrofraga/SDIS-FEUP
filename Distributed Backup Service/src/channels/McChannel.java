@@ -1,5 +1,6 @@
 package channels;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,6 +9,8 @@ import database.Storage;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
+import utilities.Constants;
+import utilities.Utilities;
 
 public class McChannel extends Channel {
 	ArrayList<Message> storedReplies;
@@ -28,6 +31,12 @@ public class McChannel extends Channel {
 		int timeout = ThreadLocalRandom.current().nextInt(0, 400);
 		Thread.sleep(timeout);
 		new Thread(reply).start();
+	}
+	private void handleDelete(Header header) {
+		Storage.clearStoredChunks(header.getFileId());
+		File file =  new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT + "/" + header.getFileId() + "/");
+		if (file.isDirectory())
+			Utilities.deleteFolder(file);
 	}
 
 	public class MulticastThread extends Thread {
@@ -51,6 +60,9 @@ public class McChannel extends Channel {
 						case Message.STORED:
 							if (waitingReplies)
 								storedReplies.add(message);
+							break;
+						case Message.DELETE:
+							handleDelete(header);
 							break;
 						}
 					}

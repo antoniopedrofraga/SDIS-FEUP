@@ -12,6 +12,7 @@ import messages.Message;
 import peers.Peer;
 import utilities.Constants;
 import utilities.Hash;
+import utilities.Utilities;
 
 public class Backup extends Thread {
 	static File file;
@@ -39,7 +40,7 @@ public class Backup extends Thread {
 		
 		int waitingTime = Constants.DEFAULT_WAITING_TIME;
 		int numberOfChunks = data.length / Constants.CHUNK_SIZE + 1;
-		String fileId = Hash.sha256(file.getName() + file.lastModified() + Peer.getServerId());
+		String fileId = Utilities.getFileId(file);
 		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		
 		for (int i = 0; i < numberOfChunks; i++) {

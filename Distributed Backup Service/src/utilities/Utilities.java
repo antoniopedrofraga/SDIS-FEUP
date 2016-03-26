@@ -1,10 +1,30 @@
 package utilities;
 
+import java.io.File;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
+import peers.Peer;
+
 public class Utilities {
+	public static String getFileId(File file) {
+		return Hash.sha256(file.getName() + file.lastModified() + Peer.getServerId());
+	}
+	// From internet: http://stackoverflow.com/questions/7768071/how-to-delete-directory-content-in-java
+	public static void deleteFolder(File folder) {
+	    File[] files = folder.listFiles();
+	    if(files!=null) { //some JVMs return null for empty dirs
+	        for(File f: files) {
+	            if(f.isDirectory()) {
+	                deleteFolder(f);
+	            } else {
+	                f.delete();
+	            }
+	        }
+	    }
+	    folder.delete();
+	}
 	// From internet: http://stackoverflow.com/questions/5513152/easy-way-to-concatenate-two-byte-arrays
 	public static byte[] concatenateBytes(byte[]a, byte[] b) {
 		byte[] c = new byte[a.length + b.length];

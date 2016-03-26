@@ -1,0 +1,12 @@
+package subprotocols;
+
+public class Delete extends Thread {
+	String fileName;
+	public Delete(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	public void run() {
+		
+	}
+}

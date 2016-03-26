@@ -10,6 +10,7 @@ import database.Storage;
 import exceptions.ArgsException;
 import messages.Message;
 import subprotocols.Backup;
+import subprotocols.Delete;
 import subprotocols.Restore;
 
 public class Peer {
@@ -55,6 +56,10 @@ public class Peer {
 			case "restore":
 				Restore restore = new Restore(command[1]);
 				restore.start();
+				break;
+			case "delete":
+				Delete delete = new Delete(command[1]);
+				delete.start();
 				break;
 			default:
 				System.out.println("Unknown command: " + read);

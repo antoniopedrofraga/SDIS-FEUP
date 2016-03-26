@@ -1,0 +1,9 @@
+package subprotocols;
+
+public class Delete {
+	String fileName;
+	public Delete(String string) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

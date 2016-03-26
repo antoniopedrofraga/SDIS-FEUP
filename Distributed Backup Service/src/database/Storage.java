@@ -16,12 +16,14 @@ import utilities.Constants;
 
 public class Storage {
 	static HashMap<String, ChunksList> chunksBackedUp; //FileId as key, Array of ChunkNo as value
+	static HashMap<String, ChunksList> chunksSaved; //FileId as key, Array of ChunkNo as value
 	static BackedUpFiles backedUpFiles; //HashMap containing which files are backed up, fileId as Keys
 	
 
 	static File chunks;
 	public Storage() {
 		chunksBackedUp = new HashMap<String, ChunksList>();
+		chunksSaved = new HashMap<String, ChunksList>();
 		backedUpFiles = new BackedUpFiles();
 		chunks = new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT);
 		createFolders();
@@ -42,9 +44,9 @@ public class Storage {
 		    stream.write(data);
 		} finally {
 		    stream.close();
-		    ChunksList chunks = chunksBackedUp.get(fileId) != null ? chunksBackedUp.get(fileId) : new ChunksList();
+		    ChunksList chunks = chunksSaved.get(fileId) != null ? chunksSaved.get(fileId) : new ChunksList();
 		    chunks.addChunk(chunkNo);
-		    chunksBackedUp.put(fileId, chunks);
+		    chunksSaved.put(fileId, chunks);
 		    System.out.println("Chunks saved in db: " + chunks.size());
 		}
 		
@@ -82,6 +84,11 @@ public class Storage {
 		FileOutputStream out = new FileOutputStream(Constants.FILES_ROOT + Constants.RESTORED + fileName);
 		out.write(Restore.getFileBytes());
 		out.close();
+	}
+
+	public static void clearStoredChunks(String fileId) {
+		if (chunksSaved.get(fileId) != null)
+			chunksSaved.remove(fileId);
 	}
 
 }
