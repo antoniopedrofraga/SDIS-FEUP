@@ -1,0 +1,8 @@
+package subprotocols;
+
+public class SpaceReclaim {
+	int space;
+	SpaceReclaim (int space) {
+		this.space = space;
+	}
+}

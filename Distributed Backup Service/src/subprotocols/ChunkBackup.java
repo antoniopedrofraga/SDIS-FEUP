@@ -3,7 +3,7 @@ package subprotocols;
 import java.io.File;
 import java.util.ArrayList;
 
-import database.FileInfo;
+import data.FileInfo;
 import messages.Header;
 import messages.Message;
 import peers.Peer;

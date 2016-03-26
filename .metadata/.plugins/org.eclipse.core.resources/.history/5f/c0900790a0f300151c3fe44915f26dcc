@@ -1,0 +1,42 @@
+package utilities;
+
+import java.util.Arrays;
+
+public class Knapsack {
+
+    private final int target;
+    private final int[] steps;
+
+
+    public Knapsack(int N, int[] steps) {
+        this.target = N;
+        this.steps = Arrays.copyOf(steps, steps.length);
+        Arrays.sort(this.steps);
+        ArrayUtils.reverse(this.steps);
+        this.memoize = new HashMap<Integer, List<Integer>>(N);
+    }
+
+    public List<Integer> solve() {
+        return solveForN(target);
+    }
+
+    private List<Integer> solveForN(int N) {
+        if (N == 0) {
+            return new ArrayList<Integer>();
+        } else if (N > 0) {
+            List<Integer> temp, min = null;
+            for (int i = 0; i < steps.length; i++) {
+                temp = solveForN(N - steps[i]);
+                if (temp != null) {
+                    temp.add(steps[i]);
+                    if (min == null || min.size() > temp.size()) {
+                        min = temp;
+                    }
+                }
+            }
+            return min;
+        } else {
+            return null;
+        }
+    }
+}

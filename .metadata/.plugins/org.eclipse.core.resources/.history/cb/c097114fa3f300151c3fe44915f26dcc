@@ -1,0 +1,16 @@
+package data;
+
+import java.util.ArrayList;
+
+public class ChunksList extends ArrayList<ChunkInfo> {
+
+	private static final long serialVersionUID = 1L;
+
+	public void addChunk(ChunkInfo number) {
+		for (int i = 0; i < this.size(); i++) {
+			if (number == this.get(i).getChunkNo())
+				return;
+		}
+		this.add(number);
+	}
+}

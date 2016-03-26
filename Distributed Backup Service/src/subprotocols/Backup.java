@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 
-import database.FileInfo;
+import data.FileInfo;
 import exceptions.ArgsException;
 import messages.Header;
 import messages.Message;

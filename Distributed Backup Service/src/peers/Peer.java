@@ -6,12 +6,13 @@ import java.util.Scanner;
 import channels.McChannel;
 import channels.MdbChannel;
 import channels.MdrChannel;
-import database.Storage;
+import data.Data;
 import exceptions.ArgsException;
 import messages.Message;
 import subprotocols.Backup;
 import subprotocols.Delete;
 import subprotocols.Restore;
+import subprotocols.SpaceReclaim;
 
 public class Peer {
 	private static String serverId;
@@ -20,7 +21,7 @@ public class Peer {
 	private static MdbChannel mdbChannel;
 	private static MdrChannel mdrChannel;
 	
-	private static Storage storage;
+	private static Data storage;
 	
 	public Peer(String serverId, String mcAddress, String mcPort,
 			String mdbAddress, String mdbPort, String mdrAddress,
@@ -31,7 +32,7 @@ public class Peer {
 		mdbChannel = new MdbChannel(mdbAddress, mdbPort);
 		mdrChannel = new MdrChannel(mdrAddress, mdrPort);
 		
-		storage = new Storage();
+		storage = new Data();
 	}
 
 	private void listenChannels() {
@@ -60,6 +61,10 @@ public class Peer {
 			case "delete":
 				Delete delete = new Delete(command[1]);
 				delete.start();
+				break;
+			case "reclaim":
+				SpaceReclaim spaceReclaim = new SpaceReclaim(Integer.parseInt(command[1]));
+				spaceReclaim.start();
 				break;
 			default:
 				System.out.println("Unknown command: " + read);
@@ -97,7 +102,7 @@ public class Peer {
 		return serverId;
 	}
 
-	public static Storage getStorage() {
+	public static Data getStorage() {
 		return storage;
 	}
 }

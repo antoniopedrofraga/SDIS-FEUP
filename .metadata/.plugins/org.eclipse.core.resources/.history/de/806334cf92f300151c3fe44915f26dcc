@@ -1,0 +1,16 @@
+package subprotocols;
+
+import data.Data;
+
+public class SpaceReclaim extends Thread {
+	int space; //space in bytes
+	SpaceReclaim (int space) {
+		this.space = space;
+	}
+	
+	public void run() {
+		if (space > Data.getUsedSpace()) {
+			System.
+		}
+	}
+}

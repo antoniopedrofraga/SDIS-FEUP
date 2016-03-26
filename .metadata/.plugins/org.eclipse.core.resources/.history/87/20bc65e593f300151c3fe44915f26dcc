@@ -1,0 +1,28 @@
+package subprotocols;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import data.ChunksList;
+import data.Data;
+
+public class SpaceReclaim extends Thread {
+	int space; //space in bytes
+	SpaceReclaim (int space) {
+		this.space = space;
+	}
+	
+	public void run() {
+		if (space > Data.getUsedSpace()) {
+			System.out.println("Space to recover is bigger than the space used by this peer, will delete all chunks.");
+			space = Data.getUsedSpace();
+		}
+		
+		HashMap chunksSaved = Data.getChunksSaved();
+		for (Map.Entry<String, ChunksList> entry : chunksSaved.entrySet()) {
+		    String key = entry.getKey();
+		    Object value = entry.getValue();
+		    // ...
+		}
+	}
+}

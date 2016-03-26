@@ -17,3 +17,9 @@
 1458927850275	Rename type 'StoredFileIds'
 1458928374110	Rename field 'storedFileIds'
 1458958133723	Encapsulate field 'numOfChunks'
+1459021135430	Rename package 'database'
+1459021168118	Rename type 'Storage'
+1459021893265	Delete element
+1459022474184	Delete element
+1459022482105	Rename type 'Metadata'
+1459029613962	Delete element

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import database.Storage;
+import data.Data;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
@@ -24,7 +24,7 @@ public class McChannel extends Channel {
 	}
 	
 	private void handleGetChunk(Header header) throws InterruptedException, IOException {
-		byte[] body = Storage.getChunkBody(header.getFileId(), header.getChunkNo());		
+		byte[] body = Data.getChunkBody(header.getFileId(), header.getChunkNo());		
 		Header replyHeader = new Header(Message.CHUNK, Peer.getServerId(),
 				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
 		Message reply = new Message(Peer.getMdrChannel().getSocket(), Peer.getMdrChannel().getAddress(), replyHeader, body);
@@ -33,7 +33,7 @@ public class McChannel extends Channel {
 		new Thread(reply).start();
 	}
 	private void handleDelete(Header header) {
-		Storage.clearStoredChunks(header.getFileId());
+		Data.clearStoredChunks(header.getFileId());
 		File file =  new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT + "/" + header.getFileId() + "/");
 		if (file.isDirectory())
 			Utilities.deleteFolder(file);
@@ -51,7 +51,7 @@ public class McChannel extends Channel {
 					if(!Peer.getServerId().equals(header.getSenderId())) {
 						switch (header.getMsgType()) {
 						case Message.GETCHUNK:
-							if (!Storage.chunkIsStored(header.getFileId(), Integer.parseInt(header.getChunkNo()))) {
+							if (!Data.chunkIsStored(header.getFileId(), Integer.parseInt(header.getChunkNo()))) {
 								System.out.println("Chunk is not stored");
 								break;
 							}
