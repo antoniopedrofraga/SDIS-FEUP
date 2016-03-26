@@ -5,7 +5,6 @@
 <fullyQualifiedTypeName name="subprotocols.SubProtocol"/>
 <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
 <fullyQualifiedTypeName name="java.security.MessageDigest"/>
-<fullyQualifiedTypeName name="messages.Message"/>
 <fullyQualifiedTypeName name="subprotocols.ChunkBackup.BackupReply"/>
 <fullyQualifiedTypeName name="messages.Reply"/>
 <fullyQualifiedTypeName name="java.util.concurrent.ThreadLocalRandom"/>
@@ -26,19 +25,21 @@
 <fullyQualifiedTypeName name="subprotocols.ChunkBackup"/>
 <fullyQualifiedTypeName name="database.ChunkInfo"/>
 <fullyQualifiedTypeName name="database.FileInfo"/>
-<fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="messages.Header"/>
 <fullyQualifiedTypeName name="java.nio.file.Path"/>
 <fullyQualifiedTypeName name="java.nio.file.Paths"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="utilities.Constants"/>
 <fullyQualifiedTypeName name="subprotocols.Backup"/>
-<fullyQualifiedTypeName name="utilities.Utilities"/>
 <fullyQualifiedTypeName name="subprotocols.Restore"/>
 <fullyQualifiedTypeName name="database.Storage"/>
 <fullyQualifiedTypeName name="exceptions.SizeException"/>
-<fullyQualifiedTypeName name="peers.Peer"/>
 <fullyQualifiedTypeName name="java.util.ArrayDeque"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.util.Deque"/>
+<fullyQualifiedTypeName name="subprotocols.Delete"/>
+<fullyQualifiedTypeName name="messages.Header"/>
+<fullyQualifiedTypeName name="utilities.Constants"/>
+<fullyQualifiedTypeName name="peers.Peer"/>
+<fullyQualifiedTypeName name="messages.Message"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="utilities.Utilities"/>
 </qualifiedTypeNameHistroy>

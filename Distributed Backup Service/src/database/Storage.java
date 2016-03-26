@@ -47,7 +47,6 @@ public class Storage {
 		    ChunksList chunks = chunksSaved.get(fileId) != null ? chunksSaved.get(fileId) : new ChunksList();
 		    chunks.addChunk(chunkNo);
 		    chunksSaved.put(fileId, chunks);
-		    System.out.println("Chunks saved in db: " + chunks.size());
 		}
 		
 	};
@@ -65,13 +64,16 @@ public class Storage {
 	}
 
 	public static boolean chunkIsStored(String fileId, int chunkNo) {
-		ChunksList chunksList = chunksBackedUp.get(fileId);
-		if (chunksList == null)
+		ChunksList chunksList = chunksSaved.get(fileId);
+		if (chunksList == null) {
+			System.out.println("chunksList not found");
 			return false;
+		}
 		for (int i = 0; i < chunksList.size(); i++)  {
 			if (chunksList.get(i) == chunkNo)
 				return true;
 		}
+		System.out.println("ChunkNo not found");
 		return false;
 	}
 

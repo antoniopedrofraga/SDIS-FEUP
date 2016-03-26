@@ -60,7 +60,7 @@ public class ChunkBackup {
 		int numberOfChunks = (int) (file.length() / Constants.CHUNK_SIZE + 1);
 		if (Peer.getStorage().getBackedUpFiles().get(file.getName()) == null) 
 			Peer.getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), message.getHeader().getFileId(), numberOfChunks, file.length()));
-		String fileName = Backup.getFile().getName();
+		String fileName = file.getName();
 		FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(fileName);
 		int chunkNo = Integer.parseInt(message.getHeader().getChunkNo());
 		fileInfo.getBackedUpChunks().put(chunkNo, validReplies);
