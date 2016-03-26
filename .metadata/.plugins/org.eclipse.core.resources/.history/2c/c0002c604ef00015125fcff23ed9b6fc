@@ -1,6 +1,0 @@
-package utilities;
-
-public class Constants {
-	public static final char CR = 0xD;
-	public static final char LF = 0xA;
-}

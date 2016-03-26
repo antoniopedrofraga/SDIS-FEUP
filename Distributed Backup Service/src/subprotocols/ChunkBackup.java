@@ -33,7 +33,6 @@ public class ChunkBackup {
 		if (!replyHeader.getChunkNo().equals(message.getHeader().getChunkNo()))
 			return false;
 		validReplies.add(replyHeader);
-		System.out.println("Received a valid reply");
 		return true;
 	}
 
@@ -59,10 +58,8 @@ public class ChunkBackup {
 	private void tellStorage() {
 		File file = Backup.getFile();
 		int numberOfChunks = (int) (file.length() / Constants.CHUNK_SIZE + 1);
-		if (Peer.getStorage().getBackedUpFiles().get(file.getName()) == null) {
+		if (Peer.getStorage().getBackedUpFiles().get(file.getName()) == null) 
 			Peer.getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), message.getHeader().getFileId(), numberOfChunks, file.length()));
-			System.out.println("Creating FileInfo");
-		} 
 		String fileName = Backup.getFile().getName();
 		FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(fileName);
 		int chunkNo = Integer.parseInt(message.getHeader().getChunkNo());

@@ -47,7 +47,6 @@ public class Backup extends Thread {
 			byte[] chunk = getChunkData(i, data);
 			int chunksSent = 0;
 			while (chunksSent < Constants.MAX_CHUNK_RETRY) {
-				System.out.println("Sending chunk number " + i + " with " + chunk.length + " bytes, waiting " + waitingTime + "ms after that.");
 				ChunkBackup backupChunk = new ChunkBackup(header, chunk);
 				backupChunk.sendChunk();
 				Thread.sleep(waitingTime);
@@ -60,14 +59,14 @@ public class Backup extends Thread {
 				if (confirmedBackUps < replicationDeg) {
 					chunksSent++;
 					waitingTime *= 2;
-					System.out.println("ReplicationDeg was not achieved...");
+					System.out.println("ReplicationDeg was not achieved... Waiting more " + waitingTime + "ms.");
 				} else {
 					break;
 				}
 			}
 			waitingTime = Constants.DEFAULT_WAITING_TIME;
 		}
-		System.out.println("All chunks were sent");
+		System.out.println("File was backed up succesfully!");
 	}
 
 	private byte[] getChunkData(int i, byte[] data) {

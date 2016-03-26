@@ -17,7 +17,6 @@ public class MdbChannel extends Channel{
 	
 	public void handlePutChunk(Header header, byte[] body) throws InterruptedException {
 		//save chunk
-		System.out.println("That PUTCHUNK had " + body.length + " bytes of data.");
 		Long chunkNo = Long.parseLong(header.getChunkNo());
 		try {
 			Peer.getStorage().saveChunk(header.getFileId(), chunkNo, body);
@@ -25,7 +24,6 @@ public class MdbChannel extends Channel{
 			System.out.println("Could not save the chunk number " + header.getChunkNo() + "from file " + header.getFileId());
 			return;
 		}
-		System.out.println("Chunk number " + header.getChunkNo() + " from file " + header.getFileId() + " was saved! Replying...");
 		//reply
 		Header replyHeader = new Header(Message.STORED, header.getVersion(),
 				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
@@ -42,7 +40,7 @@ public class MdbChannel extends Channel{
 				try {
 					socket.joinGroup(address);
 					// separate data
-					String data = rcvMultiCastData();
+					byte[] data = rcvMultiCastData();
 					Message message = Message.getMessageFromData(data);
 					Header header = message.getHeader();
 					byte[] body = message.getBody();
@@ -51,7 +49,6 @@ public class MdbChannel extends Channel{
 					if(!Peer.getServerId().equals(header.getSenderId())) {
 						switch (header.getMsgType()) {
 						case Message.PUTCHUNK:
-							System.out.println("Received a PUTCHUNK message, will handle it...");
 							handlePutChunk(header, body);
 							break;
 						}

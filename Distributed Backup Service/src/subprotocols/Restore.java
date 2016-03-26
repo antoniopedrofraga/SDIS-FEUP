@@ -12,6 +12,7 @@ public class Restore extends Thread {
 	private static String fileName;
 	private static byte[] file;
 	private static int numOfChunks = 0;
+	private static Header header;
 	
 	public Restore(String fileName) {
 		this.fileName = fileName;
@@ -25,15 +26,10 @@ public class Restore extends Thread {
 		}
 		
 		FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(fileName);
-		int numberOfChunks = fileInfo.getNumberOfChunks();
-		Header header = new Header(Message.GETCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileInfo.getFileId(), "0", null);
-		
+		header = new Header(Message.GETCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileInfo.getFileId(), "0", null);
 		Peer.getMdrChannel().setWaitingChunks(true);
-		for (int i = 0; i < numberOfChunks; i++) {
-			header.setChunkNo("" + i);
-			ChunkRestore chunkRestore = new ChunkRestore(header);
-			chunkRestore.sendMessage();
-		}
+		
+		sendNextChunk();
 	}
 	
 	public static void addToFile() {
@@ -53,6 +49,12 @@ public class Restore extends Thread {
 	public static byte[] getFileBytes() {
 		return file;
 	}
+	
+	public static void sendNextChunk() {
+		header.setChunkNo("" + numOfChunks);
+		ChunkRestore chunkRestore = new ChunkRestore(header);
+		chunkRestore.sendMessage();
+	}
 
 	public static int getNumOfChunks() {
 		return numOfChunks;
@@ -60,6 +62,11 @@ public class Restore extends Thread {
 
 	public static String getFileName() {
 		return fileName;
+	}
+
+	public static void loadDefaults() {
+		file = new byte[0];
+		numOfChunks = 0;
 	}
 
 }

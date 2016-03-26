@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.util.Arrays;
 
 import utilities.Constants;
 import utilities.Utilities;
@@ -68,10 +69,11 @@ public class Message implements Runnable {
 	}
 
 
-	public static Message getMessageFromData(String data) {
-		String[] headerAndBody = data.split(Constants.CRLF + Constants.CRLF);
-		String headerStr = headerAndBody[0];
-		byte[] body = headerAndBody.length == 2 ? headerAndBody[1].getBytes() : null;
+	public static Message getMessageFromData(byte[] data) {
+		String emptyLine = Constants.CRLF + Constants.CRLF;
+		int index = Utilities.findString(data, emptyLine.getBytes());
+		String headerStr = new String(data, 0, index);
+		byte[] body = index + 4 < data.length ? Arrays.copyOfRange(data, index + 4, data.length) : null;
 		String[] splittedHeader = Message.splitArgs(headerStr);
 		String replicationDeg = splittedHeader.length > Constants.REPLICATION_DEG ? splittedHeader[Constants.REPLICATION_DEG] : null;
 		Header header = new Header(splittedHeader[Constants.MESSAGE_TYPE], splittedHeader[Constants.VERSION], splittedHeader[Constants.SENDER_ID],

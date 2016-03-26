@@ -1,8 +1,0 @@
-package subprotocols;
-
-public class Restore {
-	String fileName;
-	public Restore(String fileName) {
-		
-	}
-}

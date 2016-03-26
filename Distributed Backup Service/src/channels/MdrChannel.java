@@ -22,12 +22,14 @@ public class MdrChannel extends Channel{
 		if (body == null) {
 			Storage.saveRestoredFile(Restore.getFileName());
 		} else if (body.length < Constants.CHUNK_SIZE) {
-			System.out.println("Handling CHUNK with " + body.length + " bytes.");
 			Restore.addChunkToFile(body);
 			Storage.saveRestoredFile(Restore.getFileName());
+			Restore.loadDefaults();
+			waitingChunks = false;
+			System.out.println("File restored!");
 		} else if (body.length == Constants.CHUNK_SIZE) {
-			System.out.println("Handling CHUNK with " + body.length + " bytes.");
 			Restore.addChunkToFile(body);
+			Restore.sendNextChunk();
 		} else {
 			throw new SizeException("The received chunk is bigger than 64KB, it has " + body.length + " bytes.");
 		}
@@ -40,7 +42,7 @@ public class MdrChannel extends Channel{
 				try {
 					socket.joinGroup(address);
 					// separate data
-					String data = rcvMultiCastData();
+					byte[] data = rcvMultiCastData();
 					Message message = Message.getMessageFromData(data);
 					Header header = message.getHeader();
 					byte[] body = message.getBody() == null ? null : message.getBody();

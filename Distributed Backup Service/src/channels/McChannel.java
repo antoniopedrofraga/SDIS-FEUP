@@ -21,7 +21,6 @@ public class McChannel extends Channel {
 	}
 	
 	private void handleGetChunk(Header header) throws InterruptedException, IOException {
-		System.out.println("Handling GETCHUNK");
 		byte[] body = Storage.getChunkBody(header.getFileId(), header.getChunkNo());		
 		Header replyHeader = new Header(Message.CHUNK, Peer.getServerId(),
 				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
@@ -37,7 +36,7 @@ public class McChannel extends Channel {
 			while(true) {
 				try {
 					socket.joinGroup(address);
-					String data = rcvMultiCastData();
+					byte[] data = rcvMultiCastData();
 					Message message = Message.getMessageFromData(data);
 					Header header = message.getHeader();
 					if(!Peer.getServerId().equals(header.getSenderId())) {
