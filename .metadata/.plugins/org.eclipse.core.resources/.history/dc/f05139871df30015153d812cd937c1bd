@@ -11,6 +11,7 @@ import messages.Header;
 import messages.Message;
 import peers.Peer;
 import utilities.Constants;
+import utilities.Hash;
 import utilities.Utilities;
 
 public class Backup extends Thread {

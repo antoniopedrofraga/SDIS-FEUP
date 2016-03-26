@@ -15,7 +15,7 @@ public class Restore extends Thread {
 	private static Header header;
 	
 	public Restore(String fileName) {
-		Restore.fileName = fileName;
+		this.fileName = fileName;
 		file = new byte[0];
 	}
 	
