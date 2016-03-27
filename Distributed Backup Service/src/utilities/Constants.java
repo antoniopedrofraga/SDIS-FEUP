@@ -1,5 +1,7 @@
 package utilities;
 
+import java.net.SocketAddress;
+
 import peers.Peer;
 
 public class Constants {
@@ -12,8 +14,8 @@ public class Constants {
 	public static final char LF = (char) 0x0A;
 	public static final String CRLF = CR + LF + CR + LF + "";
 
-	public static final String FILES_ROOT = "./files_" + Peer.getServerId() + "/";
-	public static final String CHUNKS_ROOT = "chunks";
+	public static final String FILES_ROOT = "./files/";
+	public static final String CHUNKS_ROOT = "chunks_" + Peer.getServerId();
 	public static final String RESTORED = "restored_";
 	
 	public static final int CHUNK_SIZE = 64 * 1000;
@@ -29,4 +31,6 @@ public class Constants {
 	public static final int DATA = 6;
 
 	public static final String PROTOCOL_VERSION = "1.0";
+	public static final int DEFAULT_PORT = 1025;
+	public static final int MAX_MSG_SIZE = 256;
 }

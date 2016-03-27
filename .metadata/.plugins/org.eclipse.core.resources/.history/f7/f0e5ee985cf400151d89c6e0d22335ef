@@ -1,0 +1,10 @@
+package launcher;
+
+public class TestApp {
+	private InetAddress adress;
+	private int port_number;
+	
+	public static void main(String[] args) {
+		
+	}
+}

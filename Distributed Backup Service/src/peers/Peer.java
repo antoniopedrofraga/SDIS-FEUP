@@ -1,7 +1,8 @@
 package peers;
 
 import java.io.IOException;
-import java.util.Scanner;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 
 import channels.McChannel;
 import channels.MdbChannel;
@@ -22,6 +23,7 @@ public class Peer {
 	private static MdrChannel mdrChannel;
 	
 	private static Data storage;
+	private DatagramSocket socket;
 	
 	public Peer(String serverId, String mcAddress, String mcPort,
 			String mdbAddress, String mdbPort, String mdrAddress,
@@ -33,6 +35,7 @@ public class Peer {
 		mdrChannel = new MdrChannel(mdrAddress, mdrPort);
 		
 		storage = new Data();
+		this.socket = new DatagramSocket(Integer.parseInt(serverId));
 	}
 
 	private void listenChannels() {
@@ -42,13 +45,18 @@ public class Peer {
 	}
 	
 	private void listenActions() throws ArgsException {
-		String read = "";
-		while(read != "quit") {
-			System.out.println("Insert command: ");
-			@SuppressWarnings("resource")
-			Scanner in = new Scanner(System.in);
-			read = in.nextLine();
-			String[] command = Message.splitArgs(read);
+		System.out.println("Listening TestApp...");
+		String received = "";
+		while(received != "quit") {
+			byte[] rbuf = new byte[utilities.Constants.MAX_MSG_SIZE];
+			DatagramPacket packet = new DatagramPacket(rbuf, rbuf.length);
+			try {
+				this.socket.receive(packet);
+			} catch (IOException e) {
+				System.out.println("This peer could not receive a packet from TestApp...");
+			}
+			received = new String(packet.getData(), 0, packet.getLength());
+			String[] command = Message.splitArgs(received);
 			switch (command[0]) {
 			case "backup":
 				Backup backup = new Backup(command[1], command[2]);
@@ -67,7 +75,7 @@ public class Peer {
 				spaceReclaim.start();
 				break;
 			default:
-				System.out.println("Unknown command: " + read);
+				System.out.println("Unknown command: " + received);
 				break;
 			}
 		}

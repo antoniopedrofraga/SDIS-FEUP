@@ -1,0 +1,24 @@
+package launcher;
+
+import java.net.InetAddress;
+
+public class TestApp {
+	private static InetAddress address;
+	private static int portNumber;
+	
+	public static void main(String[] args) {
+		getSocketInfo(args[1]);
+		
+	}
+	private static void getSocketInfo(String string) {
+		if (string.contains(":")) {
+			String[] info = string.split(":");
+			if (info.length == 1) {
+				portNumber = Integer.parseInt(info[1]);
+				address = InetAddress.getLocalHost();
+			} else {
+				
+			}
+		}
+	}
+}

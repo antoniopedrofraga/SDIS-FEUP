@@ -20,8 +20,8 @@ public class Client {
 	
 	Client(String [] args) throws UnknownHostException, SocketException, ArgsException {	
 		this.adress = InetAddress.getByName(args[0]);
-		
 		this.port_number = Integer.parseInt(args[1]);
+		
 		this.oper = args[2];
 		this.args = new ArrayList<>();
 		for (int i = 3; i < args.length; i++)

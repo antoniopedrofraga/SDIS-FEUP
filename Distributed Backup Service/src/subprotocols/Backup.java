@@ -19,11 +19,13 @@ public class Backup extends Thread {
 	static File file;
 	private int replicationDeg;
 	
-	public Backup(String fileName, String replicationDeg) throws ArgsException {
+	public Backup(String fileName, String replicationDeg) {
 		file = new File(Constants.FILES_ROOT + fileName);
 		this.replicationDeg = Integer.parseInt(replicationDeg);
-		if (this.replicationDeg > 9 && this.replicationDeg < 1)
-			throw new ArgsException("ReplicationDeg must be a number between 1 and 9...");
+		if (this.replicationDeg > 9 && this.replicationDeg < 1) {
+			System.out.println("ReplicationDeg must be a number between 1 and 9...");
+			return;
+		}
 	}
 	
 	public void run() {
