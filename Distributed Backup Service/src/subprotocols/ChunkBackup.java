@@ -19,7 +19,6 @@ public class ChunkBackup {
 
 	public void sendChunk() {
 		new Thread(this.message).start();
-		Peer.getMcChannel().setWaitingReplies(true);
 	}
 	
 
@@ -52,7 +51,6 @@ public class ChunkBackup {
 		if (counter >= replicationDeg) 
 			tellStorage();
 		
-		Peer.getMcChannel().setWaitingReplies(false);
 	}
 	
 	private void tellStorage() {

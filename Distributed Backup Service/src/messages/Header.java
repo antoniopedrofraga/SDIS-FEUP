@@ -44,6 +44,10 @@ public class Header {
 		return replicationDeg;
 	}
 	
+	public void setMsgType(String type) {
+		this.stringType = type;
+	}
+	
 	public String toString() {
 		String string = "";
 		string += this.getMsgType() != null ? this.getMsgType() + " " : "";
@@ -59,4 +63,47 @@ public class Header {
 	public void setChunkNo(String chunkNo) {
 		this.chunkNo = chunkNo;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((chunkNo == null) ? 0 : chunkNo.hashCode());
+		result = prime * result + ((fileId == null) ? 0 : fileId.hashCode());
+		result = prime * result + ((senderId == null) ? 0 : senderId.hashCode());
+		result = prime * result + ((stringType == null) ? 0 : stringType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Header other = (Header) obj;
+		if (chunkNo == null) {
+			if (other.chunkNo != null)
+				return false;
+		} else if (!chunkNo.equals(other.chunkNo))
+			return false;
+		if (fileId == null) {
+			if (other.fileId != null)
+				return false;
+		} else if (!fileId.equals(other.fileId))
+			return false;
+		if (senderId == null) {
+			if (other.senderId != null)
+				return false;
+		} else if (!senderId.equals(other.senderId))
+			return false;
+		if (stringType == null) {
+			if (other.stringType != null)
+				return false;
+		} else if (!stringType.equals(other.stringType))
+			return false;
+		return true;
+	}	
 }

@@ -2,21 +2,24 @@ package channels;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import data.ChunkInfo;
 import data.Data;
+import exceptions.ArgsException;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
+import subprotocols.Backup;
 import utilities.Constants;
 import utilities.Utilities;
 
 public class McChannel extends Channel {
 	ArrayList<Message> storedReplies;
-	boolean waitingReplies = false;
-
-
+	static boolean putchunkWhileWaiting = false;
 	public McChannel(String mcAddress, String mcPort) throws IOException {
 		super(mcAddress, mcPort);
 		this.thread = new MulticastThread();
@@ -38,6 +41,30 @@ public class McChannel extends Channel {
 		if (file.isDirectory())
 			Utilities.deleteFolder(file);
 	}
+	private void handleRemoved(Header header) throws InterruptedException {
+		ChunkInfo chunkInfo = Data.removeFromReceivedStoreMessages(header);
+		if (chunkInfo != null) {
+			putchunkWhileWaiting = false;
+			int timeout = ThreadLocalRandom.current().nextInt(0, 400);
+			Thread.sleep(timeout);
+			if (putchunkWhileWaiting) {
+				handleRemoved(header);
+				return;
+			}
+			prepareChunk(chunkInfo);
+		}
+	}
+	private void prepareChunk(ChunkInfo chunkInfo) {
+		String fileName = Constants.CHUNKS_ROOT + "/" + chunkInfo.getFileId() + "/" + chunkInfo.getChunkNo() + ".data";
+		byte[] chunk = new byte[0];
+		try {
+			chunk = Files.readAllBytes(Paths.get(fileName));
+		} catch (IOException e) {
+			System.out.println("Could not read bytes from " + fileName);
+		}
+		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), chunkInfo.getFileId(), "" + chunkInfo.getChunkNo(), "" + chunkInfo.getReplicationDeg());
+		Backup.sendChunk(header, chunk);
+	}
 
 	public class MulticastThread extends Thread {
 		public void run() {
@@ -58,11 +85,14 @@ public class McChannel extends Channel {
 							handleGetChunk(header);
 							break;
 						case Message.STORED:
-							if (waitingReplies)
-								storedReplies.add(message);
+							storedReplies.add(message);
+							Data.addToReceivedStoreMessages(header);
 							break;
 						case Message.DELETE:
 							handleDelete(header);
+							break;
+						case Message.REMOVED:
+							handleRemoved(header);
 							break;
 						}
 					}
@@ -74,11 +104,16 @@ public class McChannel extends Channel {
 		}
 	}
 	
+	public static void setReceivedPutchunk(boolean putchunkWhileWaiting) {
+		McChannel.putchunkWhileWaiting = putchunkWhileWaiting;
+	}
 	public ArrayList<Message> getStoredReplies() {
 		return storedReplies;
 	}
-
-	public void setWaitingReplies(boolean waitingReplies) {
-		this.waitingReplies = waitingReplies;
+	public static void sendRemoved(ChunkInfo chunkInfo) {
+		Header header = new Header(Message.REMOVED, Peer.getServerId(),
+				Peer.getServerId(), chunkInfo.getFileId(), chunkInfo.getChunkNo() + "", null);
+		Message message = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), header, null);
+		new Thread(message).start();
 	}
 }

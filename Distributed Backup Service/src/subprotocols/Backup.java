@@ -37,7 +37,6 @@ public class Backup extends Thread {
 
 	private void sendChunks(byte[] data) throws InterruptedException {
 		
-		int waitingTime = Constants.DEFAULT_WAITING_TIME;
 		int numberOfChunks = data.length / Constants.CHUNK_SIZE + 1;
 		String fileId = Utilities.getFileId(file);
 		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, "0", replicationDeg + "");
@@ -45,28 +44,39 @@ public class Backup extends Thread {
 		for (int i = 0; i < numberOfChunks; i++) {
 			header.setChunkNo(i + "");
 			byte[] chunk = getChunkData(i, data);
-			int chunksSent = 0;
-			while (chunksSent < Constants.MAX_CHUNK_RETRY) {
-				ChunkBackup backupChunk = new ChunkBackup(header, chunk);
-				backupChunk.sendChunk();
-				Thread.sleep(waitingTime);
-				backupChunk.checkReplies();
-				FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(file.getName()) == null ? 
-										null : Peer.getStorage().getBackedUpFiles().get(file.getName());
-				int confirmedBackUps = 
-						fileInfo == null || fileInfo.getBackedUpChunks().get(i) == null ?
-										0 : fileInfo.getBackedUpChunks().get(i).size();
-				if (confirmedBackUps < replicationDeg) {
-					chunksSent++;
-					waitingTime *= 2;
-					System.out.println("ReplicationDeg was not achieved... Waiting more " + waitingTime + "ms.");
-				} else {
-					break;
-				}
-			}
-			waitingTime = Constants.DEFAULT_WAITING_TIME;
+			sendChunk(header, chunk);
 		}
 		System.out.println("File was backed up succesfully!");
+	}
+
+	public static void sendChunk(Header header, byte[] chunk) {
+		int waitingTime = Constants.DEFAULT_WAITING_TIME;
+		int chunksSent = 0;
+		while (chunksSent < Constants.MAX_CHUNK_RETRY) {
+			ChunkBackup backupChunk = new ChunkBackup(header, chunk);
+			backupChunk.sendChunk();
+			try {
+				Thread.sleep(waitingTime);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			backupChunk.checkReplies();
+			FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(file.getName()) == null ? 
+									null : Peer.getStorage().getBackedUpFiles().get(file.getName());
+			int chunkNo = Integer.parseInt(header.getChunkNo());
+			int confirmedBackUps = 
+					fileInfo == null || fileInfo.getBackedUpChunks().get(chunkNo) == null ?
+									0 : fileInfo.getBackedUpChunks().get(chunkNo).size();
+			int repDeg = Integer.parseInt(header.getReplicationDeg());
+			if (confirmedBackUps < repDeg) {
+				chunksSent++;
+				waitingTime *= 2;
+				System.out.println("ReplicationDeg was not achieved... Waiting more " + waitingTime + "ms.");
+			} else {
+				break;
+			}
+		}
+		waitingTime = Constants.DEFAULT_WAITING_TIME;
 	}
 
 	private byte[] getChunkData(int i, byte[] data) {

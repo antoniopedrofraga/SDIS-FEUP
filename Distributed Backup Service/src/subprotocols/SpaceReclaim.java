@@ -1,5 +1,6 @@
 package subprotocols;
 
+import java.util.Deque;
 import java.util.HashMap;
 
 import data.ChunkInfo;
@@ -15,7 +16,9 @@ public class SpaceReclaim extends Thread {
 	}
 	
 	public void run() {
-		if (space > Data.getUsedSpace()) {
+		if (Data.getUsedSpace() == 0) {
+			System.out.println("This peer has not any saved chunk.");
+		} else if (space > Data.getUsedSpace()) {
 			System.out.println("Space to recover is bigger than the space used by this peer, will delete all chunks.");
 			space = Data.getUsedSpace();
 		}
@@ -26,7 +29,11 @@ public class SpaceReclaim extends Thread {
 		    allChunks.addAll(chunks);
 		}
 		Knapsack knapsack = new Knapsack(space, allChunks);
-		ChunkInfo[] chunksToDelete = knapsack.solve();
+		Deque<ChunkInfo> chunksToDelete = knapsack.solve();
+		
+		while (!chunksToDelete.isEmpty()) {
+			Data.deleteChunk(chunksToDelete.pop());
+		}
 	}
 	
 }

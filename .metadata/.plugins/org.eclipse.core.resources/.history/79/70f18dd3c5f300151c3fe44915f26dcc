@@ -1,0 +1,30 @@
+package data;
+
+import messages.Header;
+
+public class ChunkInfo {
+	String fileId;
+	int chunkNo;
+	int chunkSize;
+	
+	public ChunkInfo(Header header, int chunkSize) {
+		this.fileId = header.getFileId();
+		this.chunkNo = Integer.parseInt(header.getChunkNo());
+		this.chunkSize = chunkSize;
+	}
+	public ChunkInfo(Header header) {
+		this.fileId = header.getFileId();
+		this.chunkNo = Integer.parseInt(header.getChunkNo());
+		this.chunkSize = -1;
+	}
+	public String getFileId() {
+		return fileId;
+	}
+	public int getChunkNo() {
+		return chunkNo;
+	}
+	public int getChunkSize() {
+		return chunkSize;
+	}
+	
+}

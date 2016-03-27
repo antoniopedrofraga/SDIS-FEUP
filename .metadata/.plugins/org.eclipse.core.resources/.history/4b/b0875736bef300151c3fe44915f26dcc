@@ -1,0 +1,27 @@
+package data;
+
+import messages.Header;
+
+public class ChunkInfo {
+	Header header;
+	int replicationDeg;
+	
+	public ChunkInfo(Header header, int replicationDeg) {
+		this.header = header;
+		this.replicationDeg = replicationDeg;
+	}
+	public String getFileId() {
+		return fileId;
+	}
+	public int getChunkNo() {
+		return chunkNo;
+	}
+	public int getChunkSize() {
+		return chunkSize;
+	}
+	@Override
+	public String toString() {
+		return "ChunkInfo [fileId=" + fileId + ", chunkNo=" + chunkNo + ", chunkSize=" + chunkSize + "]";
+	}
+	
+}

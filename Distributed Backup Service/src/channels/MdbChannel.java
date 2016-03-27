@@ -9,7 +9,6 @@ import messages.Message;
 import peers.Peer;
 
 public class MdbChannel extends Channel{
-	
 	public MdbChannel(String mdbAddress, String mdbPort) throws IOException {
 		super(mdbAddress, mdbPort);
 		this.thread = new MdbThread();
@@ -19,7 +18,7 @@ public class MdbChannel extends Channel{
 		//save chunk
 		Long chunkNo = Long.parseLong(header.getChunkNo());
 		try {
-			Peer.getStorage().saveChunk(header.getFileId(), chunkNo, body);
+			Peer.getStorage().saveChunk(header, body);
 		} catch (IOException e) {
 			System.out.println("Could not save the chunk number " + header.getChunkNo() + "from file " + header.getFileId());
 			return;
@@ -45,10 +44,11 @@ public class MdbChannel extends Channel{
 					Header header = message.getHeader();
 					byte[] body = message.getBody();
 					
-					//analising data
+					//analyzing data
 					if(!Peer.getServerId().equals(header.getSenderId())) {
 						switch (header.getMsgType()) {
 						case Message.PUTCHUNK:
+							McChannel.setReceivedPutchunk(true);
 							handlePutChunk(header, body);
 							break;
 						}

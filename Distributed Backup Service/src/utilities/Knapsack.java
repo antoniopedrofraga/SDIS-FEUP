@@ -6,8 +6,11 @@ import java.util.LinkedList;
 
 import data.ChunkInfo;
 
+/* From internet and adapted by the group */
 public class Knapsack {
-
+	
+	// Minimum (Non exact cases)
+	private long minimum = -Integer.MAX_VALUE;
 	// Input
     private int n;
     // If the input array is sorted ascending, the shortest solution is
@@ -26,13 +29,11 @@ public class Knapsack {
     	this.input = input;
     }
     
-    public ChunkInfo[] solve()
+    
+    public Deque<ChunkInfo> solve()
     {
         calculate(0, n, new LinkedList<ChunkInfo>());
-        if (shortest == null)
-        	return null;
-        else
-        	return (ChunkInfo[]) shortest.toArray();
+        return shortest;
     }
 
     private void calculate(int i, int left, Deque<ChunkInfo> partialSolution)
@@ -46,11 +47,20 @@ public class Knapsack {
             numberOfPossibilities++;
             return;
         }
-        // If we overshot our target, by definition we didn't reach it
+        // If we overshot our target, we'll check if there is an exact solution yet
         // Note that this could also be checked before making the
         // recursive call, but IMHO this gives a cleaner recursion step.
-        if (left < 0)
+        if (left < 0 && numberOfPossibilities == 0) {
+        	if (minimum < left) {
+        		minimum = left;
+                shortest = new LinkedList<ChunkInfo>(partialSolution);
+        	} else if (minimum == left) {
+        		minimum = left;
+        		if (shortest == null || partialSolution.size() < shortest.size())
+        			shortest = new LinkedList<ChunkInfo>(partialSolution);
+        	}
             return;
+        }
         // If there are no values remaining, we didn't reach our target
         if (i == input.size())
             return;
