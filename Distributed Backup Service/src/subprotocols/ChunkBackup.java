@@ -3,6 +3,7 @@ package subprotocols;
 import java.io.File;
 import java.util.ArrayList;
 
+import data.ChunkInfo;
 import data.ChunksList;
 import data.FileInfo;
 import messages.Header;
@@ -59,22 +60,19 @@ public class ChunkBackup {
 	}
 	
 	private void tellStorage() {
-		File file = Backup.getFile();
-		int numberOfChunks = (int) (file.length() / Constants.CHUNK_SIZE + 1);
-		if (Peer.getStorage().getBackedUpFiles().get(file.getName()) == null) 
-			Peer.getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), message.getHeader().getFileId(), numberOfChunks, file.length()));
-		String fileName = file.getName();
-		
-		int chunkNo = Integer.parseInt(message.getHeader().getChunkNo());
-		FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(fileName) != null ? Peer.getStorage().getBackedUpFiles().get(fileName) : new FileInfo(file.getName(), message.getHeader().getFileId(), numberOfChunks, (int)file.length());
-		ArrayList<Header> headers = fileInfo.getBackedUpChunks().get(chunkNo) != null ? fileInfo.getBackedUpChunks().get(chunkNo) : new ArrayList<Header>();
-		for (int i = 0; i < validReplies.size(); i++) {
-			if (!headers.contains(validReplies.get(i)))
-				headers.add(validReplies.get(i));
+		ChunksList chunksList = Peer.getStorage().getChunksBackedUp().get(message.getHeader().getFileId()) != null ? Peer.getStorage().getChunksBackedUp().get(message.getHeader().getFileId()) :
+			new ChunksList();
+		ChunkInfo chunkInfo = new ChunkInfo(message.getHeader(), message.getBody().length);
+		for (ChunkInfo savedChunkInfo : chunksList) {
+			if (chunkInfo.equals(savedChunkInfo)) {
+				chunkInfo = savedChunkInfo;
+				break;
+			}
 		}
-		Peer.getStorage().getBackedUpFiles().put(file.getName(), fileInfo);
-		fileInfo.getBackedUpChunks().put(chunkNo, validReplies);
+		chunkInfo.addToStoredHeaders(validReplies);
+		if (!chunksList.contains(chunkInfo))
+			chunksList.add(chunkInfo);
+		
+		Peer.getStorage().getChunksBackedUp().put(message.getHeader().getFileId(), chunksList);
 	}
-
-
 }

@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 import messages.Header;
 
 public class ChunkInfo {
@@ -7,18 +9,24 @@ public class ChunkInfo {
 	int chunkNo;
 	int chunkSize;
 	int replicationDeg;
-	
+	ArrayList<Header> storedHeaders;
 
 	public ChunkInfo(Header header, int chunkSize) {
 		this.fileId = header.getFileId();
 		this.chunkNo = Integer.parseInt(header.getChunkNo());
 		this.replicationDeg = header.getReplicationDeg() != null ? Integer.parseInt(header.getReplicationDeg()) : -1;
 		this.chunkSize = chunkSize;
+		this.storedHeaders = new ArrayList<Header>();
 	}
 	public ChunkInfo(Header header) {
 		this.fileId = header.getFileId();
 		this.chunkNo = Integer.parseInt(header.getChunkNo());
 		this.chunkSize = -1;
+	}
+	public void addToStoredHeaders(ArrayList<Header> validReplies) {
+		for (Header header : validReplies)
+			if (!storedHeaders.contains(header))
+				storedHeaders.add(header);
 	}
 	public String getFileId() {
 		return fileId;
@@ -62,5 +70,8 @@ public class ChunkInfo {
 	@Override
 	public String toString() {
 		return "ChunkInfo [fileId=" + fileId + ", chunkNo=" + chunkNo + ", chunkSize=" + chunkSize + "]";
+	}
+	public ArrayList<Header> getStoredHeaders() {
+		return storedHeaders;
 	}
 }

@@ -65,7 +65,7 @@ public class Data {
 	public BackedUpFiles getBackedUpFiles() {
 		return backedUpFiles;
 	}
-	public HashMap<String, ChunksList> getStoredChunks() {
+	public HashMap<String, ChunksList> getChunksBackedUp() {
 		return chunksBackedUp;
 	}
 

@@ -93,8 +93,10 @@ public class McChannel extends Channel {
 						case Message.DELETE:
 							handleDelete(header);
 							break;
+						}
+					} else {
+						switch (header.getMsgType()) {
 						case Message.REMOVED:
-							System.out.println("Receiving removed");
 							handleRemoved(header);
 							break;
 						}

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 
+import data.ChunkInfo;
+import data.ChunksList;
 import data.FileInfo;
 import exceptions.ArgsException;
 import messages.Header;
@@ -46,6 +48,8 @@ public class Backup extends Thread {
 			byte[] chunk = getChunkData(i, data);
 			sendChunk(header, chunk, false);
 		}
+		if (Peer.getStorage().getBackedUpFiles().get(file.getName()) == null) 
+			Peer.getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), fileId, numberOfChunks, file.length()));
 		System.out.println("File was backed up succesfully!");
 	}
 
@@ -61,12 +65,14 @@ public class Backup extends Thread {
 				e.printStackTrace();
 			}
 			backupChunk.checkReplies();
-			FileInfo fileInfo = Peer.getStorage().getBackedUpFiles().get(file.getName()) == null ? 
-									null : Peer.getStorage().getBackedUpFiles().get(file.getName());
-			int chunkNo = Integer.parseInt(header.getChunkNo());
-			int confirmedBackUps = 
-					fileInfo == null || fileInfo.getBackedUpChunks().get(chunkNo) == null ?
-									0 : fileInfo.getBackedUpChunks().get(chunkNo).size();
+			ChunksList chunksList = Peer.getStorage().getChunksBackedUp().get(header.getFileId()) != null ? Peer.getStorage().getChunksBackedUp().get(header.getFileId()) : null;
+			int confirmedBackUps = 0;
+			ChunkInfo thisChunkInfo = new ChunkInfo(header, chunk.length);
+			if (chunksList != null)
+				for (ChunkInfo chunkInfo : chunksList)
+					if (chunkInfo.equals(thisChunkInfo))
+						confirmedBackUps = chunkInfo.getStoredHeaders().size();
+			
 			int repDeg = Integer.parseInt(header.getReplicationDeg());
 			if (confirmedBackUps < repDeg) {
 				chunksSent++;
