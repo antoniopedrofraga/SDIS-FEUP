@@ -44,16 +44,16 @@ public class Backup extends Thread {
 		for (int i = 0; i < numberOfChunks; i++) {
 			header.setChunkNo(i + "");
 			byte[] chunk = getChunkData(i, data);
-			sendChunk(header, chunk);
+			sendChunk(header, chunk, false);
 		}
 		System.out.println("File was backed up succesfully!");
 	}
 
-	public static void sendChunk(Header header, byte[] chunk) {
+	public static void sendChunk(Header header, byte[] chunk, boolean iHaveIt) {
 		int waitingTime = Constants.DEFAULT_WAITING_TIME;
 		int chunksSent = 0;
 		while (chunksSent < Constants.MAX_CHUNK_RETRY) {
-			ChunkBackup backupChunk = new ChunkBackup(header, chunk);
+			ChunkBackup backupChunk = new ChunkBackup(header, chunk, iHaveIt);
 			backupChunk.sendChunk();
 			try {
 				Thread.sleep(waitingTime);

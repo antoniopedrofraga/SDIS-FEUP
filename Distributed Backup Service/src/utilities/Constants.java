@@ -1,5 +1,7 @@
 package utilities;
 
+import peers.Peer;
+
 public class Constants {
 	public static final String IP = "225.0.0.0";
 	public static final int MC_PORT = 4444;
@@ -10,7 +12,7 @@ public class Constants {
 	public static final char LF = (char) 0x0A;
 	public static final String CRLF = CR + LF + CR + LF + "";
 
-	public static final String FILES_ROOT = "./files/";
+	public static final String FILES_ROOT = "./files_" + Peer.getServerId() + "/";
 	public static final String CHUNKS_ROOT = "chunks";
 	public static final String RESTORED = "restored_";
 	

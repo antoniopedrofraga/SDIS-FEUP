@@ -16,7 +16,6 @@ public class MdbChannel extends Channel{
 	
 	public void handlePutChunk(Header header, byte[] body) throws InterruptedException {
 		//save chunk
-		Long chunkNo = Long.parseLong(header.getChunkNo());
 		try {
 			Peer.getStorage().saveChunk(header, body);
 		} catch (IOException e) {
@@ -30,6 +29,7 @@ public class MdbChannel extends Channel{
 		int timeout = ThreadLocalRandom.current().nextInt(0, 400);
 		Thread.sleep(timeout);
 		new Thread(reply).start();
+		System.out.println("Replying...");
 	}
 	
 	public class MdbThread extends Thread {
@@ -48,6 +48,7 @@ public class MdbChannel extends Channel{
 					if(!Peer.getServerId().equals(header.getSenderId())) {
 						switch (header.getMsgType()) {
 						case Message.PUTCHUNK:
+							System.out.println("Received putchunk");
 							McChannel.setReceivedPutchunk(true);
 							handlePutChunk(header, body);
 							break;

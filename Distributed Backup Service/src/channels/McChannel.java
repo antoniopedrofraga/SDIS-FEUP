@@ -9,7 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import data.ChunkInfo;
 import data.Data;
-import exceptions.ArgsException;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
@@ -52,18 +51,21 @@ public class McChannel extends Channel {
 				return;
 			}
 			prepareChunk(chunkInfo);
-		}
+		} 
 	}
 	private void prepareChunk(ChunkInfo chunkInfo) {
 		String fileName = Constants.CHUNKS_ROOT + "/" + chunkInfo.getFileId() + "/" + chunkInfo.getChunkNo() + ".data";
+		String chunkPath = Constants.FILES_ROOT + fileName;
+		
 		byte[] chunk = new byte[0];
 		try {
-			chunk = Files.readAllBytes(Paths.get(fileName));
+			chunk = Files.readAllBytes(Paths.get(chunkPath));
 		} catch (IOException e) {
-			System.out.println("Could not read bytes from " + fileName);
+			System.out.println("Could not read bytes from " + chunkPath);
 		}
 		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), chunkInfo.getFileId(), "" + chunkInfo.getChunkNo(), "" + chunkInfo.getReplicationDeg());
-		Backup.sendChunk(header, chunk);
+		System.out.println("Backup.sendChunk()");
+		Backup.sendChunk(header, chunk, true);
 	}
 
 	public class MulticastThread extends Thread {
@@ -92,6 +94,7 @@ public class McChannel extends Channel {
 							handleDelete(header);
 							break;
 						case Message.REMOVED:
+							System.out.println("Receiving removed");
 							handleRemoved(header);
 							break;
 						}

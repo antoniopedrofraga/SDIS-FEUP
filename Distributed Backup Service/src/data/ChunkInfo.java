@@ -7,6 +7,7 @@ public class ChunkInfo {
 	int chunkNo;
 	int chunkSize;
 	int replicationDeg;
+	
 
 	public ChunkInfo(Header header, int chunkSize) {
 		this.fileId = header.getFileId();
