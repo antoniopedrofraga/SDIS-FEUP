@@ -1,8 +1,0 @@
-package subprotocols;
-
-public class SpaceReclaim extends Thread {
-	int space; //space in bytes
-	SpaceReclaim (int space) {
-		this.space = space;
-	}
-}

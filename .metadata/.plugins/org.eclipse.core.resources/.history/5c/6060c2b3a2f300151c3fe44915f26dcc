@@ -1,7 +1,0 @@
-package data;
-
-public class ChunkInfo {
-	String fileId;
-	int chunkNo;
-	int chunkSize;
-}

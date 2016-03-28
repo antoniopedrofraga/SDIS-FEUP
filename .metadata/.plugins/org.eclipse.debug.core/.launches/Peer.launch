@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="peers.Peer"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="1025 225.0.0.0 4444 225.0.0.0 4445 225.0.0.0 4446"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="1025 224.1.0.1 8273 224.1.0.2 8274 224.1.0.3 8275"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Distributed Backup Service"/>
 </launchConfiguration>
