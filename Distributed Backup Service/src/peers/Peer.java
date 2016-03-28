@@ -67,8 +67,12 @@ public class Peer {
 				restore.start();
 				break;
 			case "DELETE":
-				Delete delete = new Delete(command[1]);
+				Delete delete = new Delete(command[1], false);
 				delete.start();
+				break;
+			case "ENHANCEDDELETE":
+				Delete enhancedDelete = new Delete(command[1], true);
+				enhancedDelete.start();
 				break;
 			case "RECLAIM":
 				SpaceReclaim spaceReclaim = new SpaceReclaim(Integer.parseInt(command[1]));
@@ -78,6 +82,7 @@ public class Peer {
 				System.out.println("Unknown command: " + received);
 				break;
 			}
+			String teste;
 		}
 	}
 

@@ -1,7 +1,5 @@
 package utilities;
 
-import java.net.SocketAddress;
-
 import peers.Peer;
 
 public class Constants {
@@ -20,7 +18,8 @@ public class Constants {
 	
 	public static final int CHUNK_SIZE = 64 * 1000;
 	public static final int MAX_CHUNK_RETRY = 5;
-	public static final int DEFAULT_WAITING_TIME = 1000;
+	public static final int DEFAULT_WAITING_TIME = 500;
+	public static final int MAX_WAITING_TIME = 16000;
 	
 	public static final int MESSAGE_TYPE = 0;
 	public static final int VERSION = 1;
@@ -31,6 +30,8 @@ public class Constants {
 	public static final int DATA = 6;
 
 	public static final String PROTOCOL_VERSION = "1.0";
+	public static final String ENHANCED_DELETE_VERSION = "1.1";
+	
 	public static final int DEFAULT_PORT = 1025;
 	public static final int MAX_MSG_SIZE = 256;
 }

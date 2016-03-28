@@ -18,6 +18,7 @@ public class Message implements Runnable {
 	public static final String CHUNK = "CHUNK";
 	public static final String DELETE = "DELETE";
 	public static final String REMOVED = "REMOVED";
+	public static final String CHUNK_DELETED = "CHUNKDELETED";
 	
 	
 	private MulticastSocket socket;

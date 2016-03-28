@@ -20,6 +20,7 @@ import utilities.Constants;
 
 public class Data {
 	static HashMap<ChunkInfo, ArrayList<Header>> receivedStoreMessages;
+
 	static HashMap<String, ChunksList> chunksBackedUp; //FileId as key, Array of ChuksList as value
 	static HashMap<String, ChunksList> chunksSaved; //FileId as key, Array of ChunkNo as value
 
@@ -61,9 +62,6 @@ public class Data {
 		}
 		
 	};
-	public static HashMap<ChunkInfo, ArrayList<Header>> getReceivedStoreMessages() {
-		return receivedStoreMessages;
-	}
 	public static BackedUpFiles getBackedUpFiles() {
 		return backedUpFiles;
 	}
@@ -101,15 +99,28 @@ public class Data {
 		out.close();
 	}
 
-	public static void clearStoredChunks(String fileId) {
-		if (chunksSaved.get(fileId) != null)
-			chunksSaved.remove(fileId);
+	public static void clearStoredChunks(Header header) {
+		if (chunksSaved.get(header.getFileId()) != null) {
+			if (header.getVersion() == Constants.ENHANCED_DELETE_VERSION)
+				sendDeleteConfirms(header.getFileId());
+			chunksSaved.remove(header.getFileId());
+		}
 	}
+	private static void sendDeleteConfirms(String fileId) {
+		for (ChunkInfo chunkInfo : chunksSaved.get(fileId)) {
+			Header header = new Header(Message.CHUNK_DELETED, Constants.ENHANCED_DELETE_VERSION, Peer.getServerId(), chunkInfo.getFileId(), "" + chunkInfo.getChunkNo(), "" + chunkInfo.getReplicationDeg());
+			Message message = new Message(Peer.getMcChannel().getSocket(), Peer.getMdbChannel().getAddress(), header, null);
+		}
+	}
+
 	public static int getUsedSpace() {
 		return usedSpace;
 	}
 	public static HashMap<String, ChunksList> getChunksSaved() {
 		return chunksSaved;
+	}
+	public static HashMap<ChunkInfo, ArrayList<Header>> getReceivedStoreMessages() {
+		return receivedStoreMessages;
 	}
 
 	public static int deleteChunk(ChunkInfo chunkInfo) {

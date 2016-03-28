@@ -9,7 +9,6 @@ import data.ChunkInfo;
 import data.ChunksList;
 import data.Data;
 import data.FileInfo;
-import exceptions.ArgsException;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
@@ -51,8 +50,11 @@ public class Backup extends Thread {
 			byte[] chunk = getChunkData(i, data);
 			sendChunk(header, chunk);
 		}
-		if (Peer.getStorage().getBackedUpFiles().get(file.getName()) == null) 
-			Peer.getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), fileId, numberOfChunks, file.length()));
+		Peer.getStorage();
+		if (Data.getBackedUpFiles().get(file.getName()) == null) {
+			Peer.getStorage();
+			Data.getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), fileId, numberOfChunks, file.length()));
+		}
 		System.out.println("File was backed up succesfully!");
 	}
 
@@ -69,7 +71,9 @@ public class Backup extends Thread {
 				e.printStackTrace();
 			}
 			backupChunk.checkReplies();
-			ChunksList chunksList = Peer.getStorage().getChunksBackedUp().get(header.getFileId()) != null ? Peer.getStorage().getChunksBackedUp().get(header.getFileId()) : null;
+			Peer.getStorage();
+			Peer.getStorage();
+			ChunksList chunksList = Data.getChunksBackedUp().get(header.getFileId()) != null ? Data.getChunksBackedUp().get(header.getFileId()) : null;
 			int confirmedBackUps = 0;
 			ChunkInfo thisChunkInfo = new ChunkInfo(header, chunk.length);
 			//Getting confirmedBackUps

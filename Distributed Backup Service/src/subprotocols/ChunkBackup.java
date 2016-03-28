@@ -1,16 +1,13 @@
 package subprotocols;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import data.ChunkInfo;
 import data.ChunksList;
 import data.Data;
-import data.FileInfo;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
-import utilities.Constants;
 
 public class ChunkBackup {
 	private Message message;
@@ -65,7 +62,9 @@ public class ChunkBackup {
 	}
 	
 	private void tellStorage() {
-		ChunksList chunksList = Peer.getStorage().getChunksBackedUp().get(message.getHeader().getFileId()) != null ? Peer.getStorage().getChunksBackedUp().get(message.getHeader().getFileId()) :
+		Peer.getStorage();
+		Peer.getStorage();
+		ChunksList chunksList = Data.getChunksBackedUp().get(message.getHeader().getFileId()) != null ? Data.getChunksBackedUp().get(message.getHeader().getFileId()) :
 			new ChunksList();
 		ChunkInfo chunkInfo = new ChunkInfo(message.getHeader(), message.getBody().length);
 		for (ChunkInfo savedChunkInfo : chunksList) {
@@ -78,6 +77,7 @@ public class ChunkBackup {
 		if (!chunksList.contains(chunkInfo))
 			chunksList.add(chunkInfo);
 		
-		Peer.getStorage().getChunksBackedUp().put(message.getHeader().getFileId(), chunksList);
+		Peer.getStorage();
+		Data.getChunksBackedUp().put(message.getHeader().getFileId(), chunksList);
 	}
 }

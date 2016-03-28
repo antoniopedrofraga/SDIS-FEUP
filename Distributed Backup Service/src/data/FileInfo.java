@@ -1,9 +1,5 @@
 package data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import messages.Header;
 
 public class FileInfo {
 	private String fileName;

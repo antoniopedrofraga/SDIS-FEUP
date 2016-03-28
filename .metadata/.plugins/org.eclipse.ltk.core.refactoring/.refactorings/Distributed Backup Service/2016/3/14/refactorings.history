@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;enhancements.ListenDeletes&apos; to &apos;EnhancedDelete&apos;&#x0D;&#x0A;- Original project: &apos;Distributed Backup Service&apos;&#x0D;&#x0A;- Original element: &apos;enhancements.ListenDeletes&apos;&#x0D;&#x0A;- Renamed element: &apos;enhancements.EnhancedDelete&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ListenDeletes&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;enhancements{ListenDeletes.java[ListenDeletes" matchStrategy="1" name="EnhancedDelete" qualified="false" references="true" similarDeclarations="false" stamp="1459142869637" textual="false" version="1.0"/>
+</session>
