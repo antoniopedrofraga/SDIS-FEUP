@@ -51,7 +51,9 @@ public class McChannel extends Channel {
 				return;
 			}
 			prepareChunk(chunkInfo);
-		} 
+		} else {
+			System.out.println("Chunk info is null.");
+		}
 	}
 	private void prepareChunk(ChunkInfo chunkInfo) {
 		String fileName = Constants.CHUNKS_ROOT + "/" + chunkInfo.getFileId() + "/" + chunkInfo.getChunkNo() + ".data";
@@ -64,8 +66,7 @@ public class McChannel extends Channel {
 			System.out.println("Could not read bytes from " + chunkPath);
 		}
 		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), chunkInfo.getFileId(), "" + chunkInfo.getChunkNo(), "" + chunkInfo.getReplicationDeg());
-		System.out.println("Backup.sendChunk()");
-		Backup.sendChunk(header, chunk, true);
+		Backup.sendChunk(header, chunk);
 	}
 
 	public class MulticastThread extends Thread {
@@ -94,12 +95,12 @@ public class McChannel extends Channel {
 							handleDelete(header);
 							break;
 						}
-					} else {
-						switch (header.getMsgType()) {
+					} 
+					switch (header.getMsgType()) {
 						case Message.REMOVED:
+							System.out.println("Received REMOVED");
 							handleRemoved(header);
 							break;
-						}
 					}
 					socket.leaveGroup(address);
 				} catch (IOException | InterruptedException e) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import data.ChunkInfo;
 import data.ChunksList;
+import data.Data;
 import data.FileInfo;
 import messages.Header;
 import messages.Message;
@@ -14,11 +15,10 @@ import utilities.Constants;
 public class ChunkBackup {
 	private Message message;
 	private ArrayList<Header> validReplies;
-	private boolean iHaveIt;
-	public ChunkBackup(Header header, byte[] body, boolean iHaveIt) {
+	
+	public ChunkBackup(Header header, byte[] body) {
 		this.message = new Message(peers.Peer.getMdbChannel().getSocket(), peers.Peer.getMdbChannel().getAddress(), header, body);
 		this.validReplies = new ArrayList<>();
-		this.iHaveIt = iHaveIt;
 	}
 
 	public void sendChunk() {
@@ -51,7 +51,12 @@ public class ChunkBackup {
 			} 
 			Peer.getMcChannel().getStoredReplies().remove(storedReplies.get(i));
 		}
-		if (iHaveIt) counter++;
+		//Checking if this peer has the chunk saved
+		ChunkInfo chunkInfo = new ChunkInfo(message.getHeader(), message.getBody().length);
+		if (Data.getChunksSaved().get(message.getHeader().getFileId()) != null) 
+			if (Data.getChunksSaved().get(message.getHeader().getFileId()).contains(chunkInfo))
+				counter++;
+		
 		if (counter >= replicationDeg) {
 			System.out.println("RepDeg achieved! Telling storage");
 			tellStorage();

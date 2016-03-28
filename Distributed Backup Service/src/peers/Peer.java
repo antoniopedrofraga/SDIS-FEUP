@@ -58,19 +58,19 @@ public class Peer {
 			received = new String(packet.getData(), 0, packet.getLength());
 			String[] command = Message.splitArgs(received);
 			switch (command[0]) {
-			case "backup":
+			case "BACKUP":
 				Backup backup = new Backup(command[1], command[2]);
 				backup.start();
 				break;
-			case "restore":
+			case "RESTORE":
 				Restore restore = new Restore(command[1]);
 				restore.start();
 				break;
-			case "delete":
+			case "DELETE":
 				Delete delete = new Delete(command[1]);
 				delete.start();
 				break;
-			case "reclaim":
+			case "RECLAIM":
 				SpaceReclaim spaceReclaim = new SpaceReclaim(Integer.parseInt(command[1]));
 				spaceReclaim.start();
 				break;

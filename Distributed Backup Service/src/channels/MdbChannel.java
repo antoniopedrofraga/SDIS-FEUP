@@ -3,7 +3,7 @@ package channels;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+import data.Data;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
@@ -15,6 +15,9 @@ public class MdbChannel extends Channel{
 	}
 	
 	public void handlePutChunk(Header header, byte[] body) throws InterruptedException {
+		// If file was backed up by this peer
+		if (Data.getBackedUpFiles().get(header.getFileId()) != null) 
+			return;
 		//save chunk
 		try {
 			Peer.getStorage().saveChunk(header, body);
@@ -48,7 +51,7 @@ public class MdbChannel extends Channel{
 					if(!Peer.getServerId().equals(header.getSenderId())) {
 						switch (header.getMsgType()) {
 						case Message.PUTCHUNK:
-							System.out.println("Received putchunk");
+							System.out.println("Received PUTCHUNK");
 							McChannel.setReceivedPutchunk(true);
 							handlePutChunk(header, body);
 							break;

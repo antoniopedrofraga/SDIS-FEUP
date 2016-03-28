@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import data.ChunkInfo;
 import data.ChunksList;
+import data.Data;
 import data.FileInfo;
 import exceptions.ArgsException;
 import messages.Header;
@@ -48,18 +49,19 @@ public class Backup extends Thread {
 		for (int i = 0; i < numberOfChunks; i++) {
 			header.setChunkNo(i + "");
 			byte[] chunk = getChunkData(i, data);
-			sendChunk(header, chunk, false);
+			sendChunk(header, chunk);
 		}
 		if (Peer.getStorage().getBackedUpFiles().get(file.getName()) == null) 
 			Peer.getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), fileId, numberOfChunks, file.length()));
 		System.out.println("File was backed up succesfully!");
 	}
 
-	public static void sendChunk(Header header, byte[] chunk, boolean iHaveIt) {
+	public static void sendChunk(Header header, byte[] chunk) {
 		int waitingTime = Constants.DEFAULT_WAITING_TIME;
 		int chunksSent = 0;
 		while (chunksSent < Constants.MAX_CHUNK_RETRY) {
-			ChunkBackup backupChunk = new ChunkBackup(header, chunk, iHaveIt);
+			System.out.println("Sending chunk.");
+			ChunkBackup backupChunk = new ChunkBackup(header, chunk);
 			backupChunk.sendChunk();
 			try {
 				Thread.sleep(waitingTime);
@@ -70,10 +72,16 @@ public class Backup extends Thread {
 			ChunksList chunksList = Peer.getStorage().getChunksBackedUp().get(header.getFileId()) != null ? Peer.getStorage().getChunksBackedUp().get(header.getFileId()) : null;
 			int confirmedBackUps = 0;
 			ChunkInfo thisChunkInfo = new ChunkInfo(header, chunk.length);
+			//Getting confirmedBackUps
 			if (chunksList != null)
 				for (ChunkInfo chunkInfo : chunksList)
 					if (chunkInfo.equals(thisChunkInfo))
 						confirmedBackUps = chunkInfo.getStoredHeaders().size();
+			//Checking if this Peer has the chunk stored
+			ChunkInfo chunkInfo = new ChunkInfo(header, chunk.length);
+			if (Data.getChunksSaved().get(header.getFileId()) != null) 
+				if (Data.getChunksSaved().get(header.getFileId()).contains(chunkInfo))
+					confirmedBackUps++;
 			
 			int repDeg = Integer.parseInt(header.getReplicationDeg());
 			if (confirmedBackUps < repDeg) {

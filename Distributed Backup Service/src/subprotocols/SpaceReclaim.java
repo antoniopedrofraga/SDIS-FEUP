@@ -30,7 +30,6 @@ public class SpaceReclaim extends Thread {
 		}
 		Knapsack knapsack = new Knapsack(space, allChunks);
 		Deque<ChunkInfo> chunksToDelete = knapsack.solve();
-		
 		while (!chunksToDelete.isEmpty()) {
 			Data.deleteChunk(chunksToDelete.pop());
 		}
