@@ -61,9 +61,7 @@ public class Data {
 		}
 		
 	};
-	public static HashMap<ChunkInfo, ArrayList<Header>> getReceivedStoreMessages() {
-		return receivedStoreMessages;
-	}
+	
 	public static BackedUpFiles getBackedUpFiles() {
 		return backedUpFiles;
 	}

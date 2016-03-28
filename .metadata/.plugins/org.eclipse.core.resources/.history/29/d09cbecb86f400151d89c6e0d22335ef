@@ -31,5 +31,12 @@ public class Delete extends Thread {
 		}
 		Data.getBackedUpFiles().remove(file.getName());
 		Data.getChunksBackedUp().remove(fileId);
+		for (ChunksList value : Data.getChunksBackedUp().values()) {
+		    for (ChunkInfo chunkInfo: value) {
+		    	
+		    }
+		    	
+		}
+		Data.getReceivedStoreMessages().remove(fileId);
 	}
 }

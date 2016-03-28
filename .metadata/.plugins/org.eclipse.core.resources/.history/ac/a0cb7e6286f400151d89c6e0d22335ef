@@ -2,8 +2,6 @@ package subprotocols;
 
 import java.io.File;
 
-import data.ChunkInfo;
-import data.ChunksList;
 import data.Data;
 import messages.Header;
 import messages.Message;

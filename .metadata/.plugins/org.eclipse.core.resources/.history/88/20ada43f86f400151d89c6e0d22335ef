@@ -2,8 +2,6 @@ package subprotocols;
 
 import java.io.File;
 
-import data.ChunkInfo;
-import data.ChunksList;
 import data.Data;
 import messages.Header;
 import messages.Message;
@@ -30,6 +28,5 @@ public class Delete extends Thread {
 			System.out.println("Delete operation failed.");
 		}
 		Data.getBackedUpFiles().remove(file.getName());
-		Data.getChunksBackedUp().remove(fileId);
 	}
 }

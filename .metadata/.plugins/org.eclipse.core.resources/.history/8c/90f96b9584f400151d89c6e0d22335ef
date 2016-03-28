@@ -20,10 +20,10 @@ import utilities.Constants;
 
 public class Data {
 	static HashMap<ChunkInfo, ArrayList<Header>> receivedStoreMessages;
-	static HashMap<String, ChunksList> chunksBackedUp; //FileId as key, Array of ChuksList as value
+	static HashMap<String, ChunksList> chunksBackedUp; //FileId as key, Array of ChunkNo as value
 	static HashMap<String, ChunksList> chunksSaved; //FileId as key, Array of ChunkNo as value
 
-	static BackedUpFiles backedUpFiles; //HashMap containing which files are backed up, fileName as Keys
+	static BackedUpFiles backedUpFiles; //HashMap containing which files are backed up, fileId as Keys
 	static int usedSpace;
 	
 
@@ -61,13 +61,11 @@ public class Data {
 		}
 		
 	};
-	public static HashMap<ChunkInfo, ArrayList<Header>> getReceivedStoreMessages() {
-		return receivedStoreMessages;
-	}
+	
 	public static BackedUpFiles getBackedUpFiles() {
 		return backedUpFiles;
 	}
-	public static HashMap<String, ChunksList> getChunksBackedUp() {
+	public HashMap<String, ChunksList> getChunksBackedUp() {
 		return chunksBackedUp;
 	}
 

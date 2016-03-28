@@ -96,7 +96,7 @@ public class Backup extends Thread {
 	}
 
 	private byte[] getChunkData(int i, byte[] data) {
-		int lastIndex = (i + 1) * Constants.CHUNK_SIZE < data.length + 1 ? (i + 1) * Constants.CHUNK_SIZE : data.length;
+		int lastIndex = (i + 1) * Constants.CHUNK_SIZE < data.length ? (i + 1) * Constants.CHUNK_SIZE : data.length;
 		return Arrays.copyOfRange(data, i * Constants.CHUNK_SIZE, lastIndex);
 	}
 
