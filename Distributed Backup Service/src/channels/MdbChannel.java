@@ -33,6 +33,7 @@ public class MdbChannel extends Channel{
 		Thread.sleep(timeout);
 		new Thread(reply).start();
 		System.out.println("Replying...");
+		Peer.getStorage().saveData();
 	}
 	
 	public class MdbThread extends Thread {

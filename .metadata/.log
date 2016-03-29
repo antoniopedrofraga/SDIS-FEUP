@@ -4562,3 +4562,504 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2016-03-29 01:51:37.557 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.7.0_79
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=pt_PT
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 01:51:55.848
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.modifyRule(Rules.java:145)
+	at org.eclipse.core.internal.resources.Project.touch(Project.java:1401)
+	at org.eclipse.jdt.internal.core.SetContainerOperation.executeOperation(SetContainerOperation.java:115)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:728)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:793)
+	at org.eclipse.jdt.core.JavaCore.setClasspathContainer(JavaCore.java:5269)
+	at org.eclipse.jdt.internal.launching.JREContainerInitializer.initialize(JREContainerInitializer.java:108)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$VMChanges.rebind(LaunchingPlugin.java:360)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$VMChanges.access$0(LaunchingPlugin.java:294)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$VMChanges$1.run(LaunchingPlugin.java:280)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:728)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:5204)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$VMChanges.doit(LaunchingPlugin.java:284)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$JREUpdateJob.run(LaunchingPlugin.java:381)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 01:51:55.849
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 01:51:55.854
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.modifyRule(Rules.java:145)
+	at org.eclipse.core.internal.resources.Project.touch(Project.java:1401)
+	at org.eclipse.jdt.internal.core.SetContainerOperation.executeOperation(SetContainerOperation.java:115)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:728)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:793)
+	at org.eclipse.jdt.core.JavaCore.setClasspathContainer(JavaCore.java:5269)
+	at org.eclipse.jdt.internal.launching.JREContainerInitializer.initialize(JREContainerInitializer.java:108)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$VMChanges.rebind(LaunchingPlugin.java:360)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$VMChanges.access$0(LaunchingPlugin.java:294)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$VMChanges$1.run(LaunchingPlugin.java:280)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:728)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:5204)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$VMChanges.doit(LaunchingPlugin.java:284)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$JREUpdateJob.run(LaunchingPlugin.java:381)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 01:51:55.854
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2016-03-29 01:52:37.925
+!MESSAGE Connection to http://download.eclipse.org/releases/indigo/p2.index failed on download.eclipse.org. Retry attempt 0 started
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:178)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at org.eclipse.ecf.provider.filetransfer.events.socket.SocketEventCreateUtil.createSocket(SocketEventCreateUtil.java:43)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:81)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:73)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:65)
+	at org.apache.commons.httpclient.HttpConnection.open(HttpConnection.java:707)
+	at org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$HttpConnectionAdapter.open(MultiThreadedHttpConnectionManager.java:1361)
+	at org.apache.commons.httpclient.HttpMethodDirector.executeWithRetry(HttpMethodDirector.java:387)
+	at org.apache.commons.httpclient.HttpMethodDirector.executeMethod(HttpMethodDirector.java:171)
+	at org.apache.commons.httpclient.HttpClient.executeMethod(HttpClient.java:397)
+	at org.apache.commons.httpclient.HttpClient.executeMethod(HttpClient.java:346)
+	at org.eclipse.ecf.provider.filetransfer.httpclient.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1129)
+	at org.eclipse.ecf.provider.filetransfer.httpclient.HttpClientRetrieveFileTransfer.openStreams(HttpClientRetrieveFileTransfer.java:699)
+	at org.eclipse.ecf.provider.filetransfer.retrieve.AbstractRetrieveFileTransfer.sendRetrieveRequest(AbstractRetrieveFileTransfer.java:889)
+	at org.eclipse.ecf.provider.filetransfer.retrieve.AbstractRetrieveFileTransfer.sendRetrieveRequest(AbstractRetrieveFileTransfer.java:576)
+	at org.eclipse.ecf.provider.filetransfer.retrieve.MultiProtocolRetrieveAdapter.sendRetrieveRequest(MultiProtocolRetrieveAdapter.java:106)
+	at org.eclipse.equinox.internal.p2.transport.ecf.FileReader.sendRetrieveRequest(FileReader.java:422)
+	at org.eclipse.equinox.internal.p2.transport.ecf.FileReader.readInto(FileReader.java:355)
+	at org.eclipse.equinox.internal.p2.transport.ecf.RepositoryTransport.download(RepositoryTransport.java:101)
+	at org.eclipse.equinox.internal.p2.transport.ecf.RepositoryTransport.download(RepositoryTransport.java:156)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadIndexFile(AbstractRepositoryManager.java:721)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:640)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:96)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.doLoad(LoadMetadataRepositoryJob.java:117)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.runModal(LoadMetadataRepositoryJob.java:102)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.runModal(PreloadingRepositoryHandler.java:83)
+	at org.eclipse.equinox.p2.operations.ProvisioningJob.run(ProvisioningJob.java:177)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.osgi 2 1 2016-03-29 01:52:38.146
+!MESSAGE NLS unused message: CacheManager_CannotLoadNonUrlLocation in: org.eclipse.equinox.internal.p2.repository.messages
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2016-03-29 01:52:38.148
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: Unknown Host: http://download.eclipse.org/releases/indigo/content.xml
+	at org.eclipse.equinox.internal.p2.repository.CacheManager.createCache(CacheManager.java:192)
+	at org.eclipse.equinox.internal.p2.metadata.repository.SimpleMetadataRepositoryFactory.getLocalFile(SimpleMetadataRepositoryFactory.java:66)
+	at org.eclipse.equinox.internal.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:88)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:57)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:758)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:651)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:96)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.doLoad(LoadMetadataRepositoryJob.java:117)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.runModal(LoadMetadataRepositoryJob.java:102)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.runModal(PreloadingRepositoryHandler.java:83)
+	at org.eclipse.equinox.p2.operations.ProvisioningJob.run(ProvisioningJob.java:177)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.net.UnknownHostException: download.eclipse.org
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:178)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at org.eclipse.ecf.provider.filetransfer.events.socket.SocketEventCreateUtil.createSocket(SocketEventCreateUtil.java:43)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:81)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:73)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:65)
+	at org.apache.commons.httpclient.HttpConnection.open(HttpConnection.java:707)
+	at org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$HttpConnectionAdapter.open(MultiThreadedHttpConnectionManager.java:1361)
+	at org.apache.commons.httpclient.HttpMethodDirector.executeWithRetry(HttpMethodDirector.java:387)
+	at org.apache.commons.httpclient.HttpMethodDirector.executeMethod(HttpMethodDirector.java:171)
+	at org.apache.commons.httpclient.HttpClient.executeMethod(HttpClient.java:397)
+	at org.apache.commons.httpclient.HttpClient.executeMethod(HttpClient.java:346)
+	at org.eclipse.ecf.provider.filetransfer.httpclient.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:232)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	... 1 more
+!SUBENTRY 1 org.eclipse.equinox.p2.transport.ecf 4 1006 2016-03-29 01:52:38.149
+!MESSAGE Unknown Host: http://download.eclipse.org/releases/indigo/content.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:178)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at org.eclipse.ecf.provider.filetransfer.events.socket.SocketEventCreateUtil.createSocket(SocketEventCreateUtil.java:43)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:81)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:73)
+	at org.eclipse.ecf.internal.provider.filetransfer.httpclient.ECFHttpClientProtocolSocketFactory.createSocket(ECFHttpClientProtocolSocketFactory.java:65)
+	at org.apache.commons.httpclient.HttpConnection.open(HttpConnection.java:707)
+	at org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$HttpConnectionAdapter.open(MultiThreadedHttpConnectionManager.java:1361)
+	at org.apache.commons.httpclient.HttpMethodDirector.executeWithRetry(HttpMethodDirector.java:387)
+	at org.apache.commons.httpclient.HttpMethodDirector.executeMethod(HttpMethodDirector.java:171)
+	at org.apache.commons.httpclient.HttpClient.executeMethod(HttpClient.java:397)
+	at org.apache.commons.httpclient.HttpClient.executeMethod(HttpClient.java:346)
+	at org.eclipse.ecf.provider.filetransfer.httpclient.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:232)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2016-03-29 01:57:10.984
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: No repository found at http://download.eclipse.org/releases/indigo/.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:393)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:636)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:96)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.doLoad(LoadMetadataRepositoryJob.java:117)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.runModal(LoadMetadataRepositoryJob.java:102)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.runModal(PreloadingRepositoryHandler.java:83)
+	at org.eclipse.equinox.p2.operations.ProvisioningJob.run(ProvisioningJob.java:177)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2016-03-29 01:57:10.985
+!MESSAGE No repository found at http://download.eclipse.org/releases/indigo/.
+!SESSION 2016-03-29 02:06:40.766 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_77
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=pt_PT
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 02:07:13.370
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.modifyRule(Rules.java:145)
+	at org.eclipse.jdt.internal.core.SetClasspathOperation.getSchedulingRule(SetClasspathOperation.java:89)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:793)
+	at org.eclipse.jdt.internal.core.JavaProject.setRawClasspath(JavaProject.java:3095)
+	at org.eclipse.jdt.internal.core.JavaProject.setRawClasspath(JavaProject.java:3057)
+	at org.eclipse.jdt.internal.core.JavaProject.setRawClasspath(JavaProject.java:3069)
+	at org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.flush(BuildPathsBlock.java:911)
+	at org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.configureJavaProject(BuildPathsBlock.java:736)
+	at org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.configureJavaProject(BuildPathsBlock.java:732)
+	at org.eclipse.jdt.internal.ui.preferences.BuildPathsPropertyPage$1.run(BuildPathsPropertyPage.java:219)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:728)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:5204)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:106)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter$1.run(WorkbenchRunnableAdapter.java:122)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 02:07:13.372
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 02:09:13.644
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.deleteRule(Rules.java:80)
+	at org.eclipse.core.internal.resources.Resource.delete(Resource.java:781)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.cleanOutputFolders(BatchImageBuilder.java:114)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.clean(JavaBuilder.java:291)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:730)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:422)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog.doClean(CleanDialog.java:313)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog$1.runInWorkspace(CleanDialog.java:151)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 02:09:13.644
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+!SESSION 2016-03-29 02:10:00.425 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_77
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=pt_PT
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 02:11:31.786
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.modifyRule(Rules.java:145)
+	at org.eclipse.jdt.internal.core.SetClasspathOperation.getSchedulingRule(SetClasspathOperation.java:89)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:793)
+	at org.eclipse.jdt.internal.core.JavaProject.setRawClasspath(JavaProject.java:3095)
+	at org.eclipse.jdt.internal.core.JavaProject.setRawClasspath(JavaProject.java:3057)
+	at org.eclipse.jdt.internal.core.JavaProject.setRawClasspath(JavaProject.java:3069)
+	at org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.flush(BuildPathsBlock.java:911)
+	at org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.configureJavaProject(BuildPathsBlock.java:736)
+	at org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.configureJavaProject(BuildPathsBlock.java:732)
+	at org.eclipse.jdt.internal.ui.preferences.BuildPathsPropertyPage$1.run(BuildPathsPropertyPage.java:219)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:728)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:5204)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:106)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter$1.run(WorkbenchRunnableAdapter.java:122)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 02:11:31.787
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+!SESSION 2016-03-29 02:13:30.233 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_77
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=pt_PT
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 02:16:12.251
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.deleteRule(Rules.java:80)
+	at org.eclipse.core.internal.resources.ProjectPreferences.save(ProjectPreferences.java:589)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.internalFlush(EclipsePreferences.java:465)
+	at org.eclipse.core.internal.resources.ProjectPreferences.flush(ProjectPreferences.java:350)
+	at org.eclipse.ui.internal.preferences.WorkingCopyPreferences.flush(WorkingCopyPreferences.java:516)
+	at org.eclipse.ui.preferences.WorkingCopyManager.applyChanges(WorkingCopyManager.java:63)
+	at org.eclipse.jdt.internal.ui.preferences.OptionsConfigurationBlock.processChanges(OptionsConfigurationBlock.java:1658)
+	at org.eclipse.jdt.internal.ui.preferences.OptionsConfigurationBlock.performApply(OptionsConfigurationBlock.java:1612)
+	at org.eclipse.jdt.internal.ui.preferences.CompliancePreferencePage.performApply(CompliancePreferencePage.java:162)
+	at org.eclipse.jface.preference.PreferencePage$2.widgetSelected(PreferencePage.java:281)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:248)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1276)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3562)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3186)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:825)
+	at org.eclipse.jface.window.Window.open(Window.java:801)
+	at org.eclipse.ui.dialogs.PropertyDialogAction.run(PropertyDialogAction.java:158)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:498)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:584)
+	at org.eclipse.jface.action.ActionContributionItem.access$2(ActionContributionItem.java:501)
+	at org.eclipse.jface.action.ActionContributionItem$5.handleEvent(ActionContributionItem.java:411)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1276)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3562)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3186)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2701)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2665)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2499)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:679)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:668)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:353)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:180)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:629)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:584)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1438)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1414)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 02:16:12.253
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 02:18:47.272
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.modifyRule(Rules.java:145)
+	at org.eclipse.ui.actions.CloseResourceAction.run(CloseResourceAction.java:161)
+	at org.eclipse.ui.actions.BaseSelectionListenerAction.runWithEvent(BaseSelectionListenerAction.java:168)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:584)
+	at org.eclipse.jface.action.ActionContributionItem.access$2(ActionContributionItem.java:501)
+	at org.eclipse.jface.action.ActionContributionItem$5.handleEvent(ActionContributionItem.java:411)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1276)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3562)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3186)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2701)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2665)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2499)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:679)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:668)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:353)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:180)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:629)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:584)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1438)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1414)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 02:18:47.272
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Lab2.
+!SESSION 2016-03-29 02:22:49.630 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_77
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=pt_PT
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2016-03-29 02:22:55.846
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 02:22:56.256
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:166)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1689)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:167)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 02:22:56.278
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+!SESSION 2016-03-29 15:59:44.274 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_77
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=pt_PT
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.team.core 4 0 2016-03-29 16:01:21.782
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:93)
+	at org.eclipse.core.internal.resources.Rules.validateEditRule(Rules.java:190)
+	at org.eclipse.ui.editors.text.TextFileDocumentProvider$5.getSchedulingRule(TextFileDocumentProvider.java:1069)
+	at org.eclipse.ui.internal.editors.text.WorkspaceOperationRunner.run(WorkspaceOperationRunner.java:65)
+	at org.eclipse.ui.editors.text.TextFileDocumentProvider.executeOperation(TextFileDocumentProvider.java:456)
+	at org.eclipse.ui.editors.text.TextFileDocumentProvider.validateState(TextFileDocumentProvider.java:1074)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.validateState(AbstractTextEditor.java:4954)
+	at org.eclipse.ui.texteditor.AbstractTextEditor$24.run(AbstractTextEditor.java:5005)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.validateEditorInputState(AbstractTextEditor.java:5000)
+	at org.eclipse.ui.texteditor.StatusTextEditor.validateEditorInputState(StatusTextEditor.java:131)
+	at org.eclipse.ui.texteditor.AbstractDecoratedTextEditor.validateEditorInputState(AbstractDecoratedTextEditor.java:1067)
+	at org.eclipse.ui.texteditor.AbstractTextEditor$ElementStateListener$Validator.verifyText(AbstractTextEditor.java:369)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:273)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1276)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1300)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1285)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:1079)
+	at org.eclipse.swt.custom.StyledText.modifyContent(StyledText.java:7146)
+	at org.eclipse.swt.custom.StyledText.sendKeyEvent(StyledText.java:8007)
+	at org.eclipse.swt.custom.StyledText.doBackspace(StyledText.java:2253)
+	at org.eclipse.swt.custom.StyledText.invokeAction(StyledText.java:6986)
+	at org.eclipse.swt.custom.StyledText.handleKey(StyledText.java:5911)
+	at org.eclipse.swt.custom.StyledText.handleKeyDown(StyledText.java:5937)
+	at org.eclipse.swt.custom.StyledText$7.handleEvent(StyledText.java:5629)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1276)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1300)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1285)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1312)
+	at org.eclipse.swt.widgets.Widget.gtk_key_press_event(Widget.java:748)
+	at org.eclipse.swt.widgets.Control.gtk_key_press_event(Control.java:3050)
+	at org.eclipse.swt.widgets.Composite.gtk_key_press_event(Composite.java:741)
+	at org.eclipse.swt.widgets.Widget.windowProc(Widget.java:1773)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:5116)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4377)
+	at org.eclipse.swt.internal.gtk.OS._gtk_main_do_event(Native Method)
+	at org.eclipse.swt.internal.gtk.OS.gtk_main_do_event(OS.java:8317)
+	at org.eclipse.swt.widgets.Display.eventProc(Display.java:1193)
+	at org.eclipse.swt.internal.gtk.OS._g_main_context_iteration(Native Method)
+	at org.eclipse.swt.internal.gtk.OS.g_main_context_iteration(OS.java:2342)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3184)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2701)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2665)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2499)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:679)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:668)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:353)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:180)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:629)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:584)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1438)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1414)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2016-03-29 16:01:21.800
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Distributed Backup Service.

@@ -1,8 +1,0 @@
-package messages;
-
-public class Header {
-	String messageType;
-	String version;
-	String senderId;
-	String fileId;
-}

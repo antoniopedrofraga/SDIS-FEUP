@@ -66,7 +66,7 @@ public class Message implements Runnable {
 		try {
 			socket.send(packet);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Could not send chunk");
 		}
 	}
 

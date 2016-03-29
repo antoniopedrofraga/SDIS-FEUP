@@ -1,5 +1,6 @@
 package peers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -14,6 +15,7 @@ import subprotocols.Backup;
 import subprotocols.Delete;
 import subprotocols.Restore;
 import subprotocols.SpaceReclaim;
+import utilities.Constants;
 
 public class Peer {
 	private static String serverId;
@@ -34,8 +36,25 @@ public class Peer {
 		mdbChannel = new MdbChannel(mdbAddress, mdbPort);
 		mdrChannel = new MdrChannel(mdrAddress, mdrPort);
 		
-		storage = new Data();
+		storage = Data.loadData();
+		if (storage == null) {
+			File dataBase = new File(Constants.DATABASE_PATH);
+			if (!dataBase.exists()) {
+				System.out.println("Creating new file.");
+				File dir = new File(Constants.DATA_PATH);
+				dir.mkdirs();
+				dataBase.createNewFile();
+			}
+		}
+		storage = storage == null ? new Data() : storage;
 		this.socket = new DatagramSocket(Integer.parseInt(serverId));
+		for (String key : storage.getBackedUpFiles().keySet()) {
+		    System.out.println("Key from backed up files: " + key);
+		}
+		System.out.println();
+		for (String key : storage.getChunksBackedUp().keySet()) {
+		    System.out.println("Key from backed up chunks: " + key);
+		}
 	}
 
 	private void listenChannels() {

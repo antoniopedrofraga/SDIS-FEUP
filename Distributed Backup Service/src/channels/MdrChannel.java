@@ -33,6 +33,7 @@ public class MdrChannel extends Channel{
 		} else {
 			throw new SizeException("The received chunk is bigger than 64KB, it has " + body.length + " bytes.");
 		}
+		
 	}
 	
 	public class MdrThread extends Thread {

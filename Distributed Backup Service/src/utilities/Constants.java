@@ -7,14 +7,14 @@ public class Constants {
 	public static final int MC_PORT = 4444;
 	public static final int MDB_PORT = 4445;
 	public static final int MDR_PORT = 4446;
-	
-	public static final char CR = (char) 0x0D;
-	public static final char LF = (char) 0x0A;
-	public static final String CRLF = CR + LF + CR + LF + "";
+
+	public static final String CRLF = "\r\n\r\n";
 
 	public static final String FILES_ROOT = "./files/";
 	public static final String CHUNKS_ROOT = "chunks_" + Peer.getServerId();
 	public static final String RESTORED = "restored_";
+	public static final String DATA_PATH = "./data_" + Peer.getServerId();
+	public static final String DATABASE_PATH = DATA_PATH + "/data.ser";
 	
 	public static final int CHUNK_SIZE = 64 * 1000;
 	public static final int MAX_CHUNK_RETRY = 5;

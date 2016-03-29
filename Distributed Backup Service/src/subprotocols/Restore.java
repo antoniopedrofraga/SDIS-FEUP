@@ -21,7 +21,6 @@ public class Restore extends Thread {
 	}
 	
 	public void restore() {
-		Peer.getStorage();
 		if (!Data.getBackedUpFiles().containsKey(fileName)) {
 			System.out.println("This file '" + fileName + "' was not backed up yet");
 			return;
