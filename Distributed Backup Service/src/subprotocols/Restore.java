@@ -1,21 +1,29 @@
 package subprotocols;
 
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 import data.FileInfo;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
 import utilities.Constants;
-import utilities.Utilities;
 
 public class Restore extends Thread {
 	private static String fileName;
 	private static byte[] file;
 	private static int numOfChunks = 0;
 	private static Header header;
+	private static FileOutputStream out;
 	
 	public Restore(String fileName) {
 		Restore.fileName = fileName;
+		try {
+			out = new FileOutputStream(Constants.FILES_ROOT + Constants.RESTORED + fileName);
+		} catch (FileNotFoundException e) {
+			System.out.println("Could not create an OutputStream");
+		}
 		file = new byte[0];
 	}
 	
@@ -42,12 +50,6 @@ public class Restore extends Thread {
 		restore();
 	}
 
-	public static void addChunkToFile(byte[] body) {
-		byte[] newFile = Utilities.concatenateBytes(file, body);
-		file = newFile;
-		numOfChunks++;
-	}
-
 	public static byte[] getFileBytes() {
 		return file;
 	}
@@ -56,6 +58,7 @@ public class Restore extends Thread {
 		header.setChunkNo("" + numOfChunks);
 		ChunkRestore chunkRestore = new ChunkRestore(header);
 		chunkRestore.sendMessage();
+		numOfChunks++;
 	}
 
 	public static int getNumOfChunks() {
@@ -71,4 +74,7 @@ public class Restore extends Thread {
 		numOfChunks = 0;
 	}
 
+	public static FileOutputStream getOut() {
+		return out;
+	}
 }

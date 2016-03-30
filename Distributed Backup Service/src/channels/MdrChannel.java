@@ -19,20 +19,12 @@ public class MdrChannel extends Channel{
 	
 	private void handleChunk(byte[] body) throws SizeException, IOException {
 		if (body == null) {
-			Peer.getInstance().getStorage().saveRestoredFile(Restore.getFileName());
-		} else if (body.length < Constants.CHUNK_SIZE) {
-			Restore.addChunkToFile(body);
-			Peer.getInstance().getStorage().saveRestoredFile(Restore.getFileName());
-			Restore.loadDefaults();
-			waitingChunks = false;
-			System.out.println("File restored!");
-		} else if (body.length == Constants.CHUNK_SIZE) {
-			Restore.addChunkToFile(body);
-			Restore.sendNextChunk();
+			Peer.getInstance().getStorage().saveRestoredChunk(Restore.getFileName(), body);
+		} else if (body.length <= Constants.CHUNK_SIZE ) {
+			Peer.getInstance().getStorage().saveRestoredChunk(Restore.getFileName(), body);
 		} else {
 			throw new SizeException("The received chunk is bigger than 64KB, it has " + body.length + " bytes.");
 		}
-		
 	}
 	
 	public class MdrThread extends Thread {

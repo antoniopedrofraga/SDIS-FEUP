@@ -25,7 +25,6 @@
 <fullyQualifiedTypeName name="database.FileInfo"/>
 <fullyQualifiedTypeName name="java.nio.file.Path"/>
 <fullyQualifiedTypeName name="java.nio.file.Paths"/>
-<fullyQualifiedTypeName name="subprotocols.Backup"/>
 <fullyQualifiedTypeName name="subprotocols.Restore"/>
 <fullyQualifiedTypeName name="database.Storage"/>
 <fullyQualifiedTypeName name="exceptions.SizeException"/>
@@ -58,5 +57,6 @@
 <fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="peers.Peer"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="subprotocols.Backup"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

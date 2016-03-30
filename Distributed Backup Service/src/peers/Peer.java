@@ -47,8 +47,7 @@ public class Peer {
 		socket = new DatagramSocket(Integer.parseInt(serverId));
 		
 		loadData();
-
-		
+	
 		peer = this;
 	}
 
@@ -132,6 +131,7 @@ public class Peer {
 				dir.mkdirs();
 				dataBase.createNewFile();
 				storage =  new Data();
+				saveData();
 				return;
 			}
 			FileInputStream fileIn = new FileInputStream(Constants.DATABASE_PATH);

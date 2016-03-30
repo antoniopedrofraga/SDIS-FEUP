@@ -94,17 +94,25 @@ public class Data implements Serializable {
 		return false;
 	}
 
-	public void saveRestoredFile(String fileName) throws IOException, SizeException {
-		Peer.getInstance().getMdrChannel().setWaitingChunks(false);
+	public void saveRestoredChunk(String fileName, byte[] body) throws IOException {
 		FileInfo fileInfo = backedUpFiles.get(fileName);
-		if (Restore.getNumOfChunks() != fileInfo.getNumberOfChunks()) 
-			throw new SizeException("The restored file does not have the right number of chunks: " 
-					+ Restore.getNumOfChunks() + "/" + fileInfo.getNumberOfChunks());
-		FileOutputStream out = new FileOutputStream(Constants.FILES_ROOT + Constants.RESTORED + fileName);
-		out.write(Restore.getFileBytes());
-		out.close();
+		Restore.getOut().write(body);
+		if (body.length < Constants.CHUNK_SIZE) {
+			Peer.getInstance().getMdrChannel().setWaitingChunks(false);
+			Restore.getOut().close();
+			System.out.println("File was restored!");
+			if (Restore.getNumOfChunks() != fileInfo.getNumberOfChunks())
+				try {
+					throw new SizeException("The restored file does not have the right number of chunks: " 
+							+ Restore.getNumOfChunks() + "/" + fileInfo.getNumberOfChunks());
+				} catch (SizeException e) {
+					System.out.println("The number of received chunks doesn't match the number of chunks in this file");
+				}
+			Restore.loadDefaults();
+		} else {
+			Restore.sendNextChunk();
+		}
 	}
-
 	public void clearStoredChunks(Header header) {
 		if (chunksSaved.get(header.getFileId()) != null) {
 			if (header.getVersion().equals(Constants.ENHANCED_DELETE_VERSION))
@@ -118,13 +126,13 @@ public class Data implements Serializable {
 			Peer.getInstance();
 			Header header = new Header(Message.CHUNK_DELETED, Constants.ENHANCED_DELETE_VERSION, Peer.getServerId(), chunkInfo.getFileId(), "" + chunkInfo.getChunkNo(), "" + chunkInfo.getReplicationDeg());
 			Message message = new Message(Peer.getInstance().getMcChannel().getSocket(), Peer.getInstance().getMdbChannel().getAddress(), header, null);
-			new Thread(message).start();
 			int timeout = ThreadLocalRandom.current().nextInt(0, 400);
 			try {
 				Thread.sleep(timeout);
 			} catch (InterruptedException e) {
 				System.out.println("Could not wait after send a CHUNKDELETED message");
 			}
+			new Thread(message).start();
 		}
 	}
 
