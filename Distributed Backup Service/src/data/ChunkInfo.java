@@ -1,10 +1,15 @@
 package data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import messages.Header;
 
-public class ChunkInfo {
+public class ChunkInfo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String fileId;
 	int chunkNo;
 	int chunkSize;

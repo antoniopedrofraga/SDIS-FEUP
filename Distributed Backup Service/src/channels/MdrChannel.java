@@ -2,7 +2,6 @@ package channels;
 
 import java.io.IOException;
 
-import data.Data;
 import exceptions.SizeException;
 import messages.Header;
 import messages.Message;
@@ -20,10 +19,10 @@ public class MdrChannel extends Channel{
 	
 	private void handleChunk(byte[] body) throws SizeException, IOException {
 		if (body == null) {
-			Data.saveRestoredFile(Restore.getFileName());
+			Peer.getInstance().getStorage().saveRestoredFile(Restore.getFileName());
 		} else if (body.length < Constants.CHUNK_SIZE) {
 			Restore.addChunkToFile(body);
-			Data.saveRestoredFile(Restore.getFileName());
+			Peer.getInstance().getStorage().saveRestoredFile(Restore.getFileName());
 			Restore.loadDefaults();
 			waitingChunks = false;
 			System.out.println("File restored!");

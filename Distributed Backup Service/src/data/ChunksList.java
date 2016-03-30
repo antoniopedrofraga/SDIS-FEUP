@@ -1,8 +1,9 @@
 package data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ChunksList extends ArrayList<ChunkInfo> {
+public class ChunksList extends ArrayList<ChunkInfo> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

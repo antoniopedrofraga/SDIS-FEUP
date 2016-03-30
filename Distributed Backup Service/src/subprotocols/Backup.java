@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import data.ChunkInfo;
 import data.ChunksList;
-import data.Data;
 import data.FileInfo;
 import messages.Header;
 import messages.Message;
@@ -43,6 +42,7 @@ public class Backup extends Thread {
 		
 		int numberOfChunks = data.length / Constants.CHUNK_SIZE + 1;
 		String fileId = Utilities.getFileId(file);
+		Peer.getInstance();
 		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		
 		for (int i = 0; i < numberOfChunks; i++) {
@@ -50,10 +50,10 @@ public class Backup extends Thread {
 			byte[] chunk = getChunkData(i, data);
 			sendChunk(header, chunk);
 		}
-		if (Data.getBackedUpFiles().get(file.getName()) == null) {
-			Peer.getStorage();
-			Data.getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), fileId, numberOfChunks, file.length()));
-			Peer.getStorage().saveData();
+		if (Peer.getInstance().getStorage().getBackedUpFiles().get(file.getName()) == null) {
+			Peer.getInstance().getStorage();
+			Peer.getInstance().getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), fileId, numberOfChunks, file.length()));
+			Peer.getInstance().saveData();
 		}
 		System.out.println("File was backed up succesfully!");
 	}
@@ -62,7 +62,6 @@ public class Backup extends Thread {
 		int waitingTime = Constants.DEFAULT_WAITING_TIME;
 		int chunksSent = 0;
 		while (chunksSent < Constants.MAX_CHUNK_RETRY) {
-			System.out.println("Sending chunk.");
 			ChunkBackup backupChunk = new ChunkBackup(header, chunk);
 			backupChunk.sendChunk();
 			try {
@@ -71,7 +70,7 @@ public class Backup extends Thread {
 				e.printStackTrace();
 			}
 			backupChunk.checkReplies();
-			ChunksList chunksList = Data.getChunksBackedUp().get(header.getFileId()) != null ? Data.getChunksBackedUp().get(header.getFileId()) : null;
+			ChunksList chunksList = Peer.getInstance().getStorage().getChunksBackedUp().get(header.getFileId()) != null ? Peer.getInstance().getStorage().getChunksBackedUp().get(header.getFileId()) : null;
 			int confirmedBackUps = 0;
 			ChunkInfo thisChunkInfo = new ChunkInfo(header, chunk.length);
 			//Getting confirmedBackUps
@@ -81,8 +80,8 @@ public class Backup extends Thread {
 						confirmedBackUps = chunkInfo.getStoredHeaders().size();
 			//Checking if this Peer has the chunk stored
 			ChunkInfo chunkInfo = new ChunkInfo(header, chunk.length);
-			if (Data.getChunksSaved().get(header.getFileId()) != null) 
-				if (Data.getChunksSaved().get(header.getFileId()).contains(chunkInfo))
+			if (Peer.getInstance().getStorage().getChunksSaved().get(header.getFileId()) != null) 
+				if (Peer.getInstance().getStorage().getChunksSaved().get(header.getFileId()).contains(chunkInfo))
 					confirmedBackUps++;
 			
 			int repDeg = Integer.parseInt(header.getReplicationDeg());

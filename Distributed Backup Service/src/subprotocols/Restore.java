@@ -1,7 +1,6 @@
 package subprotocols;
 
 
-import data.Data;
 import data.FileInfo;
 import messages.Header;
 import messages.Message;
@@ -21,15 +20,16 @@ public class Restore extends Thread {
 	}
 	
 	public void restore() {
-		if (!Data.getBackedUpFiles().containsKey(fileName)) {
+		if (!Peer.getInstance().getStorage().getBackedUpFiles().containsKey(fileName)) {
 			System.out.println("This file '" + fileName + "' was not backed up yet");
 			return;
 		}
 		
-		Peer.getStorage();
-		FileInfo fileInfo = Data.getBackedUpFiles().get(fileName);
+		Peer.getInstance().getStorage();
+		FileInfo fileInfo = Peer.getInstance().getStorage().getBackedUpFiles().get(fileName);
+		Peer.getInstance();
 		header = new Header(Message.GETCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileInfo.getFileId(), "0", null);
-		Peer.getMdrChannel().setWaitingChunks(true);
+		Peer.getInstance().getMdrChannel().setWaitingChunks(true);
 		
 		sendNextChunk();
 	}

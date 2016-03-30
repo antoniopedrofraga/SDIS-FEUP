@@ -1,23 +1,15 @@
 package data;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 import channels.McChannel;
 import exceptions.SizeException;
@@ -29,16 +21,20 @@ import utilities.Constants;
 
 
 public class Data implements Serializable {
-	static HashMap<ChunkInfo, ArrayList<Header>> receivedStoreMessages;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 389160863840308321L;
 
-	static HashMap<String, ChunksList> chunksBackedUp; //FileId as key, Array of ChuksList as value
-	static HashMap<String, ChunksList> chunksSaved; //FileId as key, Array of ChunkNo as value
+	HashMap<ChunkInfo, ArrayList<Header>> receivedStoreMessages;
 
-	static BackedUpFiles backedUpFiles; //HashMap containing which files are backed up, fileName as Keys
-	static int usedSpace;
+	HashMap<String, ChunksList> chunksBackedUp; //FileId as key, Array of ChuksList as value
+	HashMap<String, ChunksList> chunksSaved; //FileId as key, Array of ChunkNo as value
+
+	BackedUpFiles backedUpFiles; //HashMap containing which files are backed up, fileName as Keys
+	int usedSpace;
+	File chunks;
 	
-
-	static File chunks;
 	public Data() {
 		receivedStoreMessages = new HashMap<ChunkInfo, ArrayList<Header>>();
 		chunksBackedUp = new HashMap<String, ChunksList>();
@@ -61,31 +57,31 @@ public class Data implements Serializable {
 			chunkFolder.mkdirs();
 		FileOutputStream stream = new FileOutputStream(chunkFolder.getPath() + "/" + header.getChunkNo() + ".data");
 		try {
-		    stream.write(data);
+			stream.write(data);
 		} finally {
-		    stream.close();
-		    ChunksList chunks = chunksSaved.get(header.getFileId()) != null ? chunksSaved.get(header.getFileId()) : new ChunksList();
-		    ChunkInfo chunk = new ChunkInfo(header, (int)data.length);
-		    chunks.addChunk(chunk);
-		    chunksSaved.put(header.getFileId(), chunks);
-		    usedSpace += data.length;
+			stream.close();
+			ChunksList chunks = chunksSaved.get(header.getFileId()) != null ? chunksSaved.get(header.getFileId()) : new ChunksList();
+			ChunkInfo chunk = new ChunkInfo(header, (int)data.length);
+			chunks.addChunk(chunk);
+			chunksSaved.put(header.getFileId(), chunks);
+			usedSpace += data.length;
 		}
-		
+
 	};
-	public static BackedUpFiles getBackedUpFiles() {
+	public BackedUpFiles getBackedUpFiles() {
 		return backedUpFiles;
 	}
-	public static HashMap<String, ChunksList> getChunksBackedUp() {
+	public HashMap<String, ChunksList> getChunksBackedUp() {
 		return chunksBackedUp;
 	}
 
-	public static byte[] getChunkBody(String fileId, String chunkNo) throws IOException {
+	public byte[] getChunkBody(String fileId, String chunkNo) throws IOException {
 		Path restorableChunk = Paths.get(chunks.getPath() + "/" + fileId + "/" + chunkNo + ".data");
 		return Files.readAllBytes(restorableChunk);
 	}
 
-	public static boolean chunkIsStored(String fileId, int chunkNo) {
-		ChunksList chunksList = chunksSaved.get(fileId);
+	public boolean chunkIsStored(String fileId, int chunkNo) {
+		ChunksList chunksList = chunksSaved.get(fileId) != null ? chunksSaved.get(fileId) : null;
 		if (chunksList == null) {
 			System.out.println("chunksList not found");
 			return false;
@@ -98,42 +94,51 @@ public class Data implements Serializable {
 		return false;
 	}
 
-	public static void saveRestoredFile(String fileName) throws IOException, SizeException {
-		Peer.getMdrChannel().setWaitingChunks(false);
+	public void saveRestoredFile(String fileName) throws IOException, SizeException {
+		Peer.getInstance().getMdrChannel().setWaitingChunks(false);
 		FileInfo fileInfo = backedUpFiles.get(fileName);
 		if (Restore.getNumOfChunks() != fileInfo.getNumberOfChunks()) 
 			throw new SizeException("The restored file does not have the right number of chunks: " 
-		+ Restore.getNumOfChunks() + "/" + fileInfo.getNumberOfChunks());
+					+ Restore.getNumOfChunks() + "/" + fileInfo.getNumberOfChunks());
 		FileOutputStream out = new FileOutputStream(Constants.FILES_ROOT + Constants.RESTORED + fileName);
 		out.write(Restore.getFileBytes());
 		out.close();
 	}
 
-	public static void clearStoredChunks(Header header) {
+	public void clearStoredChunks(Header header) {
 		if (chunksSaved.get(header.getFileId()) != null) {
-			if (header.getVersion() == Constants.ENHANCED_DELETE_VERSION)
+			if (header.getVersion().equals(Constants.ENHANCED_DELETE_VERSION))
 				sendDeleteConfirms(header.getFileId());
 			chunksSaved.remove(header.getFileId());
 		}
 	}
-	private static void sendDeleteConfirms(String fileId) {
+	private void sendDeleteConfirms(String fileId) {
 		for (ChunkInfo chunkInfo : chunksSaved.get(fileId)) {
+			System.out.println("Sending delete confirm for chunkNo " + chunkInfo.getChunkNo());
+			Peer.getInstance();
 			Header header = new Header(Message.CHUNK_DELETED, Constants.ENHANCED_DELETE_VERSION, Peer.getServerId(), chunkInfo.getFileId(), "" + chunkInfo.getChunkNo(), "" + chunkInfo.getReplicationDeg());
-			Message message = new Message(Peer.getMcChannel().getSocket(), Peer.getMdbChannel().getAddress(), header, null);
+			Message message = new Message(Peer.getInstance().getMcChannel().getSocket(), Peer.getInstance().getMdbChannel().getAddress(), header, null);
+			new Thread(message).start();
+			int timeout = ThreadLocalRandom.current().nextInt(0, 400);
+			try {
+				Thread.sleep(timeout);
+			} catch (InterruptedException e) {
+				System.out.println("Could not wait after send a CHUNKDELETED message");
+			}
 		}
 	}
 
-	public static int getUsedSpace() {
+	public int getUsedSpace() {
 		return usedSpace;
 	}
-	public static HashMap<String, ChunksList> getChunksSaved() {
+	public HashMap<String, ChunksList> getChunksSaved() {
 		return chunksSaved;
 	}
-	public static HashMap<ChunkInfo, ArrayList<Header>> getReceivedStoreMessages() {
+	public HashMap<ChunkInfo, ArrayList<Header>> getReceivedStoreMessages() {
 		return receivedStoreMessages;
 	}
 
-	public static int deleteChunk(ChunkInfo chunkInfo) {
+	public int deleteChunk(ChunkInfo chunkInfo) {
 		File chunk = new File(chunks.getPath() + "/" + chunkInfo.getFileId() + "/" + chunkInfo.getChunkNo() + ".data");
 		int size = (int) chunk.length();
 		if(!chunk.delete()){
@@ -146,12 +151,12 @@ public class Data implements Serializable {
 		return size;
 	}
 
-	private static void deleteFromChunksSaved(ChunkInfo chunkInfo) {
+	private void deleteFromChunksSaved(ChunkInfo chunkInfo) {
 		ChunksList chunks = chunksSaved.get(chunkInfo.getFileId());
 		chunks.remove(chunkInfo);
 	}
 
-	public static void addToReceivedStoreMessages(Header header) {
+	public void addToReceivedStoreMessages(Header header) {
 		ChunkInfo chunkInfo = new ChunkInfo(header);
 		ArrayList<Header> headers = receivedStoreMessages.get(chunkInfo) != null ? receivedStoreMessages.get(chunkInfo) : new ArrayList<Header>();
 		if(!headers.contains(header)) {
@@ -160,7 +165,7 @@ public class Data implements Serializable {
 		}
 	}
 
-	public static ChunkInfo removeFromReceivedStoreMessages(Header header) {
+	public ChunkInfo removeFromReceivedStoreMessages(Header header) {
 		header.setMsgType(Message.STORED);
 		ChunkInfo chunkInfo = new ChunkInfo(header);
 		ArrayList<Header> headers = receivedStoreMessages.get(chunkInfo) != null ? receivedStoreMessages.get(chunkInfo) : new ArrayList<Header>();
@@ -183,34 +188,5 @@ public class Data implements Serializable {
 		}
 		return null;
 	}
-	
-	public void saveData() {
-		try (
-				OutputStream file = new FileOutputStream(Constants.DATABASE_PATH);
-				OutputStream buffer = new BufferedOutputStream(file);
-				ObjectOutput output = new ObjectOutputStream(buffer);
-				){
-			output.writeObject(this);
-		}  
-		catch(IOException ex){
-			System.out.println("Could not save the data into a file..");
-		}
-	}
-	
-	public static Data loadData() {
-		try(
-				InputStream file = new FileInputStream(Constants.DATABASE_PATH);
-				InputStream buffer = new BufferedInputStream(file);
-				ObjectInput input = new ObjectInputStream (buffer);
-				){
-			return (Data)input.readObject();
-		}
-		catch(ClassNotFoundException ex){
-			System.out.println("Cannot perform input. Class not found.");
-		}
-		catch(IOException ex){
-			System.out.println("Could not load data, maybe the file does not exist.");
-		}
-		return null;
-	}
+
 }

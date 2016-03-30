@@ -1,7 +1,12 @@
 package data;
 
+import java.io.Serializable;
 
-public class FileInfo {
+public class FileInfo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String fileName;
 	private String fileId;
 	private int numberOfChunks;

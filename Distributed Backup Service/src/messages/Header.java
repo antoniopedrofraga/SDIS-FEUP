@@ -1,8 +1,14 @@
 package messages;
 
+import java.io.Serializable;
+
 import utilities.Constants;
 
-public class Header {
+public class Header implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String stringType;
 	private String version;
 	private String senderId;

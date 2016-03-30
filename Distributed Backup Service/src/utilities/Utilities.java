@@ -6,6 +6,7 @@ import peers.Peer;
 
 public class Utilities {
 	public static String getFileId(File file) {
+		Peer.getInstance();
 		return Hash.sha256(file.getName() + file.lastModified() + Peer.getServerId());
 	}
 	// From internet: http://stackoverflow.com/questions/7768071/how-to-delete-directory-content-in-java

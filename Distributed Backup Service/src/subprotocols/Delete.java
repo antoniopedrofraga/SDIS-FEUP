@@ -2,7 +2,6 @@ package subprotocols;
 
 import java.io.File;
 
-import data.Data;
 import enhancements.EnhancedDelete;
 import messages.Header;
 import messages.Message;
@@ -22,8 +21,9 @@ public class Delete extends Thread {
 		File file = new File(Constants.FILES_ROOT + fileName);
 		String fileId = Utilities.getFileId(file);
 		if (!enhanced) {
+			Peer.getInstance();
 			Header header = new Header(Message.DELETE, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, null, null);
-			Message deleteMsg = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), header, null);
+			Message deleteMsg = new Message(Peer.getInstance().getMcChannel().getSocket(), Peer.getInstance().getMcChannel().getAddress(), header, null);
 			new Thread(deleteMsg).start();
 		} else {
 			new EnhancedDelete(fileId).start();
@@ -33,7 +33,8 @@ public class Delete extends Thread {
 		}else{
 			System.out.println("Delete operation failed.");
 		}
-		Data.getBackedUpFiles().remove(file.getName());
-		Data.getChunksBackedUp().remove(fileId);
+		Peer.getInstance().getStorage().getBackedUpFiles().remove(file.getName());
+		if (!enhanced)
+			Peer.getInstance().getStorage().getChunksBackedUp().remove(fileId);
 	}
 }

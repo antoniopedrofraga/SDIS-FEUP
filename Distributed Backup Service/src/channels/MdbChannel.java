@@ -3,7 +3,7 @@ package channels;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
-import data.Data;
+
 import messages.Header;
 import messages.Message;
 import peers.Peer;
@@ -15,12 +15,13 @@ public class MdbChannel extends Channel{
 	}
 	
 	public void handlePutChunk(Header header, byte[] body) throws InterruptedException {
+		Peer.getInstance().getStorage();
 		// If file was backed up by this peer
-		if (Data.getBackedUpFiles().get(header.getFileId()) != null) 
+		if (Peer.getInstance().getStorage().getBackedUpFiles().get(header.getFileId()) != null) 
 			return;
 		//save chunk
 		try {
-			Peer.getStorage().saveChunk(header, body);
+			Peer.getInstance().getStorage().saveChunk(header, body);
 		} catch (IOException e) {
 			System.out.println("Could not save the chunk number " + header.getChunkNo() + "from file " + header.getFileId());
 			return;
@@ -28,12 +29,12 @@ public class MdbChannel extends Channel{
 		//reply
 		Header replyHeader = new Header(Message.STORED, header.getVersion(),
 				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
-		Message reply = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), replyHeader, null);
+		Message reply = new Message(Peer.getInstance().getMcChannel().getSocket(), Peer.getInstance().getMcChannel().getAddress(), replyHeader, null);
 		int timeout = ThreadLocalRandom.current().nextInt(0, 400);
 		Thread.sleep(timeout);
 		new Thread(reply).start();
 		System.out.println("Replying...");
-		Peer.getStorage().saveData();
+		Peer.getInstance().saveData();
 	}
 	
 	public class MdbThread extends Thread {

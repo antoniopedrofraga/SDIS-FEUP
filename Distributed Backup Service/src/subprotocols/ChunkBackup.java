@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import data.ChunkInfo;
 import data.ChunksList;
-import data.Data;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
@@ -14,7 +13,7 @@ public class ChunkBackup {
 	private ArrayList<Header> validReplies;
 	
 	public ChunkBackup(Header header, byte[] body) {
-		this.message = new Message(peers.Peer.getMdbChannel().getSocket(), peers.Peer.getMdbChannel().getAddress(), header, body);
+		this.message = new Message(Peer.getInstance().getMdbChannel().getSocket(), Peer.getInstance().getMdbChannel().getAddress(), header, body);
 		this.validReplies = new ArrayList<>();
 	}
 
@@ -39,19 +38,19 @@ public class ChunkBackup {
 	public void checkReplies() {
 		int replicationDeg = Integer.parseInt(message.getHeader().getReplicationDeg());
 		Message reply;
-		ArrayList<Message> storedReplies = Peer.getMcChannel().getStoredReplies();
+		ArrayList<Message> storedReplies = Peer.getInstance().getMcChannel().getStoredReplies();
 		int counter = 0;
 		for (int i = 0; i < storedReplies.size(); i++) {
 			reply = storedReplies.get(i);
 			if (validReply(reply.getHeader())) {
 				counter++;
 			} 
-			Peer.getMcChannel().getStoredReplies().remove(storedReplies.get(i));
+			Peer.getInstance().getMcChannel().getStoredReplies().remove(storedReplies.get(i));
 		}
 		//Checking if this peer has the chunk saved
 		ChunkInfo chunkInfo = new ChunkInfo(message.getHeader(), message.getBody().length);
-		if (Data.getChunksSaved().get(message.getHeader().getFileId()) != null) 
-			if (Data.getChunksSaved().get(message.getHeader().getFileId()).contains(chunkInfo))
+		if (Peer.getInstance().getStorage().getChunksSaved().get(message.getHeader().getFileId()) != null) 
+			if (Peer.getInstance().getStorage().getChunksSaved().get(message.getHeader().getFileId()).contains(chunkInfo))
 				counter++;
 		
 		if (counter >= replicationDeg) {
@@ -62,9 +61,9 @@ public class ChunkBackup {
 	}
 	
 	private void tellStorage() {
-		Peer.getStorage();
-		Peer.getStorage();
-		ChunksList chunksList = Data.getChunksBackedUp().get(message.getHeader().getFileId()) != null ? Data.getChunksBackedUp().get(message.getHeader().getFileId()) :
+		Peer.getInstance().getStorage();
+		Peer.getInstance().getStorage();
+		ChunksList chunksList = Peer.getInstance().getStorage().getChunksBackedUp().get(message.getHeader().getFileId()) != null ? Peer.getInstance().getStorage().getChunksBackedUp().get(message.getHeader().getFileId()) :
 			new ChunksList();
 		ChunkInfo chunkInfo = new ChunkInfo(message.getHeader(), message.getBody().length);
 		for (ChunkInfo savedChunkInfo : chunksList) {
@@ -77,7 +76,7 @@ public class ChunkBackup {
 		if (!chunksList.contains(chunkInfo))
 			chunksList.add(chunkInfo);
 		
-		Data.getChunksBackedUp().put(message.getHeader().getFileId(), chunksList);
-		Peer.getStorage().saveData();
+		Peer.getInstance().getStorage().getChunksBackedUp().put(message.getHeader().getFileId(), chunksList);
+		Peer.getInstance().saveData();
 	}
 }

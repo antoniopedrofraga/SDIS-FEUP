@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="CleanDialogSettings">
-		<item value="488" key="DIALOG_WIDTH"/>
+		<item value="500" key="DIALOG_WIDTH"/>
 		<item value="true" key="TOGGLE_SELECTED"/>
 		<item value="386" key="DIALOG_HEIGHT"/>
 		<item value="718" key="DIALOG_X_ORIGIN"/>

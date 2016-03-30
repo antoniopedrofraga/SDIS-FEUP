@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import data.ChunkInfo;
-import data.Data;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
@@ -28,23 +27,23 @@ public class McChannel extends Channel {
 	}
 	
 	private void handleGetChunk(Header header) throws InterruptedException, IOException {
-		byte[] body = Data.getChunkBody(header.getFileId(), header.getChunkNo());		
+		byte[] body = Peer.getInstance().getStorage().getChunkBody(header.getFileId(), header.getChunkNo());		
 		Header replyHeader = new Header(Message.CHUNK, Peer.getServerId(),
 				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
-		Message reply = new Message(Peer.getMdrChannel().getSocket(), Peer.getMdrChannel().getAddress(), replyHeader, body);
+		Message reply = new Message(Peer.getInstance().getMdrChannel().getSocket(), Peer.getInstance().getMdrChannel().getAddress(), replyHeader, body);
 		int timeout = ThreadLocalRandom.current().nextInt(0, 400);
 		Thread.sleep(timeout);
 		new Thread(reply).start();
 	}
 	private void handleDelete(Header header) {
-		Data.clearStoredChunks(header);
+		Peer.getInstance().getStorage().clearStoredChunks(header);
 		File file =  new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT + "/" + header.getFileId() + "/");
 		if (file.isDirectory())
 			Utilities.deleteFolder(file);
-		Peer.getStorage().saveData();
+		Peer.getInstance().saveData();
 	}
 	private void handleRemoved(Header header) throws InterruptedException {
-		ChunkInfo chunkInfo = Data.removeFromReceivedStoreMessages(header);
+		ChunkInfo chunkInfo = Peer.getInstance().getStorage().removeFromReceivedStoreMessages(header);
 		if (chunkInfo != null) {
 			putchunkWhileWaiting = false;
 			int timeout = ThreadLocalRandom.current().nextInt(0, 400);
@@ -57,7 +56,7 @@ public class McChannel extends Channel {
 		} else {
 			System.out.println("Chunk info is null.");
 		}
-		Peer.getStorage().saveData();
+		Peer.getInstance().saveData();
 	}
 	private void prepareChunk(ChunkInfo chunkInfo) {
 		String fileName = Constants.CHUNKS_ROOT + "/" + chunkInfo.getFileId() + "/" + chunkInfo.getChunkNo() + ".data";
@@ -82,10 +81,11 @@ public class McChannel extends Channel {
 					byte[] data = rcvMultiCastData();
 					Message message = Message.getMessageFromData(data);
 					Header header = message.getHeader();
+					System.out.println("Received " + header.getMsgType());
 					if(!Peer.getServerId().equals(header.getSenderId())) {
 						switch (header.getMsgType()) {
 						case Message.GETCHUNK:
-							if (!Data.chunkIsStored(header.getFileId(), Integer.parseInt(header.getChunkNo()))) {
+							if (!Peer.getInstance().getStorage().chunkIsStored(header.getFileId(), Integer.parseInt(header.getChunkNo()))) {
 								System.out.println("Chunk is not stored");
 								break;
 							}
@@ -93,14 +93,17 @@ public class McChannel extends Channel {
 							break;
 						case Message.STORED:
 							storedReplies.add(message);
-							Data.addToReceivedStoreMessages(header);
+							Peer.getInstance().getStorage().addToReceivedStoreMessages(header);
 							break;
 						case Message.DELETE:
 							handleDelete(header);
 							break;
 						case Message.CHUNK_DELETED:
-							if (header.getVersion() == Constants.ENHANCED_DELETE_VERSION)
+							if (header.getVersion().equals(Constants.ENHANCED_DELETE_VERSION)) {
+								System.out.println("Adding to delete confirms");
 								deleteConfirms.add(header);
+							}
+							break;
 						}
 					} 
 					switch (header.getMsgType()) {
@@ -129,7 +132,7 @@ public class McChannel extends Channel {
 	public static void sendRemoved(ChunkInfo chunkInfo) {
 		Header header = new Header(Message.REMOVED, Constants.PROTOCOL_VERSION,
 				Peer.getServerId(), chunkInfo.getFileId(), chunkInfo.getChunkNo() + "", null);
-		Message message = new Message(Peer.getMcChannel().getSocket(), Peer.getMcChannel().getAddress(), header, null);
+		Message message = new Message(Peer.getInstance().getMcChannel().getSocket(), Peer.getInstance().getMcChannel().getAddress(), header, null);
 		new Thread(message).start();
 	}
 }

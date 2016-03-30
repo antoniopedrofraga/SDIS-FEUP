@@ -1,7 +1,11 @@
 package peers;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
@@ -20,12 +24,17 @@ import utilities.Constants;
 public class Peer {
 	private static String serverId;
 	
-	private static McChannel mcChannel;
-	private static MdbChannel mdbChannel;
-	private static MdrChannel mdrChannel;
+	private McChannel mcChannel;
+	private MdbChannel mdbChannel;
+	private MdrChannel mdrChannel;
 	
-	private static Data storage;
+	private Data storage;
 	private DatagramSocket socket;
+	private static Peer peer;
+	
+	public static Peer getInstance() {
+		return peer;
+	}
 	
 	public Peer(String serverId, String mcAddress, String mcPort,
 			String mdbAddress, String mdbPort, String mdrAddress,
@@ -35,26 +44,12 @@ public class Peer {
 		mcChannel = new McChannel(mcAddress, mcPort);
 		mdbChannel = new MdbChannel(mdbAddress, mdbPort);
 		mdrChannel = new MdrChannel(mdrAddress, mdrPort);
+		socket = new DatagramSocket(Integer.parseInt(serverId));
 		
-		storage = Data.loadData();
-		if (storage == null) {
-			File dataBase = new File(Constants.DATABASE_PATH);
-			if (!dataBase.exists()) {
-				System.out.println("Creating new file.");
-				File dir = new File(Constants.DATA_PATH);
-				dir.mkdirs();
-				dataBase.createNewFile();
-			}
-		}
-		storage = storage == null ? new Data() : storage;
-		this.socket = new DatagramSocket(Integer.parseInt(serverId));
-		for (String key : storage.getBackedUpFiles().keySet()) {
-		    System.out.println("Key from backed up files: " + key);
-		}
-		System.out.println();
-		for (String key : storage.getChunksBackedUp().keySet()) {
-		    System.out.println("Key from backed up chunks: " + key);
-		}
+		loadData();
+
+		
+		peer = this;
 	}
 
 	private void listenChannels() {
@@ -101,7 +96,6 @@ public class Peer {
 				System.out.println("Unknown command: " + received);
 				break;
 			}
-			String teste;
 		}
 	}
 
@@ -114,18 +108,61 @@ public class Peer {
 		peer.listenActions();
 	}
 	
+	public void saveData() {
+		try {
+			FileOutputStream fileOut =
+					new FileOutputStream(Constants.DATABASE_PATH);
+			ObjectOutputStream output = new ObjectOutputStream(fileOut);
+			output.writeObject(this.storage);
+			output.close();
+			fileOut.close();
+		}  
+		catch(IOException ex){
+			ex.printStackTrace();
+		}
+	}
+
+	public void loadData() {
+		try
+		{
+			File dataBase = new File(Constants.DATABASE_PATH);
+			if (!dataBase.exists()) {
+				System.out.println("Creating new file.");
+				File dir = new File(Constants.DATA_PATH);
+				dir.mkdirs();
+				dataBase.createNewFile();
+				storage =  new Data();
+				return;
+			}
+			FileInputStream fileIn = new FileInputStream(Constants.DATABASE_PATH);
+			ObjectInputStream input = new ObjectInputStream(fileIn);
+
+			this.storage = (Data)input.readObject();
+			input.close();
+			fileIn.close();
+			return;
+		}
+		catch(ClassNotFoundException ex){
+			System.out.println("Cannot perform input. Class not found.");
+		}
+		catch(IOException ex){
+			System.out.println("Could not load data, maybe the file does not exist.");
+		}
+		this.storage = null;
+	}
+	
 	/* Getters */
-	public static McChannel getMcChannel() {
+	public McChannel getMcChannel() {
 		return mcChannel;
 	}
 
 
-	public static MdbChannel getMdbChannel() {
+	public MdbChannel getMdbChannel() {
 		return mdbChannel;
 	}
 
 
-	public static MdrChannel getMdrChannel() {
+	public MdrChannel getMdrChannel() {
 		return mdrChannel;
 	}
 
@@ -134,7 +171,7 @@ public class Peer {
 		return serverId;
 	}
 
-	public static Data getStorage() {
+	public Data getStorage() {
 		return storage;
 	}
 }
