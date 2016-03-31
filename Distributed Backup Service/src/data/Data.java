@@ -110,6 +110,7 @@ public class Data implements Serializable {
 				}
 			Restore.loadDefaults();
 		} else {
+			Restore.incNumOfChunks();
 			Restore.sendNextChunk();
 		}
 	}

@@ -17,13 +17,15 @@ public class MdrChannel extends Channel{
 		this.thread = new MdrThread();
 	}
 	
-	private void handleChunk(byte[] body) throws SizeException, IOException {
+	private void handleChunk(int chunkNum, byte[] body) throws SizeException, IOException {
 		if (body == null) {
 			Peer.getInstance().getStorage().saveRestoredChunk(Restore.getFileName(), body);
-		} else if (body.length <= Constants.CHUNK_SIZE ) {
+			System.out.println("Body is null");
+		} else if (body.length <= Constants.CHUNK_SIZE && chunkNum == Restore.getNumOfChunks()) {
 			Peer.getInstance().getStorage().saveRestoredChunk(Restore.getFileName(), body);
 		} else {
-			throw new SizeException("The received chunk is bigger than 64KB, it has " + body.length + " bytes.");
+			System.out.println("Chunk Num = " + chunkNum + " vs Stored chunk Num = " + Restore.getNumOfChunks());
+			System.out.println("The received chunk is bigger than 64KB, it has " + body.length + " bytes.");
 		}
 	}
 	
@@ -42,8 +44,10 @@ public class MdrChannel extends Channel{
 					if(!Peer.getServerId().equals(header.getSenderId())) {
 						switch (header.getMsgType()) {
 						case Message.CHUNK:
-							if (waitingChunks)
-								handleChunk(body);
+							if (waitingChunks) {
+								int chunkNum = Integer.parseInt(header.getChunkNo());
+								handleChunk(chunkNum, body);
+							}
 							break;
 						}
 					}

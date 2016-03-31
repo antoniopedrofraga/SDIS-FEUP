@@ -8,7 +8,7 @@ public class Constants {
 	public static final int MDB_PORT = 4445;
 	public static final int MDR_PORT = 4446;
 
-	public static final String CRLF = "\r\n\r\n";
+	public static final String CRLF = "\r\n";
 
 	public static final String FILES_ROOT = "./files/";
 	public static final String CHUNKS_ROOT = "chunks_" + Peer.getServerId();

@@ -58,7 +58,6 @@ public class Restore extends Thread {
 		header.setChunkNo("" + numOfChunks);
 		ChunkRestore chunkRestore = new ChunkRestore(header);
 		chunkRestore.sendMessage();
-		numOfChunks++;
 	}
 
 	public static int getNumOfChunks() {
@@ -76,5 +75,9 @@ public class Restore extends Thread {
 
 	public static FileOutputStream getOut() {
 		return out;
+	}
+
+	public static void incNumOfChunks() {
+		numOfChunks++;
 	}
 }

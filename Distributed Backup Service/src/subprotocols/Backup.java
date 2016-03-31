@@ -97,7 +97,7 @@ public class Backup extends Thread {
 			if (confirmedBackUps < repDeg) {
 				chunksSent++;
 				waitingTime *= 2;
-				System.out.println("ReplicationDeg was not achieved... Waiting more " + waitingTime + "ms.");
+				System.out.println("ReplicationDeg was not achieved (" + confirmedBackUps + ") ... Waiting more " + waitingTime + "ms.");
 			} else {
 				break;
 			}
