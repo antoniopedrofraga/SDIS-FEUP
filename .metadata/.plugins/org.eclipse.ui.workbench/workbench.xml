@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="19" version="2.0">
+<workbench progressCount="14" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="0" y="0">
 <fastViewData fastViewLocation="1024"/>
@@ -35,53 +35,33 @@
 <part id="3"/>
 <part id="4"/>
 <part id="5"/>
-<part id="6"/>
-<part id="7"/>
-<part id="8"/>
-<part id="9"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Peer.java" partName="Peer.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/peers/Peer.java" title="Peer.java" tooltip="Distributed Backup Service/src/peers/Peer.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Peer.java" partName="Peer.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/peers/Peer.java" title="Peer.java" tooltip="Distributed Backup Service/src/peers/Peer.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/peers/Peer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1201" selectionTopPixel="330"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Constants.java" partName="Constants.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/utilities/Constants.java" title="Constants.java" tooltip="Distributed Backup Service/src/utilities/Constants.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/utilities/Constants.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="590" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Data.java" partName="Data.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/data/Data.java" title="Data.java" tooltip="Distributed Backup Service/src/data/Data.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/data/Data.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7026" selectionTopPixel="2625"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Backup.java" partName="Backup.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/subprotocols/Backup.java" title="Backup.java" tooltip="Distributed Backup Service/src/subprotocols/Backup.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/subprotocols/Backup.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="29" selectionOffset="1751" selectionTopPixel="376"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChunkBackup.java" partName="ChunkBackup.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/subprotocols/ChunkBackup.java" title="ChunkBackup.java" tooltip="Distributed Backup Service/src/subprotocols/ChunkBackup.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/subprotocols/ChunkBackup.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2595" selectionTopPixel="653"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EnhancedDelete.java" partName="EnhancedDelete.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/enhancements/EnhancedDelete.java" title="EnhancedDelete.java" tooltip="Distributed Backup Service/src/enhancements/EnhancedDelete.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/enhancements/EnhancedDelete.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="McChannel.java" partName="McChannel.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/channels/McChannel.java" title="McChannel.java" tooltip="Distributed Backup Service/src/channels/McChannel.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/channels/McChannel.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="894" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1446" selectionTopPixel="238"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Channel.java" partName="Channel.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/channels/Channel.java" title="Channel.java" tooltip="Distributed Backup Service/src/channels/Channel.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/channels/Channel.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="92"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Data.java" partName="Data.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/data/Data.java" title="Data.java" tooltip="Distributed Backup Service/src/data/Data.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/data/Data.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="17" selectionOffset="3724" selectionTopPixel="1496"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MdbChannel.java" partName="MdbChannel.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/channels/MdbChannel.java" title="MdbChannel.java" tooltip="Distributed Backup Service/src/channels/MdbChannel.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/channels/MdbChannel.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1249" selectionTopPixel="0"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Backup.java" partName="Backup.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/subprotocols/Backup.java" title="Backup.java" tooltip="Distributed Backup Service/src/subprotocols/Backup.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/subprotocols/Backup.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1846" selectionTopPixel="461"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MdrChannel.java" partName="MdrChannel.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/channels/MdrChannel.java" title="MdrChannel.java" tooltip="Distributed Backup Service/src/channels/MdrChannel.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/channels/MdrChannel.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="935" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChunksList.java" partName="ChunksList.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/data/ChunksList.java" title="ChunksList.java" tooltip="Distributed Backup Service/src/data/ChunksList.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/data/ChunksList.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Constants.java" partName="Constants.java" path="/home/pedro/Documentos/SDIS-FEUP/Distributed Backup Service/src/utilities/Constants.java" title="Constants.java" tooltip="Distributed Backup Service/src/utilities/Constants.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Distributed Backup Service/src/utilities/Constants.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="10" selectionOffset="632" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -119,7 +99,7 @@
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
 <category IMemento.internal.id="Errors"/>
-<category IMemento.internal.id="Warnings (3 items)"/>
+<category IMemento.internal.id="Errors (1 item)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="825" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="690"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -152,7 +132,7 @@
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.ui.internal.ide.application.ResourcePerspective" id="org.eclipse.ui.resourcePerspective" label="Resource"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -330,165 +310,62 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/peers/Peer.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/utilities/Constants.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/enhancements/EnhancedDelete.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/channels/McChannel.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/data/Data.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/subprotocols/Backup.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/subprotocols/ChunkBackup.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/channels/McChannel.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/channels/Channel.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/channels/MdbChannel.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/channels/MdrChannel.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/data/ChunksList.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Distributed Backup Service/src/utilities/Constants.java"/>
 </editors>
 <item historyLabel="Peer.java" index="0">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Constants.java" index="1">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Constants.java" index="1">
 <position/>
 </item>
-<item historyLabel="Constants.java" index="1">
-<position info="not_deleted" x="236" y="0"/>
-</item>
-<item historyLabel="Constants.java" index="1">
-<position info="not_deleted" x="656" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
+<item historyLabel="Peer.java" index="0">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="6460" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="6789" y="0"/>
-</item>
-<item historyLabel="Constants.java" index="1">
-<position info="not_deleted" x="603" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="6789" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="7293" y="0"/>
-</item>
 <item historyLabel="Peer.java" index="0">
-<position info="not_deleted" x="184" y="0"/>
-</item>
-<item historyLabel="Peer.java" index="0">
-<position info="not_deleted" x="1356" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="7293" y="0"/>
-</item>
-<item historyLabel="Peer.java" index="0">
-<position info="not_deleted" x="1356" y="0"/>
-</item>
-<item historyLabel="Peer.java" index="0">
-<position info="not_deleted" x="1356" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="7271" y="0"/>
-</item>
-<item historyLabel="Backup.java" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Backup.java" index="3">
-<position info="not_deleted" x="1780" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="6446" y="0"/>
-</item>
-<item historyLabel="Backup.java" index="3">
-<position info="not_deleted" x="1780" y="0"/>
-</item>
-<item historyLabel="Backup.java" index="3">
-<position info="not_deleted" x="1751" y="29"/>
-</item>
-<item historyLabel="ChunkBackup.java" index="4">
-<position info="not_deleted" x="2595" y="0"/>
-</item>
-<item historyLabel="McChannel.java" index="5">
+<item historyLabel="EnhancedDelete.java" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Constants.java" index="1">
-<position info="not_deleted" x="603" y="0"/>
-</item>
-<item historyLabel="Constants.java" index="1">
-<position info="not_deleted" x="593" y="0"/>
-</item>
-<item historyLabel="McChannel.java" index="5">
-<position info="not_deleted" x="1710" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="5611" y="31"/>
-</item>
-<item historyLabel="McChannel.java" index="5">
-<position info="not_deleted" x="894" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="2511" y="12"/>
-</item>
-<item historyLabel="McChannel.java" index="5">
-<position info="not_deleted" x="894" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="2511" y="12"/>
-</item>
-<item historyLabel="Channel.java" index="6">
+<item historyLabel="McChannel.java" index="2">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="MdbChannel.java" index="7">
-<position info="not_deleted" x="1249" y="0"/>
+<item historyLabel="Data.java" index="3">
+<position info="not_deleted" x="5429" y="0"/>
 </item>
-<item historyLabel="MdrChannel.java" index="8">
-<position info="not_deleted" x="935" y="0"/>
-</item>
-<item historyLabel="MdbChannel.java" index="7">
-<position info="not_deleted" x="1249" y="0"/>
-</item>
-<item historyLabel="Constants.java" index="1">
-<position info="not_deleted" x="603" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="2511" y="12"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="7196" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="6944" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="7026" y="0"/>
-</item>
-<item historyLabel="Peer.java" index="0">
-<position info="not_deleted" x="1356" y="0"/>
-</item>
-<item historyLabel="Peer.java" index="0">
-<position info="not_deleted" x="1304" y="0"/>
-</item>
-<item historyLabel="Peer.java" index="0">
-<position/>
-</item>
-<item historyLabel="Constants.java" index="1">
-<position info="not_deleted" x="590" y="0"/>
-</item>
-<item historyLabel="Data.java" index="2">
-<position info="not_deleted" x="7026" y="0"/>
-</item>
-<item historyLabel="ChunksList.java" index="9">
+<item historyLabel="McChannel.java" index="2">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item active="true" historyLabel="Peer.java" index="0">
-<position/>
+<item historyLabel="McChannel.java" index="2">
+<position info="not_deleted" x="3753" y="0"/>
+</item>
+<item historyLabel="McChannel.java" index="2">
+<position info="not_deleted" x="1374" y="12"/>
+</item>
+<item historyLabel="McChannel.java" index="2">
+<position info="not_deleted" x="1446" y="0"/>
+</item>
+<item historyLabel="McChannel.java" index="2">
+<position info="not_deleted" x="1446" y="0"/>
+</item>
+<item historyLabel="Data.java" index="3">
+<position info="not_deleted" x="3724" y="17"/>
+</item>
+<item historyLabel="Backup.java" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Backup.java" index="4">
+<position info="not_deleted" x="1355" y="0"/>
+</item>
+<item historyLabel="Constants.java" index="5">
+<position info="not_deleted" x="632" y="10"/>
+</item>
+<item historyLabel="Backup.java" index="4">
+<position info="not_deleted" x="1355" y="0"/>
+</item>
+<item active="true" historyLabel="Backup.java" index="4">
+<position info="not_deleted" x="2195" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -507,6 +384,24 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Constants.java" tooltip="Distributed Backup Service/src/utilities/Constants.java">
+<persistable path="/Distributed Backup Service/src/utilities/Constants.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Backup.java" tooltip="Distributed Backup Service/src/subprotocols/Backup.java">
+<persistable path="/Distributed Backup Service/src/subprotocols/Backup.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Data.java" tooltip="Distributed Backup Service/src/data/Data.java">
+<persistable path="/Distributed Backup Service/src/data/Data.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="McChannel.java" tooltip="Distributed Backup Service/src/channels/McChannel.java">
+<persistable path="/Distributed Backup Service/src/channels/McChannel.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EnhancedDelete.java" tooltip="Distributed Backup Service/src/enhancements/EnhancedDelete.java">
+<persistable path="/Distributed Backup Service/src/enhancements/EnhancedDelete.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Peer.java" tooltip="Distributed Backup Service/src/peers/Peer.java">
+<persistable path="/Distributed Backup Service/src/peers/Peer.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChunksList.java" tooltip="Distributed Backup Service/src/data/ChunksList.java">
 <persistable path="/Distributed Backup Service/src/data/ChunksList.java"/>
 </file>
@@ -519,23 +414,8 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Channel.java" tooltip="Distributed Backup Service/src/channels/Channel.java">
 <persistable path="/Distributed Backup Service/src/channels/Channel.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="McChannel.java" tooltip="Distributed Backup Service/src/channels/McChannel.java">
-<persistable path="/Distributed Backup Service/src/channels/McChannel.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChunkBackup.java" tooltip="Distributed Backup Service/src/subprotocols/ChunkBackup.java">
 <persistable path="/Distributed Backup Service/src/subprotocols/ChunkBackup.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Backup.java" tooltip="Distributed Backup Service/src/subprotocols/Backup.java">
-<persistable path="/Distributed Backup Service/src/subprotocols/Backup.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Data.java" tooltip="Distributed Backup Service/src/data/Data.java">
-<persistable path="/Distributed Backup Service/src/data/Data.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Constants.java" tooltip="Distributed Backup Service/src/utilities/Constants.java">
-<persistable path="/Distributed Backup Service/src/utilities/Constants.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Peer.java" tooltip="Distributed Backup Service/src/peers/Peer.java">
-<persistable path="/Distributed Backup Service/src/peers/Peer.java"/>
 </file>
 </mruList>
 </workbench>

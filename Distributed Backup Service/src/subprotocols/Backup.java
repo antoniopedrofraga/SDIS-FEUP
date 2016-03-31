@@ -1,6 +1,8 @@
 package subprotocols;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -38,23 +40,30 @@ public class Backup extends Thread {
 		}
 	}
 
-	private void sendChunks(byte[] data) throws InterruptedException {
+	private void sendChunks(byte[] data) throws InterruptedException, IOException {
 		
-		int numberOfChunks = data.length / Constants.CHUNK_SIZE + 1;
+		FileInputStream fileInputStream = new FileInputStream(Constants.FILES_ROOT + file.getName());
+		byte[] buffer = new byte[Constants.CHUNK_SIZE]; // pick some buffer size
 		String fileId = Utilities.getFileId(file);
 		Peer.getInstance();
 		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		
-		for (int i = 0; i < numberOfChunks; i++) {
-			header.setChunkNo(i + "");
-			byte[] chunk = getChunkData(i, data);
+		int bytesRead = 0;
+		int numberOfChunks = 0;
+		
+		while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+			byte[] chunk = Arrays.copyOfRange(buffer, 0, bytesRead);
+			header.setChunkNo(numberOfChunks + "");
 			sendChunk(header, chunk);
+			numberOfChunks++;
 		}
+		
 		if (Peer.getInstance().getStorage().getBackedUpFiles().get(file.getName()) == null) {
 			Peer.getInstance().getStorage();
 			Peer.getInstance().getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), fileId, numberOfChunks, file.length()));
 			Peer.getInstance().saveData();
 		}
+		fileInputStream.close();
 		System.out.println("File was backed up succesfully!");
 	}
 
