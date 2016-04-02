@@ -203,8 +203,7 @@ public class Data implements Serializable {
 		HashMap<ChunkInfo, ArrayList<Header>> stores = Peer.getInstance().getStorage().getReceivedStoreMessages();
 		int repDeg = Integer.parseInt(header.getReplicationDeg());
 		if (stores.get(chunkInfo) != null)
-			if (stores.get(chunkInfo).size() >= repDeg)
-				return true;
+			if (stores.get(chunkInfo).size() >= )
 		return false;
 	}
 

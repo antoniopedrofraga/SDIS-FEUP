@@ -56,8 +56,7 @@ public class MdbChannel extends Channel{
 						case Message.PUTCHUNK:
 							System.out.println("Received PUTCHUNK");
 							if (Data.repDegAchieved(header) && header.getVersion().equals(Constants.ENHANCED_BACKUP_VERSION)) {
-								System.out.println("ReplicationDeg was already achieved! Ignoring chunk");
-								break;
+								
 							}
 							McChannel.setReceivedPutchunk(true);
 							handlePutChunk(header, body);
