@@ -15,6 +15,10 @@ public class EnhancedDelete extends Thread {
 	}
 	public void run () {
 		int waitingTime = Constants.DEFAULT_WAITING_TIME;
+		if (Peer.getInstance().getStorage().getChunksBackedUp().get(fileId) == null) {
+			System.out.println("This file was not backed up yet");
+			return;
+		}
 		while (Peer.getInstance().getStorage().getChunksBackedUp().get(fileId).size() > 0) {
 			System.out.println("Sending Enhanced Delete (Chunks backed up size -> " + Peer.getInstance().getStorage().getChunksBackedUp().get(fileId).size() + ")");
 			Peer.getInstance();

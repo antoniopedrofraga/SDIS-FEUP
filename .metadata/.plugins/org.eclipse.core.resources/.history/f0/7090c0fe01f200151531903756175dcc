@@ -1,7 +1,0 @@
-package database;
-
-import java.util.HashMap;
-
-public class StoredFilesIds extends HashMap<String, String> {
-
-}

@@ -2,7 +2,6 @@ package subprotocols;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -103,11 +102,6 @@ public class Backup extends Thread {
 			}
 		}
 		waitingTime = Constants.DEFAULT_WAITING_TIME;
-	}
-
-	private byte[] getChunkData(int i, byte[] data) {
-		int lastIndex = (i + 1) * Constants.CHUNK_SIZE < data.length + 1 ? (i + 1) * Constants.CHUNK_SIZE : data.length;
-		return Arrays.copyOfRange(data, i * Constants.CHUNK_SIZE, lastIndex);
 	}
 
 	public static File getFile() {

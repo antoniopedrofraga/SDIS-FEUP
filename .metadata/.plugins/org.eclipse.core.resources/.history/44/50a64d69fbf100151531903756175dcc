@@ -1,7 +1,0 @@
-package database;
-
-import java.util.ArrayList;
-
-public class ChunksList extends ArrayList{
-	
-}
