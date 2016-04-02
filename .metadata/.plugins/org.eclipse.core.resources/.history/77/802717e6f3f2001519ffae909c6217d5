@@ -1,5 +1,0 @@
-package utilities;
-
-public class Utilities {
-	public void joinBytes(byte[]a, byte[] b)
-}

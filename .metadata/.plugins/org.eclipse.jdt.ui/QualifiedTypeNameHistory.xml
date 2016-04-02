@@ -40,8 +40,6 @@
 <fullyQualifiedTypeName name="data.ChunkInfo"/>
 <fullyQualifiedTypeName name="data.ChunksList"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
-<fullyQualifiedTypeName name="data.Data"/>
-<fullyQualifiedTypeName name="utilities.Constants"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="messages.Header"/>
 <fullyQualifiedTypeName name="messages.Message"/>
@@ -59,4 +57,6 @@
 <fullyQualifiedTypeName name="subprotocols.Backup"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="utilities.Constants"/>
+<fullyQualifiedTypeName name="data.Data"/>
 </qualifiedTypeNameHistroy>
