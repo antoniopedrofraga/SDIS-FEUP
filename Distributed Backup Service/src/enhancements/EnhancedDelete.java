@@ -33,7 +33,8 @@ public class EnhancedDelete extends Thread {
 			ArrayList<Header> headers = Peer.getInstance().getMcChannel().getDeleteConfirms();
 			for (Header header : headers) {
 				header.setMsgType(Message.STORED); //to match headers from storeReplies
-				Peer.getInstance().getStorage().getReceivedStoreMessages().get(fileId).remove(header);
+				if (Peer.getInstance().getStorage().getReceivedStoreMessages().get(fileId) != null)
+					Peer.getInstance().getStorage().getReceivedStoreMessages().get(fileId).remove(header);
 			}
 			if (waitingTime < Constants.MAX_WAITING_TIME)
 				waitingTime *= 2;

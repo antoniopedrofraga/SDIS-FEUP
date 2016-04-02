@@ -126,7 +126,7 @@ public class Data implements Serializable {
 			System.out.println("Sending delete confirm for chunkNo " + chunkInfo.getChunkNo());
 			Peer.getInstance();
 			Header header = new Header(Message.CHUNK_DELETED, Constants.ENHANCED_DELETE_VERSION, Peer.getServerId(), chunkInfo.getFileId(), "" + chunkInfo.getChunkNo(), "" + chunkInfo.getReplicationDeg());
-			Message message = new Message(Peer.getInstance().getMcChannel().getSocket(), Peer.getInstance().getMdbChannel().getAddress(), header, null);
+			Message message = new Message(Peer.getInstance().getMcChannel().getSocket(), Peer.getInstance().getMcChannel().getAddress(), header, null);
 			int timeout = ThreadLocalRandom.current().nextInt(0, 400);
 			try {
 				Thread.sleep(timeout);
