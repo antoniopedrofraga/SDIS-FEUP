@@ -47,8 +47,8 @@ public class Backup extends Thread {
 		byte[] buffer = new byte[Constants.CHUNK_SIZE]; // pick some buffer size
 		String fileId = Utilities.getFileId(file);
 		Peer.getInstance();
-		String version = (String) (enhanced == false ? Constants.PROTOCOL_VERSION : Constants.ENHANCED_BACKUP_VERSION);
-		Header header = new Header(Message.PUTCHUNK, version, Peer.getServerId(), fileId, "0", replicationDeg + "");
+		String version = enhanced == false ? Constants.PROTOCOL_VERSION : Constants.ENHANCED_BACKUP_VERSION;
+		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		
 		int bytesRead = 0;
 		int numberOfChunks = 0;
@@ -107,4 +107,9 @@ public class Backup extends Thread {
 		}
 		waitingTime = Constants.DEFAULT_WAITING_TIME;
 	}
+
+	public static File getFile() {
+		return file;
+	}
+
 }

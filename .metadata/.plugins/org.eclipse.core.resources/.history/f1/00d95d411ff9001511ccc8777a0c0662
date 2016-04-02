@@ -75,8 +75,8 @@ public class Peer {
 				Backup backup = new Backup(command[1], command[2], false);
 				backup.start();
 				break;
-			case "ENHANCEBACKUP":
-				break;
+			case "ENHANCEDDELETE":
+				
 			case "RESTORE":
 				Restore restore = new Restore(command[1]);
 				restore.start();
