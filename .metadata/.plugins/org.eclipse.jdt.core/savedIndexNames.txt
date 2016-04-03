@@ -1,2 +1,0 @@
-INDEX VERSION 1.126+/home/pedro/Documentos/SDIS-FEUP/.metadata/.plugins/org.eclipse.jdt.core
-1237459710.index
