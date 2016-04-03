@@ -79,4 +79,7 @@ public class ChunkInfo implements Serializable {
 	public ArrayList<Header> getStoredHeaders() {
 		return storedHeaders;
 	}
+	public void setChunkSize(int length) {
+		chunkSize = length;
+	}
 }

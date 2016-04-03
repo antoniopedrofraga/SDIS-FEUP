@@ -28,7 +28,7 @@ public class McChannel extends Channel {
 	
 	private void handleGetChunk(Header header) throws InterruptedException, IOException {
 		byte[] body = Peer.getInstance().getStorage().getChunkBody(header.getFileId(), header.getChunkNo());		
-		Header replyHeader = new Header(Message.CHUNK, Peer.getServerId(),
+		Header replyHeader = new Header(Message.CHUNK, Constants.PROTOCOL_VERSION,
 				Peer.getServerId(), header.getFileId(), header.getChunkNo(), null);
 		Message reply = new Message(Peer.getInstance().getMdrChannel().getSocket(), Peer.getInstance().getMdrChannel().getAddress(), replyHeader, body);
 		int timeout = ThreadLocalRandom.current().nextInt(0, 400);

@@ -1,9 +1,0 @@
-package subprotocols;
-
-public class Delete {
-	String fileName;
-	public Delete(String fileName) {
-		this.fileName = fileName;
-	}
-
-}

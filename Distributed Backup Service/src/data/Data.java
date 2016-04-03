@@ -56,15 +56,21 @@ public class Data implements Serializable {
 		if (!chunkFolder.exists())
 			chunkFolder.mkdirs();
 		FileOutputStream stream = new FileOutputStream(chunkFolder.getPath() + "/" + header.getChunkNo() + ".data");
+	
 		try {
-			stream.write(data);
+			if (data != null)
+				stream.write(data);
 		} finally {
 			stream.close();
 			ChunksList chunks = chunksSaved.get(header.getFileId()) != null ? chunksSaved.get(header.getFileId()) : new ChunksList();
-			ChunkInfo chunk = new ChunkInfo(header, (int)data.length);
+			
+			ChunkInfo chunk = new ChunkInfo(header);
+			if (data != null) {
+				chunk.setChunkSize((int)data.length);
+				usedSpace += data.length;
+			}
 			chunks.addChunk(chunk);
 			chunksSaved.put(header.getFileId(), chunks);
-			usedSpace += data.length;
 		}
 
 	};
