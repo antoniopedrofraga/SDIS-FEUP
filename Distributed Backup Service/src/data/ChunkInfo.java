@@ -26,7 +26,9 @@ public class ChunkInfo implements Serializable {
 	public ChunkInfo(Header header) {
 		this.fileId = header.getFileId();
 		this.chunkNo = Integer.parseInt(header.getChunkNo());
+		this.replicationDeg = header.getReplicationDeg() != null ? Integer.parseInt(header.getReplicationDeg()) : -1;
 		this.chunkSize = -1;
+		this.storedHeaders = new ArrayList<Header>();
 	}
 	public void addToStoredHeaders(ArrayList<Header> validReplies) {
 		for (Header header : validReplies)

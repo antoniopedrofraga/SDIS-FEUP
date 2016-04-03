@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import data.Data;
+import data.FileInfo;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
@@ -18,8 +19,9 @@ public class MdbChannel extends Channel{
 	public void handlePutChunk(Header header, byte[] body) throws InterruptedException {
 		Peer.getInstance().getStorage();
 		// If file was backed up by this peer
-		if (Peer.getInstance().getStorage().getBackedUpFiles().get(header.getFileId()) != null) 
-			return;
+		for (FileInfo fileInfo : Peer.getInstance().getStorage().getBackedUpFiles().values()) 
+		    if (fileInfo.getFileId().equals(header.getFileId()))
+		    	return;
 		//save chunk
 		try {
 			Peer.getInstance().getStorage().saveChunk(header, body);
@@ -35,7 +37,6 @@ public class MdbChannel extends Channel{
 		Thread.sleep(timeout);
 		new Thread(reply).start();
 		System.out.println("Replying...");
-		Peer.getInstance().saveData();
 	}
 	
 	public class MdbThread extends Thread {

@@ -1,0 +1,14 @@
+package enhancements;
+
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
+public class EnhancedRestore {
+	private DatagramSocket socket;
+	private InetAddress address;
+	private int portNumber;
+	
+	public EnhancedRestore(int portNumber) {
+		this.portNumber = portNumber;
+	}
+}

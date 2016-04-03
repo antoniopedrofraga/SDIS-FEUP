@@ -3,7 +3,7 @@ package utilities;
 import java.security.MessageDigest;
 
 public class Hash {
-	
+	// From internet http://stackoverflow.com/questions/3103652/hash-string-via-sha-256-in-java
 	public static String sha256(String base) {
 		try{
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");

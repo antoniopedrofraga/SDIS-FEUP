@@ -26,7 +26,8 @@ public class Restore extends Thread {
 		}
 		file = new byte[0];
 	}
-	
+
+
 	public void restore() {
 		if (!Peer.getInstance().getStorage().getBackedUpFiles().containsKey(fileName)) {
 			System.out.println("This file '" + fileName + "' was not backed up yet");
@@ -37,13 +38,9 @@ public class Restore extends Thread {
 		FileInfo fileInfo = Peer.getInstance().getStorage().getBackedUpFiles().get(fileName);
 		Peer.getInstance();
 		header = new Header(Message.GETCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileInfo.getFileId(), "0", null);
+		
 		Peer.getInstance().getMdrChannel().setWaitingChunks(true);
-		
 		sendNextChunk();
-	}
-	
-	public static void addToFile() {
-		
 	}
 	
 	public void run() {

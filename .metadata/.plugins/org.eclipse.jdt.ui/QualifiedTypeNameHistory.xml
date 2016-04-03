@@ -59,4 +59,5 @@
 <fullyQualifiedTypeName name="java.io.FileInputStream"/>
 <fullyQualifiedTypeName name="utilities.Constants"/>
 <fullyQualifiedTypeName name="data.Data"/>
+<fullyQualifiedTypeName name="data.FileInfo"/>
 </qualifiedTypeNameHistroy>

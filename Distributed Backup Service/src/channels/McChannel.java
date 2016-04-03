@@ -40,7 +40,6 @@ public class McChannel extends Channel {
 		File file =  new File(Constants.FILES_ROOT + Constants.CHUNKS_ROOT + "/" + header.getFileId() + "/");
 		if (file.isDirectory())
 			Utilities.deleteFolder(file);
-		Peer.getInstance().saveData();
 	}
 	private void handleRemoved(Header header) throws InterruptedException {
 		ChunkInfo chunkInfo = Peer.getInstance().getStorage().removeFromReceivedStoreMessages(header);
@@ -56,7 +55,6 @@ public class McChannel extends Channel {
 		} else {
 			System.out.println("Chunk info is null.");
 		}
-		Peer.getInstance().saveData();
 	}
 	private void prepareChunk(ChunkInfo chunkInfo) {
 		String fileName = Constants.CHUNKS_ROOT + "/" + chunkInfo.getFileId() + "/" + chunkInfo.getChunkNo() + ".data";

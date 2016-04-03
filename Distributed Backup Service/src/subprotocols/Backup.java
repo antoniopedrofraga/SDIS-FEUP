@@ -47,7 +47,7 @@ public class Backup extends Thread {
 		byte[] buffer = new byte[Constants.CHUNK_SIZE]; // pick some buffer size
 		String fileId = Utilities.getFileId(file);
 		Peer.getInstance();
-		String version = (String) (enhanced == false ? Constants.PROTOCOL_VERSION : Constants.ENHANCED_BACKUP_VERSION);
+		String version = (String) (!enhanced ? Constants.PROTOCOL_VERSION : Constants.ENHANCED_BACKUP_VERSION);
 		Header header = new Header(Message.PUTCHUNK, version, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		
 		int bytesRead = 0;
@@ -63,7 +63,6 @@ public class Backup extends Thread {
 		if (Peer.getInstance().getStorage().getBackedUpFiles().get(file.getName()) == null) {
 			Peer.getInstance().getStorage();
 			Peer.getInstance().getStorage().getBackedUpFiles().markAsBackedUp(file.getName(), new FileInfo(file.getName(), fileId, numberOfChunks, file.length()));
-			Peer.getInstance().saveData();
 		}
 		fileInputStream.close();
 		System.out.println("File was backed up succesfully!");

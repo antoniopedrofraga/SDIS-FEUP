@@ -77,6 +77,5 @@ public class ChunkBackup {
 			chunksList.add(chunkInfo);
 		
 		Peer.getInstance().getStorage().getChunksBackedUp().put(message.getHeader().getFileId(), chunksList);
-		Peer.getInstance().saveData();
 	}
 }

@@ -8,6 +8,6 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="peers.Peer"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="1027 224.1.0.1 10001 224.1.0.2 10002 224.1.0.3 10003"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="1027 225.0.0.1 8001 225.0.0.2 8002 225.0.0.3 8003"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Distributed Backup Service"/>
 </launchConfiguration>

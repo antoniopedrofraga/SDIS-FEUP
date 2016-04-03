@@ -32,6 +32,7 @@ public class Constants {
 	public static final String PROTOCOL_VERSION = "1.0";
 	public static final String ENHANCED_DELETE_VERSION = "1.1";
 	public static final Object ENHANCED_BACKUP_VERSION = "1.2";
+	public static final String ENHANCED_RESTORE_VERSION = "1.3";
 	
 	public static final int DEFAULT_PORT = 1025;
 	public static final int MAX_MSG_SIZE = 256;
