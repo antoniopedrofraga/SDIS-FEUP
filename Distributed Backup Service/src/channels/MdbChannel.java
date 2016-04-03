@@ -3,10 +3,11 @@ package channels;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+import data.Data;
 import messages.Header;
 import messages.Message;
 import peers.Peer;
+import utilities.Constants;
 
 public class MdbChannel extends Channel{
 	public MdbChannel(String mdbAddress, String mdbPort) throws IOException {
@@ -54,6 +55,10 @@ public class MdbChannel extends Channel{
 						switch (header.getMsgType()) {
 						case Message.PUTCHUNK:
 							System.out.println("Received PUTCHUNK");
+							if (Data.repDegAchieved(header) && header.getVersion().equals(Constants.ENHANCED_BACKUP_VERSION)) {
+								System.out.println("ReplicationDeg was already achieved! Ignoring chunk");
+								break;
+							}
 							McChannel.setReceivedPutchunk(true);
 							handlePutChunk(header, body);
 							break;

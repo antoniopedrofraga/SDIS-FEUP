@@ -16,18 +16,20 @@ import utilities.Constants;
 import utilities.Utilities;
 
 public class Backup extends Thread {
-	static File file;
+	private File file;
 	private int replicationDeg;
+	private boolean enhanced;
 	
-	public Backup(String fileName, String replicationDeg) {
-		file = new File(Constants.FILES_ROOT + fileName);
+	public Backup(String fileName, String replicationDeg, boolean enhanced) {
+		this.file = new File(Constants.FILES_ROOT + fileName);
 		this.replicationDeg = Integer.parseInt(replicationDeg);
+		this.enhanced = enhanced;
 		if (this.replicationDeg > 9 && this.replicationDeg < 1) {
 			System.out.println("ReplicationDeg must be a number between 1 and 9...");
 			return;
 		}
 	}
-	
+
 	public void run() {
 		try {
 			byte[] data = Files.readAllBytes(file.toPath());
@@ -45,7 +47,8 @@ public class Backup extends Thread {
 		byte[] buffer = new byte[Constants.CHUNK_SIZE]; // pick some buffer size
 		String fileId = Utilities.getFileId(file);
 		Peer.getInstance();
-		Header header = new Header(Message.PUTCHUNK, Constants.PROTOCOL_VERSION, Peer.getServerId(), fileId, "0", replicationDeg + "");
+		String version = (String) (enhanced == false ? Constants.PROTOCOL_VERSION : Constants.ENHANCED_BACKUP_VERSION);
+		Header header = new Header(Message.PUTCHUNK, version, Peer.getServerId(), fileId, "0", replicationDeg + "");
 		
 		int bytesRead = 0;
 		int numberOfChunks = 0;
@@ -65,6 +68,7 @@ public class Backup extends Thread {
 		fileInputStream.close();
 		System.out.println("File was backed up succesfully!");
 	}
+
 
 	public static void sendChunk(Header header, byte[] chunk) {
 		int waitingTime = Constants.DEFAULT_WAITING_TIME;
@@ -103,9 +107,4 @@ public class Backup extends Thread {
 		}
 		waitingTime = Constants.DEFAULT_WAITING_TIME;
 	}
-
-	public static File getFile() {
-		return file;
-	}
-
 }

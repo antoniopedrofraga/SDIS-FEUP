@@ -72,8 +72,12 @@ public class Peer {
 			String[] command = Message.splitArgs(received);
 			switch (command[0]) {
 			case "BACKUP":
-				Backup backup = new Backup(command[1], command[2]);
+				Backup backup = new Backup(command[1], command[2], false);
 				backup.start();
+				break;
+			case "ENHANCEBACKUP":
+				Backup enhancedBackup = new Backup(command[1], command[2], true);
+				enhancedBackup.start();
 				break;
 			case "RESTORE":
 				Restore restore = new Restore(command[1]);
