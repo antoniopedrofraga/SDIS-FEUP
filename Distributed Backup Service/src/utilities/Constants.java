@@ -10,10 +10,10 @@ public class Constants {
 
 	public static final String CRLF = "\r\n";
 
-	public static final String FILES_ROOT = "./files/";
+	public static final String FILES_ROOT = "../files/";
 	public static final String CHUNKS_ROOT = "chunks_" + Peer.getServerId();
 	public static final String RESTORED = "restored_";
-	public static final String DATA_PATH = "./data_" + Peer.getServerId();
+	public static final String DATA_PATH = "../data_" + Peer.getServerId();
 	public static final String DATABASE_PATH = DATA_PATH + "/data.ser";
 	
 	public static final int CHUNK_SIZE = 64 * 1000;

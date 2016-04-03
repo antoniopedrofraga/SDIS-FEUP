@@ -107,7 +107,7 @@ public class Peer {
 	
 	public static void main(String[] args) throws ArgsException, IOException {
 		if (args.length != 7)
-			throw new ArgsException("peer <Server ID> <MC> <MC port> <MDB> <MDB port> <MDR> <MDR port>");
+			throw new ArgsException("java peers.Peer <Server ID> <MC> <MC port> <MDB> <MDB port> <MDR> <MDR port>");
 		Peer peer = new Peer(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
 		peer.listenChannels();
 		peer.listenActions();

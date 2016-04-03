@@ -15,7 +15,7 @@ public class TestApp {
 	
 	public static void main(String[] args) throws SocketException {
 		if (args.length < 2) {
-			System.out.println("Wrong usage! Usage: java TestApp <peer_ap> <sub_protocol> <opnd_1> <opnd_2> ");
+			System.out.println("Wrong usage! Usage: java launcher.TestApp <peer_ap> <sub_protocol> <opnd_1> <opnd_2> ");
 			System.out.println("Exiting...");
 			return;
 		}
